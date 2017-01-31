@@ -1,0 +1,8 @@
+machine:
+  timezone:
+    Europe/Istanbul
+test:
+  pre:
+    - bundle exec rubocop --rails --display-cop-names
+  override:
+    - echo "Bir gün mutlaka"
