@@ -16,7 +16,6 @@ class ClubPeriodsController < ApplicationController
 
   def edit_member_list
     @member_lists = @club_period.club_members
-    @club_period = Club.find(params[:id]).club_periods.last
     respond_to(:html, :xlsx)
   end
 

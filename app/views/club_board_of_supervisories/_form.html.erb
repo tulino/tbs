@@ -1,7 +1,7 @@
 <%= simple_form_for(@club_board_of_supervisory) do |f| %>
 <%= f.error_notification %>
 <div class="form-inputs">
-  <% if @club_board_of_supervisory %>
+  <% if @club_board_of_supervisory.id.present? %>
       <%= f.input :club_period_id , :as => :hidden, :input_html => { :id => "clubs_for_director" }%>
   <% else %>
       <div class="row form-group">

@@ -76,7 +76,7 @@ class ClubsController < ApplicationController
   end
 
   def edit
-    @club.creation_date = @club.creation_date.strftime("%d.%m.%Y")
+    @club.creation_date ||= Date.today
   end
 
   def create

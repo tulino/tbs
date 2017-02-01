@@ -2,7 +2,7 @@
 <%= f.error_notification %>
 
 <div class="form-inputs">
-  <% if @club_board_of_director.present?  %>
+  <% if @club_board_of_director.id.present?  %>
       <%= f.input :club_period_id , :as => :hidden, :input_html => { :id => "clubs_for_director" }%>
   <% else %>
     <div class="row form-group">
