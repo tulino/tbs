@@ -35,6 +35,7 @@ class RolesController < ApplicationController
     authorize @role
     role_type_president = RoleType.find_by(name: 'Başkan')
     role_type_dean = RoleType.find_by(name: 'Dekan')
+    role_type_member = RoleType.find_by(name: 'Üye')
     if @role.role_type == role_type_president
       has_another_president_role = Role.where(role_type_id: role_type_president.id).map { |role| role.user.id }.include?(@role.user.id)
       # Başka bir toplulukta başkan mı? kontrolü
@@ -57,6 +58,15 @@ class RolesController < ApplicationController
       has_another_dean_role = Role.where(role_type_id: role_type_dean.id, faculty_id: @role.faculty_id).map { |role| role.user.id }.include?(@role.user.id)
       if has_another_dean_role
         flash.now[:error] = "#{@role.user.name_surname} başka bir fakültede dekan. Dekanlık için başka bir Fakülte seçiniz."
+        render :new
+      else
+        create_role(@role)
+      end
+
+    elsif @role.role_type == role_type_member
+      has_another_member_role = Role.where(role_type_id: role_type_member.id, club_period_id: @role.club_period_id, user_id: @role.user_id)
+      if has_another_member_role
+        flash.now[:error] = "#{@role.user.name_surname} daha önce bu topluluğa üye olmuşsunuz. Lütfen sayfayı yenileyiniz."
         render :new
       else
         create_role(@role)
