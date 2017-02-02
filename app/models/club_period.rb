@@ -9,6 +9,7 @@ class ClubPeriod < ActiveRecord::Base
   has_many :event_requests
   has_many :roles
   belongs_to :club
+  scope :all_active_period_ids, -> { where(academic_period_id: AcademicPeriod.active_period_id).pluck(:id) }
 
   def academic_period_name
     club.name + ' / ' + academic_period.name

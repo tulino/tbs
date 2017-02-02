@@ -33,34 +33,10 @@ class RolesController < ApplicationController
   def create
     @role = Role.new(role_params)
     authorize @role
-    role_type_president = RoleType.find_by(name: 'Başkan')
-    role_type_dean = RoleType.find_by(name: 'Dekan')
-    if @role.role_type == role_type_president
-      has_another_president_role = Role.where(role_type_id: role_type_president.id).map { |role| role.user.id }.include?(@role.user.id)
-      # Başka bir toplulukta başkan mı? kontrolü
-      if has_another_president_role
-        flash.now[:error] = "#{@role.user.name_surname} başka bir toplulukta başkan. Başkanlık için başka bir üye seçiniz."
-        render :new
-      else
-        all_board_users = ClubBoardOfSupervisory.all + ClubBoardOfDirector.all
-        is_member_of_the_board = all_board_users.map { |club_board| club_board.attributes.except('id', 'club_period_id').values.include?(@role.user.id) }.any?
-        # Başka bir toplulukta yönetim ya da denetim kurulunda mı? kontrolü
-        if is_member_of_the_board
-          flash.now[:error] = "#{@role.user.name_surname} başka bir toplulukta yönetim kurulunda ya da denetim kurulunda. Başkanlık için başka bir üye seçiniz."
-          render :new
-        else
-          create_role(@role)
-        end
-      end
-    elsif @role.role_type == role_type_dean
-
-      has_another_dean_role = Role.where(role_type_id: role_type_dean.id, faculty_id: @role.faculty_id).map { |role| role.user.id }.include?(@role.user.id)
-      if has_another_dean_role
-        flash.now[:error] = "#{@role.user.name_surname} başka bir fakültede dekan. Dekanlık için başka bir Fakülte seçiniz."
-        render :new
-      else
-        create_role(@role)
-      end
+    duplicated_roles = check_duplicated_roles(@role)
+    if duplicated_roles.present?
+      flash.now[:error] = duplicated_roles
+      render :new
     else
       create_role(@role)
     end
@@ -68,9 +44,6 @@ class RolesController < ApplicationController
 
   def update
     authorize @role
-    # if @role.status && @role.explanation
-    #   @role.explanation = nil
-    # end
     respond_to do |format|
       if @role.update(role_params)
         format.html { redirect_to @role, notice: 'Kullanıcı rolünü başarıyla güncellediniz.' }
@@ -98,6 +71,51 @@ class RolesController < ApplicationController
   end
 
   private
+
+  def check_duplicated_roles(role)
+    role_type_president_id = RoleType.president_id
+    role_type_dean_id = RoleType.dean_id
+    all_active_period_ids = ClubPeriod.all_active_period_ids
+    if role.role_type_id == role_type_president_id
+      if another_president_role?(role, role_type_president_id, all_active_period_ids)
+        "#{role.user.name_surname} başka bir toplulukta başkan." \
+        "Başkanlık için başka bir üye seçiniz."
+      elsif another_member_of_the_board?(role, all_active_period_ids)
+        "#{role.user.name_surname} başka bir toplulukta yönetim kurulunda ya da denetim kurulunda." \
+        "Başkanlık için başka bir üye seçiniz."
+      end
+    elsif role.role_type_id == role_type_dean_id
+      another_dean_role?(role, role_type_president_id, all_active_period_ids)) &&
+        "#{role.user.name_surname} başka bir fakültede dekan." \
+        "Dekanlık için başka bir fakülte seçiniz."
+    end
+  end
+
+  # Başka bir toplulukta başkan mı?
+  def has_another_president_role?(role, role_type_president_id, all_active_period_ids)
+    Role.where(
+      role_type_id: role_type_president_id,
+      club_period_id: all_active_period_ids,
+      user_id: role.user_id).any?
+  end
+
+  # Başka bir toplulukta yönetim ya da denetim kurulunda mı?
+  def another_member_of_the_board?(role, all_active_period_ids)
+    all_board_users = ClubBoardOfSupervisory.where(club_period_id: all_active_period_ids) +
+        ClubBoardOfDirector.where(club_period_id: all_active_period_ids)
+    all_board_users.map do |club_board|
+      club_board.attributes.except('id', 'club_period_id').values.include?(role.user_id).any?
+    end
+  end
+
+  # Başka bir fakültede dekan mı?
+  def another_dean_role?(role, role_type_president_id, all_active_period_ids)
+    Role.where(
+      role_type_id: role_type_dean_id,
+      club_period_id: all_active_period_ids,
+      faculty_id: role.faculty_id,
+      user_id: role.user_id).any?
+  end
 
   def set_role
     @role = Role.find(params[:id])
