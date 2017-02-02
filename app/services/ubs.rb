@@ -61,8 +61,8 @@ module Ubs
     names = result['first_name'].split(' ')
     email_name = names.count > 1 ? names[0] + '_' + names[1] + '_' + result['last_name'] : result['first_name'] + '_' + result['last_name']
     user = User.create(
-      first_name: result['first_name'].downcase,
-      last_name: result['last_name'].downcase,
+      first_name: result['first_name'],
+      last_name: result['last_name'],
       password: tc_no,
       email: email_name.downcase + '@omu.edu.tr',
       user_name: result['short_title'],

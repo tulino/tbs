@@ -96,7 +96,7 @@ class ClubBoardOfDirectorsController < ApplicationController
     duplicated_users = []
     club_board_of_director_params.each do |attribute, user_id|
       if attribute != 'club_period_id'
-        duplicated_users.push(User.find(user_id.to_i)) if all_board_users.map { |club_board| club_board.attributes.except('id', 'club_period_id').values.include?(user_id.to_i) }.any?
+        duplicated_users.push(User.find(user_id.to_i)) if User.exists?(user_id.to_i) && all_board_users.map { |club_board| club_board.attributes.except('id', 'club_period_id').values.include?(user_id.to_i) }.any?
       end
     end
     # Başka toplulukta yönetim kurulunda ya da denetim kurulunda olan kullanıcılar
