@@ -11,11 +11,8 @@ class Club < ActiveRecord::Base
     where('lower(name) like ?', "%#{query}%".downcase)
   end
 
-  def active_club_period
-    club_periods.find_by(academic_period_id: AcademicPeriod.find_by(is_active: true).id)
-  end
-
-  def active_club_period?
-    club_periods.find_by(academic_period_id: AcademicPeriod.find_by_is_active(true).id).present? ? true : false
+  def active_club_period(academic_period_id = nil)
+    academic_period_id ||= AcademicPeriod.active_period_id
+    club_periods.find_by(academic_period_id: academic_period_id)
   end
 end

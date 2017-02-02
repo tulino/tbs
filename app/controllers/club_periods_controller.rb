@@ -3,7 +3,7 @@ class ClubPeriodsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
 
   def index
-    @club_periods = ClubPeriod.where(academic_period_id: AcademicPeriod.find_by(is_active: true))
+    @club_periods = ClubPeriod.where(academic_period_id: AcademicPeriod.active_period_id)
     authorize @club_periods
   end
 

@@ -6,7 +6,7 @@
     <% elsif current_user.president? %>
       <%= f.input :club_period_id, :as => :hidden, :input_html => { :value => current_user.roles_users.find_by(status: :true, role_id: Role.where(role_type_id: RoleType.find_by(name: :president))).role.club_period_id } %>
     <% else %>
-      <%= f.input :club_period_id, collection: ClubPeriod.where(academic_period_id: AcademicPeriod.find_by(is_active: :true)), label: 'Topluluk Akademik Dönem Seçiniz.', :label_method => :academic_period_name %>
+      <%= f.input :club_period_id, collection: ClubPeriod.where(academic_period_id: AcademicPeriod.active_period_id), label: 'Topluluk Akademik Dönem Seçiniz.', :label_method => :academic_period_name %>
     <% end %>
     <%= f.input :title, label: "Başlık" %>
     <%= f.input :content, label: "İçerik" %>

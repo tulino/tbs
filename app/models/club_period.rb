@@ -15,7 +15,13 @@ class ClubPeriod < ActiveRecord::Base
   end
 
   def club_members
-    Role.where(id: Role.select { |role| role.id if role.role_type.name != 'Akademik Danışman' && role.role_type.name != 'Akademik Danışman Yardımcısı' && role.club_period_id == id })
+    Role.where(id: Role.select { |role| RoleType.club_member_type_ids.include?(role.role_type_id) && role.club_period_id == id })
+  end
+
+  def self.all_members_count_by_club_period(club_ids)
+    academic_period_id = AcademicPeriod.active_period_id
+    period_ids = ClubPeriod.where(club_id: club_ids, academic_period_id: academic_period_id).pluck(:id)
+    Role.where(club_period_id: period_ids, role_type_id: RoleType.club_member_type_ids).group(:club_period_id).count
   end
 
   def president

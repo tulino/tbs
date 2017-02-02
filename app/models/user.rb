@@ -55,7 +55,9 @@ class User < ActiveRecord::Base
   end
 
   def active_club_periods
-    roles.present? && roles.map { |role| role.club_period if role.club_period.present? && role.club_period.academic_period.is_active }.uniq
+    return unless roles.present?
+    current_user_roles = roles.includes(:club_period)
+    current_user_roles.map { |role| role.club_period if role.club_period.present? && role.club_period.academic_period.is_active }.uniq
   end
 
   def president_or_advisor_club_period

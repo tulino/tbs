@@ -1,16 +1,18 @@
 class ClubsController < ApplicationController
   before_action :set_club, only: [:show, :edit, :update, :destroy]
+  before_action :set_academic_period_id, only: [:index, :show]
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
 
   def index
     if params[:search]
       @clubs = Club.search(params[:search]).order('name ASC')
     else
-      @clubs = Club.order('name ASC')
+      @clubs = Club.order('name ASC').includes(:club_setting, :club_category)
+      @all_members_count = ClubPeriod.all_members_count_by_club_period(@clubs.map(&:id))
       @clubs_of_current_user = current_user.present? && current_user.active_club_periods ? current_user.active_club_periods.compact.map { |club_period| club_period.club if club_period.present? } : []
     end
 
-   #excel dökümü için sorgulama
+    # excel dökümü için sorgulama
     @clubs_for_excel = Club.all
     if params[:clup_category].present?
       @clubs_for_excel = @clubs_for_excel.where(club_category_id: params[:clup_category])
@@ -30,8 +32,7 @@ class ClubsController < ApplicationController
   end
 
   def show
-    @academic_period_id = AcademicPeriod.find_by_is_active(true)
-    @club_period = @club.active_club_period.present? ? @club.active_club_period : nil
+    @club_period = @club.active_club_period
     if user_signed_in? && current_user.member?(@club_period)
       @role = current_user.roles.find_by(club_period_id: @club_period.id)
     else
@@ -48,7 +49,8 @@ class ClubsController < ApplicationController
       @club_view_board_of_supervisor = @club_period.club_board_of_supervisory.present? ? true : false
       @club_announcements = @club_period.announcements.where(is_view: true)
     end
-    @club_members = @club.active_club_period? ? @club.active_club_period.club_members : []
+    active_club_period = @club.active_club_period(@academic_period_id)
+    @club_members = active_club_period.present? ? active_club_period.club_members : []
     club_members_count = @club_members.nil? ? 0 : @club_members.count
     if club_members_count < (@club.club_setting.nil? ? 150 : @club.club_setting.max_user)
       @club_member_count_error = false
@@ -84,7 +86,7 @@ class ClubsController < ApplicationController
     @club = Club.new(club_params)
     respond_to do |format|
       if @club.save
-        club_period = ClubPeriod.create(club_id: @club.id, academic_period_id: AcademicPeriod.find_by(is_active: true).id)
+        club_period = ClubPeriod.create(club_id: @club.id, academic_period_id: AcademicPeriod.active_period_id)
         club_setting = ClubSetting.create(club_id: @club.id, max_user: 150)
         if club_period && club_setting
           ClubBoardOfDirector.create(club_period_id: club_period.id)
@@ -126,6 +128,10 @@ class ClubsController < ApplicationController
   end
 
   private
+
+  def set_academic_period_id
+    @academic_period_id = AcademicPeriod.active_period_id
+  end
 
   def set_club
     @club = Club.find(params[:id])

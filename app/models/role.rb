@@ -1,6 +1,6 @@
 class Role < ActiveRecord::Base
   belongs_to :role_type
-  belongs_to :club_period
+  belongs_to :club_period, :counter_cache => true
   belongs_to :user
   belongs_to :faculty
   def rol_name
