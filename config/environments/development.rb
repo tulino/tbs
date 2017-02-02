@@ -38,4 +38,33 @@ config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # Bullet N+1 Errors
+  config.after_initialize do
+    # enable Bullet gem, otherwise do nothing
+    Bullet.enable = true
+    # pop up a JavaScript alert in the browser
+    Bullet.alert = true
+    # log to the Bullet log file (Rails.root/log/bullet.log)
+    Bullet.bullet_logger = true
+    # log warnings to your browser's console.log (Safari/Webkit browsers or Firefox w/Firebug installed)
+    Bullet.console = false
+    # pop up Growl warnings if your system has Growl installed. Requires a little bit of configuration
+    # Bullet.growl = true
+    # send XMPP/Jabber notifications to the receiver indicated.
+    # Bullet.xmpp = { :account  => 'bullets_account@jabber.org', :password => 'bullets_password_for_jabber', :receiver => 'your_account@jabber.org', :show_online_status => true }
+    Bullet.rails_logger = true
+    # add notifications to bugsnag
+    Bullet.bugsnag = false
+    # add notifications to airbrake
+    Bullet.airbrake = false
+    # adds the details in the bottom left corner of the page
+    Bullet.add_footer = true
+    # include paths with any of these substrings in the stack trace, even if they are not in your main app
+    # Bullet.stacktrace_includes = [ 'your_gem', 'your_middleware' ]
+    # Detect eager-loaded associations which are not used
+    Bullet.unused_eager_loading_enable = false
+    # Detect unnecessary COUNT queries which could be avoided with a counter_cache
+    Bullet.counter_cache_enable = false
+  end
 end
