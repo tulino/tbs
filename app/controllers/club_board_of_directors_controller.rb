@@ -25,8 +25,8 @@ class ClubBoardOfDirectorsController < ApplicationController
     if ClubBoardOfDirector.where(club_period_id: club_period.id).any?
       flash.now[:error] = 'Daha önce bu topluluk için Yönetim Kurulu oluşturulmuş. Lütfen onu düzenleyiniz.'
       render :new
-    elsif get_duplicated_user_names(club_period).present?
-      flash.now[:error] = 'Eklediğiniz üye, başka bir toplulukta yönetim kurulunda ya da denetim kurulunda.'
+    elsif duplicated_user_names = get_duplicated_user_names(club_period)
+      flash.now[:error] = "#{duplicated_user_names} başka bir toplulukta yönetim kurulunda ya da denetim kurulunda."
       render :new
     else
       authorize @club_board_of_director
@@ -46,8 +46,8 @@ class ClubBoardOfDirectorsController < ApplicationController
   def update
     authorize @club_board_of_director
     club_period = ClubPeriod.find(club_board_of_director_params['club_period_id'])
-    if get_duplicated_user_names(club_period, 'update').present?
-      flash.now[:error] = 'Seçtiğiniz üyelerden bazıları başka bir toplulukta yönetim kurulunda ya denetim kurulunda.'
+    if duplicated_user_names = get_duplicated_user_names(club_period, 'update')
+      flash.now[:error] = "#{duplicated_user_names} başka bir toplulukta yönetim kurulunda ya da denetim kurulunda."
       render :new
     else
       respond_to do |format|
@@ -101,11 +101,11 @@ class ClubBoardOfDirectorsController < ApplicationController
     end
     # Başka toplulukta yönetim kurulunda ya da denetim kurulunda olan kullanıcılar
     duplicated_users = duplicated_users.uniq
-    return false unless duplicated_users.any?
+    return unless duplicated_users.any?
     duplicated_user_names = ' '
     duplicated_users.each do |user|
       duplicated_user_names = "#{duplicated_user_names}, #{user.name_surname}"
     end
-    duplicated_user_names = duplicated_user_names[1..duplicated_user_names.length]
+    duplicated_user_names[2..duplicated_user_names.length]
   end
 end

@@ -28,7 +28,8 @@
         <div class="col-md-7"> <%= @profile.user.idnumber %></div>
         <%else%>
         <div class="col-md-5"><b>Öğrenci Numarası</b></div>
-        <div class="col-md-7"> <%= @profile.user.ubs_no %></div>
+        <% ubs_no = @profile.user.ubs_no %>
+        <div class="col-md-7"> <%= ubs_no[1..ubs_no.length] %></div>
         <%end%>
       </div>
     </li>

@@ -25,8 +25,8 @@ class ClubBoardOfSupervisoriesController < ApplicationController
     if ClubBoardOfSupervisory.where(club_period_id: club_period.id).any?
       flash.now[:error] = 'Daha önce bu topluluk için Denetim Kurulu oluşturulmuş. Lütfen onu düzenleyiniz.'
       render :new
-    elsif get_duplicated_user_names(club_period).present?
-      flash.now[:error] = '#{duplicated_user_names} başka bir toplulukta yönetim kurulunda ya denetim kurulunda.'
+    elsif duplicated_user_names = get_duplicated_user_names(club_period)
+      flash.now[:error] = "#{duplicated_user_names} başka bir toplulukta yönetim kurulunda ya da denetim kurulunda."
       render :new
     else
       authorize @club_board_of_supervisory
@@ -45,8 +45,8 @@ class ClubBoardOfSupervisoriesController < ApplicationController
   def update
     authorize @club_board_of_supervisory
     club_period = ClubPeriod.find(club_board_of_supervisory_params['club_period_id'])
-    if get_duplicated_user_names(club_period, 'update').present?
-      flash.now[:error] = '#{duplicated_user_names} başka bir toplulukta yönetim kurulunda ya denetim kurulunda.'
+    if duplicated_user_names = get_duplicated_user_names(club_period, 'update')
+      flash.now[:error] = "#{duplicated_user_names} başka bir toplulukta yönetim kurulunda ya da denetim kurulunda."
       render :new
     else
       respond_to do |format|
@@ -82,8 +82,8 @@ class ClubBoardOfSupervisoriesController < ApplicationController
 
   # Başka toplulukta yönetim kurulunda ya da denetim kurulunda olanların tespiti
   def get_duplicated_user_names(club_period, action = '')
-    all_club_board_of_directors = ClubBoardOfDirector.where(id: ClubBoardOfDirector.select { |cbod| cbod.id if cbos.club_period && cbod.club_period.academic_period.is_active })
-    all_club_board_of_supervisories = ClubBoardOfSupervisory.where(id: ClubBoardOfSupervisory.select { |cbos| cbos.id if cbod.club_period && cbos.club_period.academic_period.is_active })
+    all_club_board_of_directors = ClubBoardOfDirector.where(id: ClubBoardOfDirector.select { |cbod| cbod.id if cbod.club_period && cbod.club_period.academic_period.is_active })
+    all_club_board_of_supervisories = ClubBoardOfSupervisory.where(id: ClubBoardOfSupervisory.select { |cbos| cbos.id if cbos.club_period && cbos.club_period.academic_period.is_active })
     all_club_board_of_supervisories_except = action == 'update' ? all_club_board_of_supervisories.where.not(club_period: club_period) : all_club_board_of_supervisories
     all_board_users = all_club_board_of_directors + all_club_board_of_supervisories_except
     duplicated_users = []
@@ -94,11 +94,11 @@ class ClubBoardOfSupervisoriesController < ApplicationController
     end
     # Başka toplulukta yönetim kurulunda ya da denetim kurulunda olan kullanıcılar
     duplicated_users = duplicated_users.uniq
-    return false unless duplicated_users.any?
-    duplicated_user_names = ' '
+    return unless duplicated_users.any?
+    duplicated_user_names = ''
     duplicated_users.each do |user|
       duplicated_user_names = "#{duplicated_user_names}, #{user.name_surname}"
     end
-    duplicated_user_names = duplicated_user_names[1..duplicated_user_names.length]
+    duplicated_user_names[2..duplicated_user_names.length]
   end
 end

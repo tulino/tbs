@@ -24,9 +24,9 @@ $ ->
     "bProcessing": true,
     "order": [[ 2, 'asc' ]],
     "columnDefs": [{
-              "targets": [0,1,2,3],
+              "targets": [0,1,2],
               "orderable": true
               },{
-              "targets": [4,5,6],
+              "targets": [3,4],
               "orderable": false
               }]
