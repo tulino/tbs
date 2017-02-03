@@ -9,6 +9,8 @@ class ClubPeriod < ActiveRecord::Base
   has_many :event_requests
   has_many :roles
   belongs_to :club
+
+  # scopes
   scope :all_active_period_ids, -> { where(academic_period_id: AcademicPeriod.active_period_id).pluck(:id) }
 
   def academic_period_name
@@ -16,27 +18,31 @@ class ClubPeriod < ActiveRecord::Base
   end
 
   def club_members
-    Role.where(id: Role.select { |role| RoleType.club_member_type_ids.include?(role.role_type_id) && role.club_period_id == id })
+    Role.where(
+      club_period_id: id,
+      role_type_id: RoleType.club_member_type_ids)
   end
 
   def self.all_members_count_by_club_period(club_ids)
     academic_period_id = AcademicPeriod.active_period_id
-    period_ids = ClubPeriod.where(club_id: club_ids, academic_period_id: academic_period_id).pluck(:id)
-    Role.where(club_period_id: period_ids, role_type_id: RoleType.club_member_type_ids).group(:club_period_id).count
+    period_ids = 
+      ClubPeriod.where(
+        club_id: club_ids,
+        academic_period_id: academic_period_id).pluck(:id)
+    Role.where(
+      club_period_id: period_ids,
+      role_type_id: RoleType.club_member_type_ids).group(:club_period_id).count
   end
 
   def president
-    role = roles.find_by(role_type_id: RoleType.find_by(name: 'Başkan').id)
-    role.present? ? role.user : nil
+    roles.find_by(role_type_id: RoleType.president_id)&.user
   end
 
   def advisor
-    role = roles.find_by(role_type_id: RoleType.find_by(name: 'Akademik Danışman').id)
-    role.present? ? role.user : nil
+    roles.find_by(role_type_id: RoleType.advisor_id)&.user
   end
 
   def vice_advisor
-    role = roles.find_by(role_type_id: RoleType.find_by(name: 'Akademik Danışman Yardımcısı').id)
-    role.present? ? role.user : nil
+    roles.find_by(role_type_id: RoleType.vise_advisor_id)&.user
   end
 end
