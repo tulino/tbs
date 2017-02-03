@@ -25,24 +25,25 @@ class ClubPeriod < ActiveRecord::Base
 
   def self.all_members_count_by_club_period(club_ids)
     academic_period_id = AcademicPeriod.active_period_id
-    period_ids = 
-      ClubPeriod.where(
-        club_id: club_ids,
-        academic_period_id: academic_period_id).pluck(:id)
+    period_ids = ClubPeriod.where(
+      club_id: club_ids,
+      academic_period_id: academic_period_id
+    ).pluck(:id)
     Role.where(
       club_period_id: period_ids,
-      role_type_id: RoleType.club_member_type_ids).group(:club_period_id).count
+      role_type_id: RoleType.club_member_type_ids
+    ).group(:club_period_id).count
   end
 
   def president
-    roles.find_by(role_type_id: RoleType.president_id)&.user
+    roles.find_by(role_type_id: RoleType.president_id).try(:user)
   end
 
   def advisor
-    roles.find_by(role_type_id: RoleType.advisor_id)&.user
+    roles.find_by(role_type_id: RoleType.advisor_id).try(:user)
   end
 
   def vice_advisor
-    roles.find_by(role_type_id: RoleType.vise_advisor_id)&.user
+    roles.find_by(role_type_id: RoleType.vise_advisor_id).try(:user)
   end
 end
