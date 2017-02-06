@@ -92,7 +92,7 @@ class RolesController < ApplicationController
   end
 
   # Başka bir toplulukta başkan mı?
-  def has_another_president_role?(role, role_type_president_id, all_active_period_ids)
+  def another_president_role?(role, role_type_president_id, all_active_period_ids)
     Role.where(
       role_type_id: role_type_president_id,
       club_period_id: all_active_period_ids,
