@@ -5,8 +5,8 @@
         <div >
           <h6 class="description">Topluluk Üyeleri
             <% if current_user.present? && current_user.admin? %>
-               <%= link_to '<i class="fa fa-pencil-square-o"></i>'.html_safe, edit_member_list_club_period_path(club.id), :class => 'btn btn-default pull-right' %>
-               <%= link_to '<i class="fa fa-file-excel-o"></i>'.html_safe, edit_member_list_club_period_path( @club_period.club.id, format: "xlsx"), :class => 'btn btn-default pull-right' %>
+               <%= link_to '<i class="fa fa-pencil-square-o"></i>'.html_safe, edit_member_list_club_period_path(@club_period.id), :class => 'btn btn-default pull-right' %>
+               <%= link_to '<i class="fa fa-file-excel-o"></i>'.html_safe, edit_member_list_club_period_path( @club_period.id, format: "xlsx"), :class => 'btn btn-default pull-right' %>
            <%end%>
           </h6>
           <br/>

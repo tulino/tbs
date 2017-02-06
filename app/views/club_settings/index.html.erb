@@ -22,18 +22,16 @@
               <th>Maks Kullanıcı Sayısı</th>
               <th>Aktif/Pasif</th>
               <th>Program Kodları(Mes Topl)</th>
-              <th colspan="3"></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             <% @club_settings.each do |club_setting| %>
             <tr>
-              <td><%= club_setting.club.name %></td>
+              <td><%= link_to club_setting.club.name, club_setting %></td>
               <td><%= club_setting.max_user %></td>
               <td><%= club_setting.is_active ? "Aktif" : "Pasif" %></td>
               <td><%= club_setting.program_id %></td>
-              <td><%= link_to '<i class="fa fa-eye" title="Göster"></i>'.html_safe, club_setting %></td>
-              <td><%= link_to '<i class="fa fa-pencil" title="Düzenle"></i>'.html_safe, edit_club_setting_path(club_setting) %></td>
               <td><%= link_to '<i class="fa fa-trash" title="Sil"></i>'.html_safe, club_setting, method: :delete, data: { confirm: 'Topluluk ayarlarını silmek istediğinize emin misiniz?' } %></td>
             </tr>
             <% end %>
