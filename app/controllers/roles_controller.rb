@@ -36,7 +36,7 @@ class RolesController < ApplicationController
     duplicated_roles = check_duplicated_roles(@role)
     if duplicated_roles.present?
       flash.now[:error] = duplicated_roles
-      render :new
+      redirect_to :back
     else
       create_role(@role)
     end
@@ -73,10 +73,14 @@ class RolesController < ApplicationController
   private
 
   def check_duplicated_roles(role)
+    role_type_member_id = RoleType.member_id
     role_type_president_id = RoleType.president_id
     role_type_dean_id = RoleType.dean_id
     all_active_period_ids = ClubPeriod.all_active_period_ids
-    if role.role_type_id == role_type_president_id
+    if role.role_type_id == role_type_member_id
+      club_member_role?(role, role_type_member_id) &&
+        "#{role.user.name_surname} geçerli toplulukta üyedir."
+    elsif role.role_type_id == role_type_president_id
       if another_president_role?(role, role_type_president_id, all_active_period_ids)
         "#{role.user.name_surname} başka bir toplulukta başkan." \
         "Başkanlık için başka bir üye seçiniz."
@@ -85,14 +89,22 @@ class RolesController < ApplicationController
         "Başkanlık için başka bir üye seçiniz."
       end
     elsif role.role_type_id == role_type_dean_id
-      another_dean_role?(role, role_type_president_id, all_active_period_ids)) &&
+      another_dean_role?(role, role_type_president_id, all_active_period_ids) &&
         "#{role.user.name_surname} başka bir fakültede dekan." \
         "Dekanlık için başka bir fakülte seçiniz."
     end
   end
 
+  # Geçerli toplulukta üye mi?
+  def club_member_role?(role, role_type_member_id)
+    Role.where(
+      role_type_id: role_type_member_id,
+      club_period_id: role.club_period_id,
+      user_id: role.user_id).any?
+  end
+
   # Başka bir toplulukta başkan mı?
-  def has_another_president_role?(role, role_type_president_id, all_active_period_ids)
+  def another_president_role?(role, role_type_president_id, all_active_period_ids)
     Role.where(
       role_type_id: role_type_president_id,
       club_period_id: all_active_period_ids,
