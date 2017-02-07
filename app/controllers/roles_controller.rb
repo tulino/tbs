@@ -36,7 +36,7 @@ class RolesController < ApplicationController
     duplicated_roles = check_duplicated_roles(@role)
     if duplicated_roles.present?
       flash.now[:error] = duplicated_roles
-      render :new
+      redirect_to :back
     else
       create_role(@role)
     end
