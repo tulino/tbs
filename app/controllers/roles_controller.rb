@@ -73,14 +73,13 @@ class RolesController < ApplicationController
   private
 
   def check_duplicated_roles(role)
-    role_type_club_member_ids = RoleType.club_member_type_ids
+    role_type_member_id = RoleType.member_id
     role_type_president_id = RoleType.president_id
     role_type_dean_id = RoleType.dean_id
     all_active_period_ids = ClubPeriod.all_active_period_ids
-    if role_type_club_member_ids.include? role.role_type_id
-      club_member_role?(role, role_type_club_member_ids, all_active_period_ids)&&
-        "#{role.user.name_surname} geçerli toplulukta üyedir." \
-        "Sayfayı yenileyiniz."
+    if role.role_type_id == role_type_member_id
+      club_member_role?(role, role_type_member_id) &&
+        "#{role.user.name_surname} geçerli toplulukta üyedir."
     elsif role.role_type_id == role_type_president_id
       if another_president_role?(role, role_type_president_id, all_active_period_ids)
         "#{role.user.name_surname} başka bir toplulukta başkan." \
@@ -90,17 +89,17 @@ class RolesController < ApplicationController
         "Başkanlık için başka bir üye seçiniz."
       end
     elsif role.role_type_id == role_type_dean_id
-      another_dean_role?(role, role_type_president_id, all_active_period_ids)&&
+      another_dean_role?(role, role_type_president_id, all_active_period_ids) &&
         "#{role.user.name_surname} başka bir fakültede dekan." \
         "Dekanlık için başka bir fakülte seçiniz."
     end
   end
 
-  # Geçerli toplulukta başkan veya üye mi?
-  def club_member_role?(role, role_type_club_member_ids, all_active_period_ids)
+  # Geçerli toplulukta üye mi?
+  def club_member_role?(role, role_type_member_id)
     Role.where(
-      role_type_id: role_type_club_member_ids,
-      club_period_id: all_active_period_ids,
+      role_type_id: role_type_member_id,
+      club_period_id: role.club_period_id,
       user_id: role.user_id).any?
   end
 
