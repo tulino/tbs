@@ -30,7 +30,7 @@ module Ubs
       first_name: first_name,
       last_name: last_name,
       password: params['student_id'],
-      email: 'o' + params['student_id'] + '@ubs.com.tr',
+      email: params['student_id'] + '@stu.omu.edu.tr',
       user_name: 'o' + params['student_id'],
       is_administrative: false,
       ubs_no: 'o' + params['student_id'],
