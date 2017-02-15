@@ -69,8 +69,8 @@
             </tr>
             <tr>
               <td></td>
-              <td><%= @event.event_responses.last.event_status.id == 2 ? "Onayladı" : "Onaylanmadı"%></td>
-              <td colspan="2"><%= @event.event_responses.last.event_status.id == 2 || @event.event_responses.last.event_status.id == 5 ? "Onayladı" : "Onaylanmadı" %></td>
+              <td><%= [1, 2, 4, 5, 7, 8].include?(@event.event_responses.last.event_status.id) ? "Onayladı" : "Onaylanmadı"%></td>
+              <td colspan="2"><%= [1, 2, 5].include?(@event.event_responses.last.event_status.id) ? "Onayladı" : "Onaylanmadı" %></td>
             </tr>
             <% end %>
           </table>
