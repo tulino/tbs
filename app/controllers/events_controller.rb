@@ -60,7 +60,11 @@ class EventsController < ApplicationController
         # Akademik Danışman Onayı Bekleniyor
         event_response = EventResponse.create(event_id: @event.id, event_status_id: 4)
         @event.update(event_status_id: 4)
-        EventMailer.approval_to_event(@event.club_period.advisor, @event).deliver_now unless @event.club_period.advisor.blank? # akademik danışmana mail gidiyor
+        advisor_mail = @event.club_period.try(:advisor).try(:profile).try(:email)
+        EventMailer.approval_to_event(
+          @event.club_period.advisor,
+          @event
+        ).deliver_now unless advisor_mail.blank?
         if event_response
           format.html { redirect_to @event, notice: 'Etkinlik başarıyla oluşturuldu.' }
           format.json { render :show, status: :created, location: @event }
