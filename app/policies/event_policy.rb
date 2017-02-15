@@ -31,4 +31,8 @@ class EventPolicy < ApplicationPolicy
   def destroy?
     @user.present? && (@user.admin? || (@user.president?(@record.club_period.id) && @record.club_period.club.club_setting.is_active))
   end
+
+  def download_events
+    @user.admin?
+  end
 end
