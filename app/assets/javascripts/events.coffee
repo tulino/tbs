@@ -49,6 +49,7 @@ $ ->
             console.log error
 
   $('.form-response-button').click ->
+    $(this).prop 'disabled', true
     if $(this).hasClass('admin-confirm')
       $('#event-status-id-modal').val(2)
     else if $(this).hasClass('admin-reject')

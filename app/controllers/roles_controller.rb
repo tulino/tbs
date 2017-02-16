@@ -58,14 +58,14 @@ class RolesController < ApplicationController
   def destroy
     authorize @role
     @role.destroy
-    path = 'back'.to_sym
-    notice_message = 'Topluluk üyeliğinden başarıyla ayrıldınız.'
-    if current_user.admin? && !(request.referer.include? '/clubs/')
-      path = roles_url
-      notice_message = 'Kullanıcıya atanmış rolü başarıyla iptal ettiniz.'
-    end
+    notice_message = 
+      if current_user.admin?
+        'Kullanıcıya atanmış rolü başarıyla iptal ettiniz.'
+      else
+        'Topluluk üyeliğinden başarıyla ayrıldınız.'
+      end
     respond_to do |format|
-      format.html { redirect_to path, notice: notice_message }
+      format.html { redirect_to :back, notice: notice_message }
       format.json { head :no_content }
     end
   end
