@@ -1,5 +1,5 @@
 
-<% if current_user.present? && ( current_user.admin? || (current_user.president? && current_user.president_or_advisor_club_period.club.club_setting.is_active)) %>
+<% if current_user.present? && current_user.admin_or_president? %>
 <div class="panel-heading text-center">
   <%= link_to "<<", calendar.url_for_previous_view %>
   <span class="calendar-title"><%= t('date.month_names')[start_date.month] %> <%= start_date.year %></span>

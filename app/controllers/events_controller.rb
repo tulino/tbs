@@ -47,6 +47,7 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
+    authorize @event
     @event.datetime = params[:datetime].to_date if params[:datetime].present?
   end
 
@@ -55,6 +56,7 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
+    authorize @event
     respond_to do |format|
       if @event.save
         # Akademik Danışman Onayı Bekleniyor
@@ -81,6 +83,7 @@ class EventsController < ApplicationController
   end
 
   def update
+    authorize @event
     respond_to do |format|
       if @event.update(event_params)
         format.html { redirect_to @event, notice: 'Etkinlik başarıyla güncellendi.' }
@@ -93,6 +96,7 @@ class EventsController < ApplicationController
   end
 
   def destroy
+    authorize @event
     @event.destroy
     respond_to do |format|
       format.html { redirect_to events_url, notice: 'Etkinlik başarıyla silindi.' }

@@ -136,6 +136,9 @@
               </div>
               <div class="panel-body">
                 <ul class="nav nav-sidebar">
+                  <% if current_user.present? && current_user.admin_or_president? %>
+                    <li><%= link_to 'Yeni Etkinlik Oluştur', new_event_path %></li>
+                  <% end %>
                   <% if current_user.present? && current_user.admin? %>
                   <li><%= link_to "Topluluk Bilgilerini Düzenle", edit_club_path(@club) %></li>
                   <li></li>

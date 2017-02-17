@@ -23,9 +23,12 @@ class EventPolicy < ApplicationPolicy
     @user.present? && (@user.admin? || (@user.president?(@record.club_period.id) && @record.club_period.club.club_setting.is_active && (@record.event_responses.last.event_status.id != 2) && (@record.event_responses.last.event_status.id != 5)))
   end
 
+  def new?
+    @user.present? && @user.admin_or_president?
+  end
+
   def create?
-    club_period = @user.president_or_advisor_club_period
-    @user.present? && (@user.admin? || (club_period.present? && @user.president?(club_period) && club_period.club.club_setting.is_active))
+    @user.present? && @user.admin_or_president?
   end
 
   def destroy?
