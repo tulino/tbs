@@ -65,6 +65,13 @@ class User < ActiveRecord::Base
     roles.select { |role| (role.club_period.academic_period.is_active unless role.club_period.blank?) && (role.role_type.name == 'Başkan' || role.role_type.name == 'Akademik Danışman') }.first.club_period
   end
 
+  def admin_or_president?
+    club_period = self.president_or_advisor_club_period
+    is_active_club = club_period.present? && 
+      club_period.club.club_setting.is_active
+    self.admin? || (self.president?(club_period) && is_active_club)
+  end
+
   #### Yardımcı Fonksiyonlar
   def full_name
     if is_academic?

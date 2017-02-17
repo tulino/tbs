@@ -33,9 +33,14 @@
               <a href="#clubs_of_member_events" data-toggle="tab">Üye Olunan Toplulukların Etkinlikleri</a>
             </li>
           <% end %>
-          <% if user_signed_in? and current_user.admin? %>
-              <%= link_to '<i class="fa fa-file-excel-o"></i>'.html_safe, "#", :class => 'btn btn-default pull-right' , "data-toggle" => "modal", 'data-target' => '.down_event' %>
-          <% end %>
+          <div class="btn-group pull-right">
+            <% if current_user.present? && current_user.admin_or_president? %>
+              <%= link_to 'Yeni Etkinlik Oluştur', new_event_path, class: "btn btn-default btn-sm" %>
+            <% end %>
+            <% if user_signed_in? and current_user.admin? %>
+              <%= link_to '<i class="fa fa-file-excel-o"></i>'.html_safe, "#", :class => 'btn btn-default btn-sm' , "data-toggle" => "modal", 'data-target' => '.down_event' %>
+            <% end %>
+          </div>
         </ul>
 
 
