@@ -1,0 +1,52 @@
+<div class="row">
+  <%= render 'home/navbarDefault' %>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <ol class="breadcrumb">
+      <li><%= link_to 'Anasayfa', root_path %></li>
+      <li class="active">Üyelik İptal Talepleri</li>
+    </ol>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Üyelik İptal Talepleri</h3>
+      </div>
+      <div class="panel-body">
+        <p align="right">
+          <%= link_to 'Yeni Üyelik İptal Talebi', new_black_list_path, class: "btn btn-default" %>
+        </p>
+        <table class="table table-hover" id="club_settings">
+          <thead>
+            <tr>
+              <th>Topluluk</th>
+              <th>Üye</th>
+              <th>Engelle</th>
+              <th>Durum</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @black_lists.each do |black_list| %>
+            <tr>
+              <td><%= link_to black_list.club.name, club_path(black_list.club) %></td>
+              <td><%= link_to black_list.user.full_name, profile_path(black_list.user.profile) %></td>
+              <td>
+                <% if !black_list.approved %>
+                  <%= link_to change_approve_status_black_list_path(black_list), :style => "text-decoration: none !important;" do %>
+                    <span class="label label-danger">Engelle</span>
+                  <% end %>
+                <% elsif %>
+                    Engellendi
+                <% end %>
+              </td>
+              <td><%= black_list.explanation %></td>
+              <td><%= link_to '<i class="fa fa-trash" title="Sil"></i>'.html_safe, black_list, method: :delete, data: { confirm: 'Üyelik iptal talebini silmek istediğinize emin misiniz?' } %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :black_lists, except: [:show] do
+    get 'change_approve_status', on: :member
+  end
   get 'event_response/create'
 
   get 'event_response/destroy'
@@ -36,7 +39,6 @@ Rails.application.routes.draw do
   resources :clubs
   resources :faculties
   resources :club_categories
-  get 'unsubscribe_request' => 'roles#unsubscribe_request'
   get 'club_users' => 'roles#club_users'
   get 'find_ogrenci' =>'users#find_ogrenci'
   get 'find_personel' =>'users#find_personel'

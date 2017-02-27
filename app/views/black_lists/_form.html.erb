@@ -1,0 +1,47 @@
+<%= simple_form_for(@black_list) do |f| %>
+  <%= f.error_notification %>
+    
+  <div class="form-inputs">
+    <% if current_user.present? && current_user.admin? %>
+      <div class="row form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-3">Toluluk  Seçiniz</label>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+          <%= f.input :club_id, collection: Club.all, label: false,  :input_html => { :id => "clubs" } %>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3 ">
+        </div>
+      </div>
+
+      <div class="row form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-3">Kullanıcı Seçiniz</label>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+          <%= f.input :user_id, collection: User.all, label_method: :name_surname,label: false, :input_html => { :id => "users" } %>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3 ">
+        </div>
+      </div>
+      <div class="row form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+          <%= f.input :approved, label: "Topluluk üyeliğini engelle" %>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3 ">
+        </div>
+      </div>
+    <% elsif current_user.present? && current_user.president? %>
+      <%= f.input :club_id, :as => :hidden, :input_html => { :value => current_user.president_or_advisor_club_period.club.id } %>
+      <%= f.input :user_id, :as => :hidden, :input_html => { :value => params['user_id'] } %>
+    <% end %>
+    <div class="row form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-3">Üyelik iptal talebi açıklaması</label>
+      <div class="col-md-6 col-sm-6 col-xs-6">
+        <%= f.input :explanation, label: false %>
+      </div>
+      <div class="col-md-3 col-sm-3 col-xs-3 ">
+      </div>
+    </div>
+  </div>
+  <div class="form-actions">
+    <%= f.submit "Kaydet", class: "btn btn-success" %>
+  </div>
+<% end %>

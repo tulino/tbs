@@ -12,7 +12,7 @@ workbook.add_worksheet(name: "Topluluk Listesi") do |sheet|
   sheet.add_row ["Adı", "Türü", "Üye Sayısı", "Durumu", "Akademik Dönemi", "Kuruluş Tarihi" ], style: [bold_with_background, bold_with_background,bold_with_background, bold_with_background,bold_with_background ,bold_with_background ]
 
   @clubs_for_excel.each do |club|
-    active_club_period = club.active_club_period(@academic_period_id)
+    active_club_period = club.active_club_period
     member_count = @all_members_count[active_club_period.id] || 0
     durum = club.club_setting.is_active ? "Aktif" : "Pasif"
     sheet.add_row [ club.name, club.club_category.name , member_count, durum , club.club_periods.last.academic_period.name,club.try(:creation_date).try(:strftime,("%d.%m.%Y")) || '' ]

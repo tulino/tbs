@@ -42,7 +42,7 @@
               <td class="center">
                 <%= club.club_category.name %></td>
               <td class="center">
-                <% active_club_period = club.active_club_period(@academic_period_id) %>
+                <% active_club_period = club.active_club_period %>
                 <%= @all_members_count[active_club_period.id] || 0 %>
               <td class="center">
                 <%= club.club_setting.is_active ? "<span class='label label-success'>Aktif</span>".html_safe : "<span class='label label-danger'>Pasif</span>".html_safe %></td>
@@ -93,7 +93,7 @@
             </thead>
             <tbody>
               <% @clubs.select { |c| c.club_setting.is_active }.each do |club| %>
-                <% active_club_period = club.active_club_period(@academic_period_id) %>
+                <% active_club_period = club.active_club_period %>
                 <tr>
                   <td></td>
                   <td> <%= link_to club.name, club %> </td>
@@ -118,7 +118,7 @@
               </thead>
               <tbody>
                 <% @clubs_of_current_user.each do |club| %>
-                  <% active_club_period = club.active_club_period(@academic_period_id) %>
+                  <% active_club_period = club.active_club_period %>
                   <tr>
                     <td></td>
                     <td> <%= link_to club.name, club %> </td>
