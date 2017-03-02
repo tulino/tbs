@@ -7,11 +7,6 @@ class RolesController < ApplicationController
     authorize @roles
   end
 
-  def unsubscribe_request
-    @roles = Role.where(status: false)
-    authorize @roles
-  end
-
   def club_users
     club_period = current_user.president_or_advisor_club_period
     @roles = club_period.club_members

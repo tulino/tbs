@@ -9,10 +9,6 @@ class RolePolicy < ApplicationPolicy
     @user.admin?
   end
 
-  def unsubscribe_request?
-    @user.admin?
-  end
-
   def club_users?
     @user.admin? || @user.advisor? || @user.president?
   end
@@ -30,7 +26,8 @@ class RolePolicy < ApplicationPolicy
   end
 
   def create?
-    true
+    @user.admin? || @user.president?(@record.club_period_id) ||
+      !@user.member_blocked?(@record.club_period.club)
   end
 
   def destroy?

@@ -17,8 +17,8 @@
             <tr>
               <th></th>
               <th>Kullanıcı Adı</th>
-              <th>Rol Tipi</th>
               <th>Durum</th>
+              <th>Açıklama</th>
               <th>Email</th>
               <th></th>
             </tr>
@@ -27,13 +27,19 @@
             <% @roles.each do |role| %>
             <tr>
               <td></td>
-              <td><%= link_to role.user.name_surname, role %></td>
-              <td><%= role.role_type.name %></td>
-              <td><%= role.status ? "Üye" : role.explanation.present? ? role.explanation : "İptal onayı bekleniyor" %></td>
+              <td><%= link_to role.user.name_surname, role.user.profile %></td>
+              <% member_block_request = role.user.member_block_request(role.club_period.club)  %>
+              <% if member_block_request %>
+                <td>Engelleme için onay bekleniyor</td>
+                <td><%= member_block_request.explanation %></td>
+              <% else %>
+                <td>--</td>
+                <td>--</td>
+              <% end %>
               <td><%= role.user.email %></td>
               <td>
-                <% if current_user.president? %>
-                <%= link_to '<i class="fa fa-pencil" title="Düzenle"></i>'.html_safe, edit_role_path(role) %>
+                <% if current_user.president? && !member_block_request %>
+                <%= link_to '<i class="fa fa-pencil" title="Düzenle"></i>'.html_safe, new_black_list_path(user_id: role.user.id) %>
                 <% end %>
               </td>
             </tr>

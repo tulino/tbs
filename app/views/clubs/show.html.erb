@@ -83,9 +83,11 @@
                   </div>
                 </div>
                 <% elsif @club_member_count_error %>
-                <span class="btn btn-info btn-block">Üyelik Kabul Edilemiyor #ÜyeSayısı</span>
+                <span class="btn btn-info btn-block">Üye kontenjanı doldu</span>
                 <% elsif @club_member_program_error %>
-                <span class="btn btn-info btn-block">Üyelik Kabul Edilemiyor<br />#ProgramKodu</span>
+                <span class="btn btn-info btn-block">Bu mesleki topluluğa üye olamazsınız</span>
+                <% elsif @member_blocked %>
+                <span class="btn btn-info btn-block">Bu topluluğa üye olamazsınız</span>
                 <% else %>
                 <%= link_to 'Topluluğa Katıl', "", :onclick => "$('#member_to_club').submit()", :class => "btn btn-success btn-block" %>
 

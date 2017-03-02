@@ -31,7 +31,7 @@ class ClubPeriod < ActiveRecord::Base
     ).pluck(:id)
     Role.where(
       club_period_id: period_ids,
-      role_type_id: RoleType.club_member_type_ids
+      role_type_id: RoleType.member_id
     ).group(:club_period_id).count
   end
 

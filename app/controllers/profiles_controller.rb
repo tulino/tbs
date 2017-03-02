@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
   def show
     @profile = Profile.find_by(user_id: params[:id])
-    @member_clubs = @profile.user.roles.map { |x| x.club_period.club unless x.club_period.blank?} unless @profile.user.roles.blank?
+    @member_clubs = @profile.user.roles.map { |x| x.club_period.club unless x.club_period.blank? } 
     authorize @profile
   end
 

@@ -1,6 +1,7 @@
 class ClubsController < ApplicationController
+  include ClubsHelper
+
   before_action :set_club, only: [:show, :edit, :update, :destroy]
-  before_action :set_academic_period_id, only: [:index, :show]
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
 
   def index
@@ -33,43 +34,27 @@ class ClubsController < ApplicationController
 
   def show
     @club_period = @club.active_club_period
-    if user_signed_in? && current_user.member?(@club_period)
-      @role = current_user.roles.find_by(club_period_id: @club_period.id)
-    else
-      @role = Role.new
-    end
-    @club_view = @club.club_setting.is_active ? true : false
-    @club_view_contact = @club.club_contact.present? ? true : false
+    @role =
+      if user_signed_in? && current_user.member?(@club_period)
+        current_user.roles.find_by(club_period_id: @club_period.id)
+      else
+        Role.new
+      end
+    @club_view = @club.club_setting.is_active
+    @club_view_contact = @club.club_contact.present?
     if @club_period.present?
-      @club_advisor = @club_period.advisor.present? ? @club_period.advisor : false
-      @club_president = @club_period.president.present? ? @club_period.president : false
-      @club_vice_advisor = @club_period.vice_advisor.present? ? @club_period.vice_advisor : false
+      @club_advisor = @club_period.try(:advisor)
+      @club_president = @club_period.try(:president)
+      @club_vice_advisor = @club_period.try(:vice_advisor)
 
-      @club_view_board_of_director = @club_period.club_board_of_director.present? ? true : false
-      @club_view_board_of_supervisor = @club_period.club_board_of_supervisory.present? ? true : false
+      @club_view_board_of_director = @club_period.club_board_of_director.present?
+      @club_view_board_of_supervisor = @club_period.club_board_of_supervisory.present?
       @club_announcements = @club_period.announcements.where(is_view: true)
     end
-    active_club_period = @club.active_club_period(@academic_period_id)
-    @club_members = active_club_period.present? ? active_club_period.club_members : []
-    club_members_count = @club_members.nil? ? 0 : @club_members.count
-    if club_members_count < (@club.club_setting.nil? ? 150 : @club.club_setting.max_user)
-      @club_member_count_error = false
-    else
-      @club_member_count_error = true
-    end
-    if user_signed_in? && !current_user.member?(@club_period)
-      if @club.club_category.name == 'Mesleki Topluluk'
-        if @club.club_setting.program_id == current_user.program_code
-          @club_member_program_error = false
-        else
-          @club_member_program_error = true
-        end
-      else
-        @club_member_program_error = false
-      end
-    else
-      @club_member_program_error = false
-    end
+    @club_members = @club_period.club_members
+    @club_member_count_error = member_count_error?(@club, @club_members)
+    @club_member_program_error = member_program_error?(@club, current_user)
+    @member_blocked = current_user.member_blocked?(@club)
   end
 
   def new
@@ -128,10 +113,6 @@ class ClubsController < ApplicationController
   end
 
   private
-
-  def set_academic_period_id
-    @academic_period_id = AcademicPeriod.active_period_id
-  end
 
   def set_club
     @club = Club.find(params[:id])
