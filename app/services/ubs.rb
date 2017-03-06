@@ -58,8 +58,8 @@ module Ubs
   def self.control_academic(tc_no)
     result = staff_info(identifyNumber: tc_no)
     return  unless result && result['state'].present? && result['state'] == '1'
-    names = result['first_name'].split(' ')
-    email_name = names.count > 1 ? names[0] + '_' + names[1] + '_' + result['last_name'] : result['first_name'] + '_' + result['last_name']
+    full_name = "#{result['first_name']} #{result['last_name']}"
+    email_name = full_name.parameterize.underscore
     user = User.create(
       first_name: result['first_name'],
       last_name: result['last_name'],

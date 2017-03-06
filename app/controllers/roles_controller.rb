@@ -84,7 +84,7 @@ class RolesController < ApplicationController
         "Başkanlık için başka bir üye seçiniz."
       end
     elsif role.role_type_id == role_type_dean_id
-      another_dean_role?(role, role_type_president_id, all_active_period_ids) &&
+      another_dean_role?(role, role_type_dean_id, all_active_period_ids) &&
         "#{role.user.name_surname} başka bir fakültede dekan." \
         "Dekanlık için başka bir fakülte seçiniz."
     end
@@ -116,7 +116,7 @@ class RolesController < ApplicationController
   end
 
   # Başka bir fakültede dekan mı?
-  def another_dean_role?(role, role_type_president_id, all_active_period_ids)
+  def another_dean_role?(role, role_type_dean_id, all_active_period_ids)
     Role.where(
       role_type_id: role_type_dean_id,
       club_period_id: all_active_period_ids,
