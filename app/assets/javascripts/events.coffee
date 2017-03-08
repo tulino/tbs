@@ -111,7 +111,7 @@ $ ->
               "orderable": false
               }]
 
-  $('#all_events').dataTable
+  $('.events').dataTable
       language: {
             "sProcessing": "Yükleniyor...",
             "sLengthMenu": "Sayfada _MENU_ Kayıt Göster",
