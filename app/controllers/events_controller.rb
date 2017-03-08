@@ -43,6 +43,15 @@ class EventsController < ApplicationController
   end
 
   def show
+    advisor_approved_reponse = @event.event_responses.where(
+      event_status_id: EventStatus.advisor_approved_status_id
+    ).last
+    @advisor_approved_date =
+      if advisor_approved_reponse.present?
+        advisor_approved_reponse.created_at.strftime('%d/%m/%Y')
+      else
+        ''
+      end
   end
 
   def new
