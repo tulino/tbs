@@ -82,8 +82,6 @@
                     <%= link_to 'Üyelikten Çık', role_path(@role), method: :delete, data: { confirm: 'Üyelikten çıkmak istediğinize emin misin?' }, :class =>"btn btn-info btn-block" %>
                   </div>
                 </div>
-                <% elsif @club_member_count_error %>
-                <span class="btn btn-info btn-block">Üye kontenjanı doldu</span>
                 <% elsif @club_member_program_error %>
                 <span class="btn btn-info btn-block">Bu mesleki topluluğa üye olamazsınız</span>
                 <% elsif @member_blocked %>
