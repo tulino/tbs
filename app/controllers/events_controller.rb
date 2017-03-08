@@ -67,7 +67,9 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
     authorize @event
     respond_to do |format|
-      if @event.save
+      if !number_of_members_sufficient?(@event)
+        format.html { redirect_to :back, notice: 'Etkinlik oluşturmak için yeterli üye yok.' }
+      elsif @event.save
         # Akademik Danışman Onayı Bekleniyor
         event_response = EventResponse.create(event_id: @event.id, event_status_id: 4)
         @event.update(event_status_id: 4)
@@ -136,6 +138,18 @@ class EventsController < ApplicationController
   end
 
   private
+
+  def number_of_members_sufficient?(event)
+    club_period = event.club_period
+    club_category = club_period.club.club_category
+    club_members = club_period.club_members
+    club_members_count = club_members.nil? ? 0 : club_members.count - 1
+    if club_category.vocational_club?
+      club_members_count >= ClubCategory.lower_limits[:vocational_club]
+    else
+      club_members_count >= ClubCategory.lower_limits[:social_club]
+    end
+  end
 
   def set_event
     @event = Event.find(params[:id])
