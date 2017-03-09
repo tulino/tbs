@@ -52,9 +52,8 @@ class ClubsController < ApplicationController
       @club_announcements = @club_period.announcements.where(is_view: true)
     end
     @club_members = @club_period.club_members
-    @club_member_count_error = member_count_error?(@club, @club_members)
     @club_member_program_error = member_program_error?(@club, current_user)
-    @member_blocked = current_user.member_blocked?(@club)
+    @member_blocked = current_user.present? && current_user.member_blocked?(@club)
   end
 
   def new

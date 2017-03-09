@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
     return nil unless president? || advisor?
     roles.select do |role|
       role.try(:club_period).try(:academic_period).try(:is_active) &&
-        (role.president?(role.club_period) || role.advisor?(role.club_period))
+        (role.user.president?(role.club_period) || role.user.advisor?(role.club_period))
     end.first.club_period
   end
 
@@ -92,7 +92,7 @@ class User < ActiveRecord::Base
   end
 
   def name_surname
-    first_name + ' ' + last_name
+    "#{first_name} #{last_name}"
   end
 
   def show_profile?(user)
