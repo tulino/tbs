@@ -9,7 +9,7 @@ class EventsController < ApplicationController
     @pending_events = []
     @events = []
     if current_user.present? && current_user.admin?
-      @events = Event.all
+      @events = Event.all.sort_by(&:last_event_response_date).reverse
       @pending_events = Event.admin_pending_events
     elsif current_user.present? && current_user.advisor?
       club_period = ClubPeriod.find_by(id: current_user.active_club_periods.select { |clubperiod| clubperiod.id if current_user.advisor?(clubperiod) })
@@ -60,8 +60,7 @@ class EventsController < ApplicationController
     @event.datetime = params[:datetime].to_date if params[:datetime].present?
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @event = Event.new(event_params)
@@ -74,10 +73,12 @@ class EventsController < ApplicationController
         event_response = EventResponse.create(event_id: @event.id, event_status_id: 4)
         @event.update(event_status_id: 4)
         advisor_mail = @event.club_period.try(:advisor).try(:profile).try(:email)
-        EventMailer.approval_to_event(
-          @event.club_period.advisor,
-          @event
-        ).deliver_now unless advisor_mail.blank?
+        unless advisor_mail.blank?
+          EventMailer.approval_to_event(
+            @event.club_period.advisor,
+            @event
+          ).deliver_now
+        end
         if event_response
           format.html { redirect_to @event, notice: 'Etkinlik başarıyla oluşturuldu.' }
           format.json { render :show, status: :created, location: @event }

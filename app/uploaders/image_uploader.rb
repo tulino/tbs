@@ -1,60 +1,41 @@
 # encoding: utf-8
 
 class ImageUploader < CarrierWave::Uploader::Base
-  # Include RMagick or MiniMagick support:
-  # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  include Cloudinary::CarrierWave
 
-  # Choose what kind of storage to use for this uploader:
-  storage :file
-  # storage :fog
+  process convert: 'jpg'
+  process tags: ['tbs']
+  process :face_detection
 
-  # Override the directory where uploaded files will be stored.
-  # This is a sensible default for uploaders that are meant to be mounted:
-  def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  version :standard do
+    process eager: true
+    process resize_to_fill: [100, 150, :north]
   end
 
-  # Provide a default URL as a default if there hasn't been a file uploaded:
-  # def default_url
-  #   # For Rails 3.1+ asset pipeline compatibility:
-  #   # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
-  #
-  #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
-  # end
-
-  # Process files as they are uploaded:
-  # process :scale => [200, 300]
-  #
-  # def scale(width, height)
-  #   # do something
-  # end
-
-  # Create different versions of your uploaded files:
-  # version :thumb do
-  #   process :resize_to_fit => [50, 50]
-  # end
-
-  # Add a white list of extensions which are allowed to be uploaded.
-  # For images you might use something like this:
-  def extension_white_list
-    %w(jpg jpeg gif png)
+  version :show do
+    process resize_to_fill: [180, 240]
   end
 
-  def filename
-    "#{secure_token}.#{file.extension}" if original_filename.present?
+  version :member_list do
+    process resize_to_fill: [35, 35]
   end
 
-  protected
+  version :thumbnail  do
+    process resize_to_fill: [25, 25]
+  end
+
+  def public_id
+    secure_token
+  end
+
+  # Store cropped image
+  def face_detection
+    'width: 180, height: 240, crop: thumb, gravity: face'
+  end
 
   def secure_token
+    require 'securerandom'
     var = :"@#{mounted_as}_secure_token"
-    model.instance_variable_get(var) || model.instance_variable_set(var, SecureRandom.uuid)
+    model.instance_variable_get(var) || model.instance_variable_set(var, Digest::SHA256.hexdigest(SecureRandom.hex(10)))
   end
-
-  # Override the filename of the uploaded files:
-  # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg" if original_filename
-  # end
 end

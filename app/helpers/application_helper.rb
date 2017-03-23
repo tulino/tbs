@@ -35,15 +35,6 @@ module ApplicationHelper
   end
 
   # Fotoğrafı varmı, yokmu? kontrolü
-  # def club_logo_or_not?(club, width=50, height=50)
-  #   if club.logo.present?
-  #     image_tag(club.logo, :width => width, :height => height)
-  #   else
-  #     image_tag('omu_logo.png', :width => width, :height => height)
-  #   end
-  # end
-
-  # Fotoğrafı varmı, yokmu? kontrolü
   def club_logo_or_not?(club, size = '50x50', opts = {})
     o = { class: '' }.merge(opts)
     if club.logo.present?
@@ -59,13 +50,12 @@ module ApplicationHelper
   end
 
   # Fotoğrafı varmı, yokmu? kontrolü
-  def avatar_or_not?(user, width, height, style_opts = {}, class_opts = {})
-    class_o = { class: '' }.merge(class_opts)
-    style_o = { style: '' }.merge(style_opts)
-    if user.present? && user.image.present?
-      image_tag(user.image, width: width, height: height, class: class_o[:class], style: style_o[:style])
+  def avatar_or_not?(record, version, size="180x240", opts={})
+    o = {class: "", style: ""}.merge(opts)
+    if record.present? && record.image.present?
+      image_tag(record.image.url(version), class: o[:class], style: o[:style])
     else
-      placeholder_avatar(width, height)
+      placeholder_image(size)
     end
   end
 
@@ -78,8 +68,8 @@ module ApplicationHelper
   end
 
   # Fotoğrafı yoksa gösterilecek imaj
-  def placeholder_avatar(width, height)
-    image_tag('avatar_placeholder.png', alt: 'avatar-placeholder', width: width, height: height)
+  def placeholder_image(size)
+    image_tag('avatar_placeholder.png', alt: 'avatar-placeholder', size: size)
   end
 
   def blank_for_attributes?(record)

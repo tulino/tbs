@@ -1,4 +1,7 @@
 tr:
+  errors:
+    messages:
+      size_too_big: "Dosya boyutu %{file_size}'dan daha az olmalıdır"
   views:
     pagination:
       first: "&laquo; İlk"

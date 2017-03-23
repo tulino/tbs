@@ -18,7 +18,7 @@
       <%= f.input :is_passive, label: "Hesabı pasife al" %>
     <% end %>
 
-    <%= avatar_or_not?(current_user, nil, 200) %>
+    <%= avatar_or_not?(current_user, :show) %>
     <%= f.input :image, type: :file, label: "Fotoğraf:" %>
     <%= f.input :password, autocomplete: "off", hint: "Değiştirmek istemiyorsan boş bırak", required: false %>
     <%= f.input :password_confirmation, required: false %>

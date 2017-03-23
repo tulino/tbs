@@ -78,7 +78,7 @@
             <tr>
               <td></td>
               <td><%= @event.event_responses.last.event_status.id.in?([1, 2, 4, 5, 7, 8]) ? "Onayladı" : "Onaylanmadı"%></td>
-              <td colspan="2"><%= @event.event_responses.last.event_status.id.in?([1, 2, 5]) ? "Onayladı" : "Onaylanmadı" %></td>
+              <td colspan="2"><%= @event.event_responses.last.event_status.id.in?([1, 2, 5, 7, 8]) ? "Onayladı" : "Onaylanmadı" %></td>
             </tr>
             <% end %>
           </table>
@@ -88,7 +88,7 @@
         <br />
         <% end %>
         <% if @event.image.present? %>
-        <a href=<%= @event.image_url %> target="_blank">Etkinlik Resmi</a>
+          <%= link_to avatar_or_not?(@event, :show, '100x150'), @event.image_url, target: "_blank" %>
         <br />
         <% end %>
         <br />
