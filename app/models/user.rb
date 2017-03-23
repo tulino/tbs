@@ -1,3 +1,5 @@
+require 'file_size_validator'
+
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -7,9 +9,11 @@ class User < ActiveRecord::Base
   has_many :assistant_consultants
   has_one  :profile, dependent: :destroy
   has_many :black_list
-  # has_many :club_board_of_directors
-  # has_many :club_board_of_supervisory
-
+  
+  # validations
+  validates :image, file_size: { maximum: 10.megabytes.to_i }
+  
+  # uploaders
   mount_uploader :image, ImageUploader
 
   def admin?

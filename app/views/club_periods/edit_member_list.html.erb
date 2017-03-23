@@ -37,13 +37,13 @@
             <% @member_lists.each do |role| %>
             <tr>
               <td></td>
-              <td ><%= avatar_or_not?(role.user, 25, 25) %></td>
+              <td ><%= avatar_or_not?(role.user, :member_list, '35x35') %></td>
               <td > <%= link_to role.user.name_surname, profile_path(role.user.profile) %></td>
               <td ><%= role.role_type.name %></td>
               <td >
                 <a href="<%=change_member_status_club_period_path(role)%>" >
                   <%if role.status%>
-                  <span class="label label-success">Aktif</span>
+                <span class="label label-success">Aktif</span>
                   <%else%>
                   <span class="label label-danger">Pasif</span>
                   <%end%>

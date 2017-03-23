@@ -46,6 +46,7 @@ bower.json
 
 # others ------------------------------
 config/database.yml
+/config/cloudinary.yml
 /db/schema.rb
 /public/uploads
 /public/images
