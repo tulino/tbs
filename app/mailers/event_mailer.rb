@@ -8,6 +8,7 @@ class EventMailer < ActionMailer::Base
   layout 'sks_mail'
 
   def approval_to_event(user, event)
+    return unless user.try(:profile).try(:email).present?
     @user = user
     @event = event
     mail(to: @user.profile.email, subject: "Onay Bekleyen Etkinlik")
@@ -19,5 +20,4 @@ class EventMailer < ActionMailer::Base
       mail(to: email, subject: "Onay Bekleyen Etkinlik")
     end
   end
-
 end
