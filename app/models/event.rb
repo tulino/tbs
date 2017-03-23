@@ -1,11 +1,16 @@
 class Event < ActiveRecord::Base
-  mount_uploader :image, ImageUploader
-  mount_uploader :attachment, FileUploader
   belongs_to :event_category
   belongs_to :club_period
   has_many :event_responses
   belongs_to :faculty
 
+  # validations
+  validates :image, file_size: { maximum: 10.megabytes.to_i }
+  
+  # uploaders
+  mount_uploader :image, PhotoUploader
+  mount_uploader :attachment, FileUploader
+  
   attr_accessor :event_locations
   scope :admin_pending_events, -> { where(event_status_id: EventStatus.admin_pending_status_ids).sort_by(&:last_event_response_date).reverse }
   scope :advisor_pending_events, -> { where(event_status_id: EventStatus.advisor_pending_status_ids).sort_by(&:last_event_response_date).reverse }
