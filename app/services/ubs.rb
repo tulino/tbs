@@ -16,7 +16,7 @@ module Ubs
     if user.present?
       user.profile.update(crime: params['crime'].present?)
       user.update(is_ubs_active: params['state_id'].present? && params['state_id'] == '905002')
-      return true
+      return user
     end
     names = params['full_name'].split(' ')
     if names.count == 3
