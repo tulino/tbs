@@ -130,7 +130,7 @@ $ ->
       "bPaginate": true,
       "pageLength": 10,
       "bProcessing": true,
-      "order": false,
+      "order": [],
       "columnDefs": [{
                 "targets": [1,2,3,4],
                 "orderable": true
