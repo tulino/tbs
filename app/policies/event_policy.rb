@@ -32,10 +32,16 @@ class EventPolicy < ApplicationPolicy
   end
 
   def destroy?
-    @user.present? && (@user.admin? || (@user.president?(@record.club_period.id) && @record.club_period.club.club_setting.is_active))
+    @user.present? && (@user.admin? || (@user.president?(@record.club_period.id) && @record.club_period.club.club_setting.is_active && has_admin_status_id?(@record.event_responses.map(&:event_status_id))))
   end
 
   def download_events
     @user.admin?
+  end
+
+  private
+
+  def has_admin_status_id?(status_ids)
+    (EventStatus.all_admin_status_ids & status_ids).empty?
   end
 end

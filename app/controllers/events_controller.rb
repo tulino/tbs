@@ -43,6 +43,7 @@ class EventsController < ApplicationController
   end
 
   def show
+    authorize @event
     advisor_approved_reponse = @event.event_responses.where(
       event_status_id: EventStatus.advisor_approved_status_id
     ).last

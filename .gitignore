@@ -12,6 +12,8 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
+*.DS_Store
+.ruby-version
 
 # TODO Comment out this rule if you are OK with secrets being uploaded to the repo
 config/initializers/secret_token.rb
@@ -47,6 +49,7 @@ bower.json
 # others ------------------------------
 config/database.yml
 /config/cloudinary.yml
+/config/config.yml
 /db/schema.rb
 /public/uploads
 /public/images
