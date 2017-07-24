@@ -42,6 +42,6 @@ class EventPolicy < ApplicationPolicy
   private
 
   def has_admin_status_id?(status_ids)
-    (EventStatus.all_admin_status_ids & status_ids).empty?
+    (EventStatus.all_manager_status_ids & status_ids).empty?
   end
 end
