@@ -1,0 +1,53 @@
+<div class="row">
+  <%= render 'home/navbarDefault' %>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <ol class="breadcrumb">
+      <li><%= link_to 'Anasayfa', root_path %></li>
+      <li class="active">Seçim Listeleri</li>
+    </ol>
+    <div class="panel panel-default">
+      <div class="panel-heading clearfix">
+        <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Seçim Listeleri</h4>
+        <div class="btn-group pull-right">
+          <%= link_to 'Yeni Seçim Listesi Oluştur', new_selection_list_path(@selection), class: "btn btn-default btn-sm" %>
+          <%= link_to 'Geri', selections_path, :class => "btn btn-default btn-sm" %>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="container col-md-12">
+          <div class="row">
+            <% @lists.each do |list| %>
+              <div class="col-xs-18 col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <div class="caption" style="margin-bottom: 20px">
+                      <% owner = User.find(list.president_id) %>
+                      <h4><%= "#{owner.profile.full_name} LİSTESİ" %></h4>
+                      <table style="margin-bottom: 15px">
+                        <tbody>
+                          <% list.board.each do |member, board_name| %>
+                            <tr>
+                              <% profile = User.find(list.instance_eval(member.to_s)).profile %>
+                              <td style="padding-top: 5px; padding-bottom: 5px; border-bottom:1pt solid black;"><%= board_name %></td>
+                              <td style="padding-top: 5px; padding-bottom: 5px; border-bottom:1pt solid black;"><%= link_to profile.full_name, profile_path(profile), target: :_blank %></td>
+                            </tr>
+                          <% end %>
+                        </tbody>
+                      </table>
+                      <% unless did_vote?(@selection, current_user) %>
+                        <%= link_to vote_selection_list_path(@selection, list), class: "btn btn-default btn-xs pull-right" do %>
+                            <i class="glyphicon glyphicon-thumbs-up"></i>
+                        <% end %>
+                      <% end %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>

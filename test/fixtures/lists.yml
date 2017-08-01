@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  president_id: 1
+  vice_president_id: 1
+  accountant_id: 1
+  secretary_id: 1
+  member_one: 1
+  member_two: 1
+  member_three: 1
+  vote_count: 1
+  selection_id: 1
+
+two:
+  president_id: 1
+  vice_president_id: 1
+  accountant_id: 1
+  secretary_id: 1
+  member_one: 1
+  member_two: 1
+  member_three: 1
+  vote_count: 1
+  selection_id: 1

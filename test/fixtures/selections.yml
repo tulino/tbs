@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start_list_creation_date: 2017-07-24 15:43:55
+  end_list_creation_date: 2017-07-24 15:43:55
+  allow_list_creation: false
+  start_selection_date: 2017-07-24 15:43:55
+  end_selection_date: 2017-07-24 15:43:55
+  allow_selection: false
+
+two:
+  start_list_creation_date: 2017-07-24 15:43:55
+  end_list_creation_date: 2017-07-24 15:43:55
+  allow_list_creation: false
+  start_selection_date: 2017-07-24 15:43:55
+  end_selection_date: 2017-07-24 15:43:55
+  allow_selection: false

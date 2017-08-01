@@ -1,0 +1,56 @@
+<div class="row">
+  <%= render 'home/navbarDefault' %>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <ol class="breadcrumb">
+      <li><%= link_to 'Anasayfa', root_path %></li>
+      <li class="active">Seçimler</li>
+    </ol>
+    <div class="panel panel-default">
+      <div class="panel-heading clearfix">
+        <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Seçimler</h4>
+        <div class="btn-group pull-right">
+          <%= link_to 'Yeni Seçim Oluştur', new_selection_path, class: "btn btn-default btn-sm" %>
+        </div>
+      </div>
+      <div class="panel-body">
+        <table class="table table-hover" id="selection_table">
+          <thead>
+            <tr>
+              <th>Liste Başlangıç Tarihi</th>
+              <th>Liste Oluşturulabilsin</th>
+              <th>Seçim Başlangıç Tarihi</th>
+              <th>Seçim Yapılabilsin</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @selections.each do |selection| %>
+              <tr>
+                <td><%= selection.start_list_creation_date.strftime('%d/%m/%Y - %H:%M') %></td>
+                <td><%= selection.allow_list_creation ? "Evet" : "Hayır" %></td>
+                <td><%= selection.start_selection_date.strftime('%d/%m/%Y - %H:%M') %></td>
+                <td><%= selection.allow_selection ? "Evet" : "Hayır" %></td>
+                <td>
+                  <div class="btn-group">
+                    <%= link_to 'Listeler', selection_lists_path(selection), :class => "btn btn-default" %>
+                    <div class="btn-group">
+                      <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button"></i> Seçim İşlemleri <span class="caret"></span></button>
+                      <ul class="dropdown-menu">
+                        <li><%= link_to 'Seçim Detayı', selection %></li>
+                        <li><%= link_to 'Seçimi Düzenle', edit_selection_path(selection) %></li>
+                        <li><%= link_to 'Seçimi Sil', selection, method: :delete, data: { confirm: 'Bu seçimi silmek istediğinize emin misiniz?' } %></li>
+                      </ul>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>

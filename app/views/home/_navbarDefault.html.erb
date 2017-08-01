@@ -24,6 +24,7 @@
                   <li><%= link_to "Topluluk Ayarları", club_settings_path  %></li>
                   <li><%= link_to "Yönetim Kurulları", club_board_of_directors_path %></li>
                   <li><%= link_to "Denetim Kurulları", club_board_of_supervisories_path %></li>
+                  <li><%= link_to "Seçimler", selections_path %></li>
                   <li role="separator" class="divider"></li>
                   <li><%= link_to "Etkinlik Yerleri", event_locations_path %></li>
                   <li><%= link_to "Etkinlik Kategorileri", event_categories_path  %></li>
@@ -34,6 +35,7 @@
                   <li role="separator" class="divider"></li>
                   <li><%= link_to "Akademik Dönem Tanımları", academic_periods_path  %></li>
                   <% elsif current_user.advisor? %>
+                  <li><%= link_to "Seçimler", selections_path %></li>
                   <li><%= link_to "Duyurular", announcements_path %></li>
                   <li><%= link_to "Slide Ayarları", club_slides_path %></li>
                   <% elsif current_user.president? %>

@@ -1,0 +1,66 @@
+<%= simple_form_for @list, url: {controller: "lists", action: "create"} do |f| %>
+<%= f.error_notification %>
+
+<div class="form-inputs">
+  <% @club_member_list = @selection.club.active_club_period.roles.map { |role| [role.user.name_surname, role.user.id]  } || []%>
+  <div class="row form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-3">Başkan</label>
+    <div class="col-md-6 col-sm-6 col-xs-6">
+      <%= f.input :president_id, :collection => @club_member_list, label: false , :input_html => { :class => "club_directors" } %>
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-3 ">
+    </div>
+  </div>
+  <div class="row form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-3">Başkan Yardımcısı</label>
+    <div class="col-md-6 col-sm-6 col-xs-6">
+      <%= f.input :vice_president_id, :collection => @club_member_list, label: false , :input_html => { :class => "club_directors" } %>
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-3 ">
+    </div>
+  </div>
+  <div class="row form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-3">Sayman</label>
+    <div class="col-md-6 col-sm-6 col-xs-6">
+      <%= f.input :accountant_id, :collection => @club_member_list, label: false , :input_html => { :class => "club_directors" } %>
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-3 ">
+    </div>
+  </div>
+  <div class="row form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-3">Sekreter</label>
+    <div class="col-md-6 col-sm-6 col-xs-6">
+      <%= f.input :secretary_id, :collection => @club_member_list, label: false , :input_html => { :class => "club_directors" } %>
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-3 ">
+    </div>
+  </div>
+  <div class="row form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-3">1. Üye</label>
+    <div class="col-md-6 col-sm-6 col-xs-6">
+      <%= f.input :member_one, :collection => @club_member_list , label: false, :input_html => { :class => "club_directors" } %>
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-3 ">
+    </div>
+  </div>
+  <div class="row form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-3">2. Üye</label>
+    <div class="col-md-6 col-sm-6 col-xs-6">
+      <%= f.input :member_two, :collection => @club_member_list, label: false , :input_html => { :class => "club_directors" } %>
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-3 ">
+    </div>
+  </div>
+  <div class="row form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-3">3. Üye</label>
+    <div class="col-md-6 col-sm-6 col-xs-6">
+      <%= f.input :member_three, :collection => @club_member_list, label: false , :input_html => { :class => "club_directors" } %>
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-3 ">
+    </div>
+  </div>
+</div>
+<div class="form-actions">
+  <%= f.submit "Kaydet", class: "btn btn-success" %>
+</div>
+<% end %>

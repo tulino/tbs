@@ -1,0 +1,66 @@
+<div class="row">
+  <%= render 'home/navbarDefault' %>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <ol class="breadcrumb">
+      <li><%= link_to 'Anasayfa', root_path %></li>
+      <li><%= link_to 'Seçimler', selections_path %></li>
+      <li class="active">Seçim Detayı</li>
+    </ol>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Seçim Detayı</h3>
+      </div>
+      <div class="panel-body">
+        <p>
+          <strong>President:</strong>
+          <%= @list.president_id %>
+        </p>
+
+        <p>
+          <strong>Vice president:</strong>
+          <%= @list.vice_president_id %>
+        </p>
+
+        <p>
+          <strong>Accountant:</strong>
+          <%= @list.accountant_id %>
+        </p>
+
+        <p>
+          <strong>Secretary:</strong>
+          <%= @list.secretary_id %>
+        </p>
+
+        <p>
+          <strong>Member one:</strong>
+          <%= @list.member_one %>
+        </p>
+
+        <p>
+          <strong>Member two:</strong>
+          <%= @list.member_two %>
+        </p>
+
+        <p>
+          <strong>Member three:</strong>
+          <%= @list.member_three %>
+        </p>
+
+        <p>
+          <strong>Vote count:</strong>
+          <%= @list.vote_count %>
+        </p>
+
+        <p>
+          <strong>Selection:</strong>
+          <%= @list.selection_id %>
+        </p>
+        <br />
+        <%= link_to 'Düzenle', edit_selection_list_path(@selection, @list), class: "btn btn-success" %> |
+        <%= link_to 'Geri', selection_lists_path(@selection), class: "btn btn-info" %>
+      </div>
+    </div>
+  </div>
+</div>

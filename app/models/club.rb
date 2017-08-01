@@ -7,6 +7,7 @@ class Club < ActiveRecord::Base
   has_many :users, through: :roles_users
   has_many :club_slides
   has_many :black_list
+  has_many :selections
 
   def self.search(query)
     where('lower(name) like ?', "%#{query}%".downcase)
