@@ -129,7 +129,10 @@ class RolesController < ApplicationController
   end
 
   def role_params
-    params.require(:role).permit(:user_id, :faculty_id, :appointment_date, :club_period_id, :role_type_id, :status, :explanation)
+    params.require(:role).permit(
+      :user_id, :faculty_id, :appointment_date, :club_period_id,
+      :role_type_id, :status, :explanation, :club_id, :membership_start_date, :membership_end_date
+    )
   end
 
   def create_role(role)
