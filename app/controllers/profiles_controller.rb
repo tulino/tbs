@@ -13,5 +13,6 @@ class ProfilesController < ApplicationController
     @profile.adress = params[:profile][:adress]
     @profile.save ? flash[:success] = 'Profil başarıyla güncellenmiştir' : flash[:error] = 'Profil güncellenirken hata oluştu, yeniden deneyiniz'
     redirect_to :back
+    authorize @profile
   end
 end
