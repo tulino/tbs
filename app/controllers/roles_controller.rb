@@ -94,7 +94,7 @@ class RolesController < ApplicationController
   def club_member_role?(role, role_type_member_id)
     Role.where(
       role_type_id: role_type_member_id,
-      club_period_id: role.club_period_id,
+      club_id: role.club_id,
       user_id: role.user_id).any?
   end
 

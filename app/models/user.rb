@@ -38,10 +38,14 @@ class User < ActiveRecord::Base
                 status: true).present?
   end
 
-  def member?(club_period_id = active_club_periods)
-    roles.where(club_period_id: club_period_id,
+  def member?(club_id = Club.all)
+    roles.where(club_id: club_id,
                 role_type_id: RoleType.member_id,
                 status: true).present?
+  end
+
+  def member_wait_for_approval?(club_id)
+    roles.find_by(club_id: club_id, status: false)
   end
 
   def dean?
@@ -103,11 +107,11 @@ class User < ActiveRecord::Base
     user.admin? || user.advisor? || user.president? || user.vice_advisor? unless user.blank?
   end
 
-  def member_block_request(club)
-    BlackList.find_by(club_id: club.id, user_id: id)
+  def member_block_request(club_id)
+    Role.find_by(club_id: club_id, user_id: id)
   end
 
-  def member_blocked?(club)
-    member_block_request(club).try(:approved)
+  def member_blocked?(club_id)
+    member_block_request(club_id).try(:status)
   end
 end

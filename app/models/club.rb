@@ -16,4 +16,11 @@ class Club < ActiveRecord::Base
     academic_period_id ||= AcademicPeriod.active_period_id
     club_periods.find_by(academic_period_id: academic_period_id)
   end
+
+  def members
+    Role.where(
+      club_id: id,
+      status: 1,
+      role_type_id: RoleType.member_id)
+  end
 end

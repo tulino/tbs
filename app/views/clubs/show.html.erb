@@ -40,14 +40,14 @@
   </div>
 </div>
 <% else %>
-<div class="row">
+<div class="row no-print">
   <%= render 'home/navbarDefault' %>
 </div>
 <div class="row">
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div class="page-header">
+        <div class="page-header no-print">
           <div class="row">
             <div class="col-md-9" style="margin-top:-50px;">
               <div class="row">
@@ -70,45 +70,34 @@
               <% end %>
               <div style="margin-top: 10px">
                 <% if user_signed_in? %>
-                <% unless current_user.advisor? %>
-                <% if !@club_period.club.club_setting.is_active %>
-                <span class="btn btn-danger btn-block">Topluluk Aktif Değil</span>
-                <% elsif current_user.member?(@club_period) %>
-                <div class="row">
-                  <div class="col-md-6">
-                    <span class="btn btn-success btn-block">Üyesiniz</span>
-                  </div>
-                  <div class="col-md-6">
-                    <%= link_to 'Üyelikten Çık', role_path(@role), method: :delete, data: { confirm: 'Üyelikten çıkmak istediğinize emin misin?' }, :class =>"btn btn-info btn-block" %>
-                  </div>
-                </div>
-                <% elsif current_user.profile.crime %>
-                  <span class="label label-warning">Disiplin cezanız olduğu için topluluğa üye olmazsınız</span>
-                <% elsif @club_member_program_error %>
-                  <span class="label label-warning">Bu mesleki topluluğa üye olamazsınız</span>
-                <% elsif @member_blocked %>
-                  <span class="label label-warning">Bu topluluğa üye olamazsınız</span>
+                  <% unless current_user.advisor? %>
+                    <% if !@club_period.club.club_setting.is_active %>
+                      <span class="btn btn-danger btn-block">Topluluk Aktif Değil</span>
+                    <% elsif current_user.member_wait_for_approval?(@club.id) %>
+                      <a href="#new_member" data-toggle="pill" class="btn btn-success btn-block">Üyeliğiniz Onay Bekliyor</a>
+                      <span class="label label-warning">Yazıcı çıktısı için <a href="#new_member" data-toggle="pill">tıklayınız.</a></span>
+                    <% elsif current_user.member?(@club.id) %>
+                      <span class="btn btn-success btn-block">Üyesiniz</span>
+                    <% elsif current_user.profile.crime %>
+                      <span class="label label-warning">Disiplin cezanız olduğu için topluluğa üye olmazsınız</span>
+                    <% elsif @club_member_program_error %>
+                      <span class="label label-warning">Bu mesleki topluluğa üye olamazsınız</span>
+                    <% elsif @member_blocked %>
+                      <span class="label label-warning">Bu topluluğa üye olamazsınız</span>
+                    <% else %>
+                      <a href="#new_member" data-toggle="pill" class="btn btn-success btn-block">Topluluğa Katıl</a>
+                    <% end %>
+                  <% end %>
                 <% else %>
-                  <%= link_to 'Topluluğa Katıl', "", :onclick => "$('#member_to_club').submit()", :class => "btn btn-success btn-block" %>
-
-                <%= simple_form_for(@role, :html => {:id => 'member_to_club' }) do |f| %>
-                <%= f.error_notification %>
-                <%= f.input :role_type_id, :as => :hidden, :input_html => { :value => RoleType.find_by(name: "Üye").id }  %>
-                <%= f.input :user_id, :as => :hidden, :input_html => { :value => current_user.id } %>
-                <%= f.input :club_period_id, :as => :hidden, :input_html => { :value => ( @club_period.present? ? @club_period.id : nil ) } %>
-                <% end %>
-                <% end %>
-                <% end %>
-                <% else %>
-                <span class="btn btn-success btn-block" disabled="disabled">Topluluğa Katıl</span>
-                <a href="#" role="button" data-toggle="modal" data-target="#login-modal" class="label label-warning">Giriş yapmanız gerekiyor</a>
+                  <span class="btn btn-success btn-block" disabled="disabled">Topluluğa Katıl</span>
+                  <a href="#" role="button" data-toggle="modal" data-target="#login-modal" class="label label-warning">Giriş yapmanız gerekiyor</a>
                 <% end %>
               </div>
             </div>
           </div>
         </div>
         <% if @club.club_slides %>
-        <div class="row">
+        <div class="row no-print">
           <div class="col-md-12 ">
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
               <!-- Indicators -->
@@ -131,7 +120,7 @@
         <% end %>
         <br />
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-3 no-print">
             <div class="panel">
               <div class="panel-heading">
                 <h4 class="panel-title">Topluluk Bilgileri</h4>
@@ -152,7 +141,7 @@
                 </ul>
               </div>
             </div>
-            <div class="panel">
+            <div class="panel no-print">
               <div class="panel-heading">
                 <div class="col-md-4">
                   <h4 class="panel-title">İletişim</h4>
@@ -177,7 +166,7 @@
           </div>
           <div id="club_public" class="col-md-9">
             <section class="team">
-              <div class="container">
+              <div class="container no-print">
                 <div class="row">
                   <div class="col-md-9">
                     <div class="col-lg-9">
@@ -190,9 +179,9 @@
                 </div>
               </div>
             </section>
-            <section class="team">
+            <section class="team no-print">
               <div class="container">
-                <div class="row">
+                <div class="row ">
                   <div class="col-md-9">
                     <div class="col-lg-9">
                       <h6 class="description">Duyurular</h6>
@@ -231,9 +220,10 @@
               </div>
             </section>
             <div class="tab-content" id="club_partial">
-              <div class="tab-pane" id="club_member"><%= render 'member' ,:club => @club %></div>
+              <div class="tab-pane" id="club_member"><%= render 'member', :club => @club %></div>
               <div class="tab-pane" id="club_supervisor"><%= render 'supervisor' %></div>
               <div class="tab-pane" id="club_director"><%= render 'director' %></div>
+              <div class="tab-pane" id="new_member"><%= render 'new_member', :club => @club if user_signed_in? %></div>
             </div>
           </div>
         </div>

@@ -51,7 +51,7 @@ class ClubsController < ApplicationController
       @club_view_board_of_supervisor = @club_period.club_board_of_supervisory.present?
       @club_announcements = @club_period.announcements.where(is_view: true)
     end
-    @club_members = @club_period.club_members
+    @club_members = @club.members
     @club_member_program_error = member_program_error?(@club, current_user)
     @member_blocked = current_user.present? && current_user.member_blocked?(@club)
   end
