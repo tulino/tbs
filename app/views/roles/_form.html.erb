@@ -48,15 +48,20 @@
       </div>
   <% end %>
     <div class="row form-group">
-      <label class="control-label col-md-3 col-sm-3 col-xs-3">Üyelik iptal talebi açıklaması</label>
+      <label class="control-label col-md-3 col-sm-3 col-xs-3">Üyelik kabul / iptal talebi açıklaması(Yönetim kurulu karar no / açıklama şeklinde giriniz)</label>
       <div class="col-md-6 col-sm-6 col-xs-6">
-        <%= f.input :explanation, label: false %>
+        <%= f.input :explanation, label: false, as: :text %>
       </div>
       <div class="col-md-3 col-sm-3 col-xs-3 ">
-        <%= f.input :status, label: "Topluluk üyeliği aktif" %>
+        <%= f.input :status, label: "Topluluk üyeliği aktif", input_html: {id: "status"} %>
       </div>
     </div>
-  </div>
+    <div class="row form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-3">Üyelik Bitiş Tarihi</label>
+      <div class="col-md-6 col-sm-6 col-xs-6">
+        <%= f.input :membership_end_date, include_blank: true, label: false %>
+      </div>
+    </div>
   <div class="form-actions">
     <%= f.submit "Kaydet", class: "btn btn-success" %>
   </div>
@@ -113,5 +118,4 @@ function Secim() {
     document.getElementById('fakulte').style.display = 'none';
   }
 }
-
 </script>

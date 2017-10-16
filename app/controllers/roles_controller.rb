@@ -8,8 +8,8 @@ class RolesController < ApplicationController
   end
 
   def club_users
-    club_period = current_user.president_or_advisor_club_period
-    @roles = club_period.club_members
+    club = current_user.president_or_advisor_club_period.club
+    @roles = club.all_members
     authorize @roles
   end
 
@@ -41,7 +41,7 @@ class RolesController < ApplicationController
     authorize @role
     respond_to do |format|
       if @role.update(role_params)
-        format.html { redirect_to @role, notice: 'Kullanıcı rolünü başarıyla güncellediniz.' }
+        format.html { redirect_to :back, notice: 'Kullanıcı rolünü başarıyla güncellediniz.' }
         format.json { render :show, status: :ok, location: @role }
       else
         format.html { render :edit }

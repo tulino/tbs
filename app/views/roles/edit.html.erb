@@ -18,7 +18,7 @@
         <% if current_user.admin? %>
         <%= link_to 'Göster', @role, class: "btn btn-success" %> |
         <% end %>
-        <%= link_to 'Geri', :back, class: "btn btn-info" %>
+        <%= link_to 'Üyeler', club_users_path, class: "btn btn-info" %>
         <br />
       </div>
     </div>

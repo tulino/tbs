@@ -85,7 +85,9 @@
                     <% elsif @member_blocked %>
                       <span class="label label-warning">Bu topluluğa üye olamazsınız</span>
                     <% else %>
+                      <% unless current_user.admin? || current_user.advisor? %>
                       <a href="#new_member" data-toggle="pill" class="btn btn-success btn-block">Topluluğa Katıl</a>
+                      <% end %>
                     <% end %>
                   <% end %>
                 <% else %>
@@ -223,7 +225,7 @@
               <div class="tab-pane" id="club_member"><%= render 'member', :club => @club %></div>
               <div class="tab-pane" id="club_supervisor"><%= render 'supervisor' %></div>
               <div class="tab-pane" id="club_director"><%= render 'director' %></div>
-              <div class="tab-pane" id="new_member"><%= render 'new_member', :club => @club if user_signed_in? %></div>
+              <div class="tab-pane" id="new_member"><%= render 'new_member', :club => @club if user_signed_in? && !current_user.admin? && !current_user.advisor?%></div>
             </div>
           </div>
         </div>

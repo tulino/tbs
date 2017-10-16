@@ -55,6 +55,7 @@
   <%= f.input :user_id, :as => :hidden, :input_html => { value: current_user.id } %>
   <%= f.input :club_id, :as => :hidden, :input_html => { value: @club.id } %>
   <%= f.input :status, :as => :hidden, :input_html => { value: 0 } %>
+  <%= f.input :membership_start_date, :as => :hidden, :input_html => { value: DateTime.now } %>
   <%= f.submit "Topluluğa Katıl", class: "btn btn-success no-print" %>
   <% end %>
 <% else %>

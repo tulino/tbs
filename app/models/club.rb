@@ -23,4 +23,10 @@ class Club < ActiveRecord::Base
       status: 1,
       role_type_id: RoleType.member_id)
   end
+
+  def all_members
+    Role.where(
+      club_id: id,
+      role_type_id: RoleType.member_id)
+  end
 end
