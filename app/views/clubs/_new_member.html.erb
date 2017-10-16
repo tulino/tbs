@@ -22,7 +22,7 @@
         </tr>
         <tr>
           <td>Öğrenci No</td>
-          <td><%= current_user.ubs_no %></td>
+          <td><%= current_user.ubs_no[1..current_user.ubs_no.length] %></td>
         </tr>
         <tr>
           <td>Fakülte / Yüksekokul</td>
