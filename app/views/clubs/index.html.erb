@@ -42,8 +42,7 @@
               <td class="center">
                 <%= club.club_category.name %></td>
               <td class="center">
-                <% active_club_period = club.active_club_period %>
-                <%= @all_members_count[active_club_period.id] || 0 %>
+                <%= club.members.count %>
               <td class="center">
                 <%= club.club_setting.is_active ? "<span class='label label-success'>Aktif</span>".html_safe : "<span class='label label-danger'>Pasif</span>".html_safe %></td>
               <td class="center">
@@ -98,7 +97,7 @@
                   <td></td>
                   <td> <%= link_to club.name, club %> </td>
                   <td> <%= club.club_category.name %> </td>
-                  <td> <%= @all_members_count[active_club_period.id] || 0 %> </td>
+                  <td> <%= club.members.count %> </td>
                 </tr>
               <% end %>
             </tbody>
@@ -123,7 +122,7 @@
                     <td></td>
                     <td> <%= link_to club.name, club %> </td>
                     <td> <%= club.club_category.name %> </td>
-                    <td> <%= @all_members_count[active_club_period.id] || 0 %> </td>
+                    <td> <%= club.members.count %> </td>
                     <td> <%= club.club_setting.is_active ? "<span class='label label-success'>Aktif</span>".html_safe : "<span class='label label-danger'>Pasif</span>".html_safe %> </td>
                   </tr>
                 <% end %>
