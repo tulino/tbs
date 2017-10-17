@@ -22,7 +22,7 @@
         </tr>
         <tr>
           <td>Öğrenci No</td>
-          <td><%= current_user.ubs_no[1..current_user.ubs_no.length] %></td>
+          <td><%= current_user.ubs_no[1..-1] %></td>
         </tr>
         <tr>
           <td>Fakülte / Yüksekokul</td>
@@ -51,12 +51,13 @@
 </div>
 <% unless current_user.member_wait_for_approval?(@club.id) %>
   <%= simple_form_for(@role = Role.new) do |f| %>
-  <%= f.input :role_type_id, :as => :hidden, :input_html => { value: RoleType.member_id }  %>
-  <%= f.input :user_id, :as => :hidden, :input_html => { value: current_user.id } %>
-  <%= f.input :club_id, :as => :hidden, :input_html => { value: @club.id } %>
-  <%= f.input :status, :as => :hidden, :input_html => { value: 0 } %>
-  <%= f.input :membership_start_date, :as => :hidden, :input_html => { value: DateTime.now } %>
-  <%= f.submit "Topluluğa Katıl", class: "btn btn-success no-print" %>
+    <%= f.input :role_type_id, :as => :hidden, :input_html => { value: RoleType.member_id }  %>
+    <%= f.input :user_id, :as => :hidden, :input_html => { value: current_user.id } %>
+    <%= f.input :club_id, :as => :hidden, :input_html => { value: @club.id } %>
+    <%= f.input :status, :as => :hidden, :input_html => { value: 0 } %>
+    <%= f.input :membership_start_date, :as => :hidden, :input_html => { value: DateTime.now } %>
+    
+    <%= f.submit "Topluluğa Katıl", class: "btn btn-success no-print" %>
   <% end %>
 <% else %>
   <%= link_to 'Yazdır', '', class: "btn btn-warning no-print", onclick: 'window.print();return false;' %>

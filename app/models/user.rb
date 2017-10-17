@@ -9,10 +9,10 @@ class User < ActiveRecord::Base
   has_many :assistant_consultants
   has_one  :profile, dependent: :destroy
   has_many :black_list
-  
+
   # validations
   validates :image, file_size: { maximum: 10.megabytes.to_i }
-  
+
   # uploaders
   mount_uploader :image, ImageUploader
 
@@ -38,8 +38,8 @@ class User < ActiveRecord::Base
                 status: true).present?
   end
 
-  def member?(club_id = Club.all)
-    roles.where(club_id: club_id,
+  def member?(club_id)
+    roles.where(club_id: club_id || Club.all,
                 role_type_id: RoleType.member_id,
                 status: true).present?
   end
