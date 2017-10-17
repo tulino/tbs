@@ -139,7 +139,7 @@ class RolesController < ApplicationController
     respond_to do |format|
       if role.save
         path = 'back'.to_sym
-        notice_message = 'Topluluğa başarıyla üye oldunuz.'
+        notice_message = 'Topluluğa başarıyla üyelik işleminizi başlattınız.'
         if current_user.admin? && !(request.referer.include? '/clubs/')
           path = roles_url
           notice_message = 'Kullanıcıya rol ataması başarıyla yapıldı.'

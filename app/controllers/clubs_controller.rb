@@ -9,7 +9,7 @@ class ClubsController < ApplicationController
       @clubs = Club.search(params[:search]).order('name ASC')
     else
       @clubs = Club.order('name ASC').includes(:club_setting, :club_category)
-      club_ids_of_current_user = current_user.present? && current_user.roles ? current_user.roles.map(&:club_id).compact : []
+      club_ids_of_current_user = current_user.present? && current_user.roles ? current_user.roles.where(status: true).map(&:club_id).compact : []
       @clubs_of_current_user = Club.where(id: club_ids_of_current_user)
     end
 
