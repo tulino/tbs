@@ -44,7 +44,7 @@ module Ubs
       program_id: params['program_id'],
       crime: params['crime'].present?
     )
-    return user
+    user
   end
 
   def self.active_academic_control(tc_no)
