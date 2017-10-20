@@ -111,7 +111,7 @@ class RolesController < ApplicationController
   # Başka bir toplulukta yönetim ya da denetim kurulunda mı?
   def another_member_of_the_board?(role, all_active_period_ids)
     all_board_users = ClubBoardOfSupervisory.where(club_period_id: all_active_period_ids) +
-        ClubBoardOfDirector.where(club_period_id: all_active_period_ids)
+                      ClubBoardOfDirector.where(club_period_id: all_active_period_ids)
     all_board_users.map do |club_board|
       club_board.attributes.except('id', 'club_period_id').values.include?(role.user_id).any?
     end
