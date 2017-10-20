@@ -17,6 +17,10 @@ class AnnouncementPolicy < ApplicationPolicy
     @user.admin? || @user.advisor?(@record.club_period.id) || @user.president?(@record.club_period.id)
   end
 
+  def new?
+    @user.admin? || @user.present?
+  end
+
   def create?
     @user.admin? || @user.advisor?(@record.club_period.id) || @user.president?(@record.club_period.id)
   end
