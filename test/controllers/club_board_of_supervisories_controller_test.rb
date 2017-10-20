@@ -50,7 +50,6 @@ class ClubBoardOfSupervisoriesControllerTest < ActionController::TestCase
     assert_difference('ClubBoardOfSupervisory.count', -1) do
       delete :destroy, params: { id: @club_board_of_supervisory }
     end
-
     assert_redirected_to club_board_of_supervisories_path
   end
 end
