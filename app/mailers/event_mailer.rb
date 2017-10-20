@@ -11,13 +11,13 @@ class EventMailer < ActionMailer::Base
     return unless user.try(:profile).try(:email).present?
     @user = user
     @event = event
-    mail(to: @user.profile.email, subject: "Onay Bekleyen Etkinlik")
+    mail(to: @user.profile.email, subject: 'Onay Bekleyen Etkinlik')
   end
 
   def approval_admin_event(event)
     @event = event
     admin_users.each do |email|
-      mail(to: email, subject: "Onay Bekleyen Etkinlik")
+      mail(to: email, subject: 'Onay Bekleyen Etkinlik')
     end
   end
 end
