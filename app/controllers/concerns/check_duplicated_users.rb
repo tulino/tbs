@@ -11,7 +11,7 @@ module CheckDuplicatedUsers
     duplicated_users = get_duplicated_users(
         all_board_users,
         params[:club_board_params]
-      )
+    )
     return unless duplicated_users.any?
     concat_duplicated_user_names(duplicated_users)
   end
