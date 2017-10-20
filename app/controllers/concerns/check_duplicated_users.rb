@@ -1,5 +1,4 @@
 module CheckDuplicatedUsers
-
   # Başka toplulukta yönetim kurulunda ya da denetim kurulunda olanların tespiti
   def get_duplicated_user_names(params)
     params = { action: '' }.merge(params)
