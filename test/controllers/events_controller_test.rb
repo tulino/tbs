@@ -18,30 +18,30 @@ class EventsControllerTest < ActionController::TestCase
 
   test 'should create event' do
     assert_difference('Event.count') do
-      post :create, event: {}
+      post :create, params: { event: {} }
     end
 
     assert_redirected_to event_path(assigns(:event))
   end
 
   test 'should show event' do
-    get :show, id: @event
+    get :show, params: { id: @event }
     assert_response :success
   end
 
   test 'should get edit' do
-    get :edit, id: @event
+    get :edit, params: { id: @event }
     assert_response :success
   end
 
   test 'should update event' do
-    patch :update, id: @event, event: {}
+    patch :update, params: { id: @event, event: {} }
     assert_redirected_to event_path(assigns(:event))
   end
 
   test 'should destroy event' do
     assert_difference('Event.count', -1) do
-      delete :destroy, id: @event
+      delete :destroy, params: { id: @event }
     end
 
     assert_redirected_to events_path

@@ -18,30 +18,30 @@ class ClubCategoriesControllerTest < ActionController::TestCase
 
   test 'should create club_category' do
     assert_difference('ClubCategory.count') do
-      post :create, club_category: { name: @club_category.name }
+      post :create, params: { club_category: { name: @club_category.name } }
     end
 
     assert_redirected_to club_category_path(assigns(:club_category))
   end
 
   test 'should show club_category' do
-    get :show, id: @club_category
+    get :show, params: { id: @club_category }
     assert_response :success
   end
 
   test 'should get edit' do
-    get :edit, id: @club_category
+    get :edit, params: { id: @club_category }
     assert_response :success
   end
 
   test 'should update club_category' do
-    patch :update, id: @club_category, club_category: { name: @club_category.name }
+    patch :update, params: { id: @club_category, club_category: { name: @club_category.name } }
     assert_redirected_to club_category_path(assigns(:club_category))
   end
 
   test 'should destroy club_category' do
     assert_difference('ClubCategory.count', -1) do
-      delete :destroy, id: @club_category
+      delete :destroy, params: { id: @club_category }
     end
 
     assert_redirected_to club_categories_path

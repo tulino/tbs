@@ -18,30 +18,30 @@ class BlackListsControllerTest < ActionController::TestCase
 
   test 'should create black_list' do
     assert_difference('BlackList.count') do
-      post :create, black_list: { approve: @black_list.approve, club_id: @black_list.club_id, explanation: @black_list.explanation, user_id: @black_list.user_id }
+      post :create, params: { black_list: { approve: @black_list.approve, club_id: @black_list.club_id, explanation: @black_list.explanation, user_id: @black_list.user_id } }
     end
 
     assert_redirected_to black_list_path(assigns(:black_list))
   end
 
   test 'should show black_list' do
-    get :show, id: @black_list
+    get :show, params: { id: @black_list }
     assert_response :success
   end
 
   test 'should get edit' do
-    get :edit, id: @black_list
+    get :edit, params: { id: @black_list }
     assert_response :success
   end
 
   test 'should update black_list' do
-    patch :update, id: @black_list, black_list: { approve: @black_list.approve, club_id: @black_list.club_id, explanation: @black_list.explanation, user_id: @black_list.user_id }
+    patch :update, params: { id: @black_list, black_list: { approve: @black_list.approve, club_id: @black_list.club_id, explanation: @black_list.explanation, user_id: @black_list.user_id } }
     assert_redirected_to black_list_path(assigns(:black_list))
   end
 
   test 'should destroy black_list' do
     assert_difference('BlackList.count', -1) do
-      delete :destroy, id: @black_list
+      delete :destroy, params: { id: @black_list }
     end
 
     assert_redirected_to black_lists_path

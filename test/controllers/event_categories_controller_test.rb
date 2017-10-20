@@ -18,30 +18,30 @@ class EventCategoriesControllerTest < ActionController::TestCase
 
   test 'should create event_category' do
     assert_difference('EventCategory.count') do
-      post :create, event_category: { name: @event_category.name }
+      post :create, params: { event_category: { name: @event_category.name } }
     end
 
     assert_redirected_to event_category_path(assigns(:event_category))
   end
 
   test 'should show event_category' do
-    get :show, id: @event_category
+    get :show, params: { id: @event_category }
     assert_response :success
   end
 
   test 'should get edit' do
-    get :edit, id: @event_category
+    get :edit, params: { id: @event_category }
     assert_response :success
   end
 
   test 'should update event_category' do
-    patch :update, id: @event_category, event_category: { name: @event_category.name }
+    patch :update, params: { id: @event_category, event_category: { name: @event_category.name } }
     assert_redirected_to event_category_path(assigns(:event_category))
   end
 
   test 'should destroy event_category' do
     assert_difference('EventCategory.count', -1) do
-      delete :destroy, id: @event_category
+      delete :destroy, params: { id: @event_category }
     end
 
     assert_redirected_to event_categories_path
