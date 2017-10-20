@@ -86,13 +86,13 @@ class BlackListsController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_black_list
-      @black_list = BlackList.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_black_list
+    @black_list = BlackList.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def black_list_params
-      params.require(:black_list).permit(:club_id, :user_id, :approve, :explanation)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def black_list_params
+    params.require(:black_list).permit(:club_id, :user_id, :approve, :explanation)
+  end
 end
