@@ -53,7 +53,7 @@ class RolesController < ApplicationController
   def destroy
     authorize @role
     @role.destroy
-    notice_message = 
+    notice_message =
       if current_user.admin?
         'Kullanıcıya atanmış rolü başarıyla iptal ettiniz.'
       else

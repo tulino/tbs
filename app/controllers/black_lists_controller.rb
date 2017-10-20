@@ -43,7 +43,7 @@ class BlackListsController < ApplicationController
     authorize @black_list
     respond_to do |format|
       if @black_list.save
-        location = 
+        location =
           if current_user.admin?
             @black_list
           elsif current_user.president?
