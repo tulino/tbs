@@ -35,7 +35,14 @@ class ClubBoardOfSupervisoriesControllerTest < ActionController::TestCase
   end
 
   test 'should update club_board_of_supervisory' do
-    patch :update, params: { id: @club_board_of_supervisory, club_board_of_supervisory: { period_id: @club_board_of_supervisory.period_id, principal_member_one: @club_board_of_supervisory.principal_member_one, principal_member_three: @club_board_of_supervisory.principal_member_three, principal_member_two: @club_board_of_supervisory.principal_member_two, reserve_member_one: @club_board_of_supervisory.reserve_member_one, reserve_member_three: @club_board_of_supervisory.reserve_member_three, reserve_member_two: @club_board_of_supervisory.reserve_member_two } }
+    patch :update, params: { id: @club_board_of_supervisory, club_board_of_supervisory:
+     { period_id: @club_board_of_supervisory.period_id, principal_member_one:
+      @club_board_of_supervisory.principal_member_one, principal_member_three:
+      @club_board_of_supervisory.principal_member_three, principal_member_two:
+      @club_board_of_supervisory.principal_member_two, reserve_member_one:
+      @club_board_of_supervisory.reserve_member_one, reserve_member_three:
+      @club_board_of_supervisory.reserve_member_three, reserve_member_two:
+      @club_board_of_supervisory.reserve_member_two } }
     assert_redirected_to club_board_of_supervisory_path(assigns(:club_board_of_supervisory))
   end
 
