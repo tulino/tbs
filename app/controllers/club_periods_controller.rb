@@ -35,7 +35,7 @@ class ClubPeriodsController < ApplicationController
   def club_type
     @club_category = ClubPeriod.find(params[:id]).club.club_category.name
     respond_to do |format|
-      format.json { render :json => @club_category.to_json }
+      format.json { render json: @club_category.to_json }
     end
   end
 
