@@ -29,5 +29,4 @@ class FacultiesController < ApplicationController
     @faculty.destroy
     redirect_to :back
   end
-
 end
