@@ -57,7 +57,7 @@ module Ubs
 
   def self.control_academic(tc_no)
     result = staff_info(identifyNumber: tc_no)
-    return  unless result && result['state'].present? && result['state'] == '1'
+    return unless result && result['state'].present? && result['state'] == '1'
     full_name = "#{result['first_name']} #{result['last_name']}"
     email_name = full_name.parameterize.underscore
     user = User.create(
