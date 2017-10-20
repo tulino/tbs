@@ -95,7 +95,8 @@ class RolesController < ApplicationController
     Role.where(
       role_type_id: role_type_member_id,
       club_id: role.club_id,
-      user_id: role.user_id).any?
+      user_id: role.user_id
+    ).any?
   end
 
   # Başka bir toplulukta başkan mı?
@@ -103,7 +104,8 @@ class RolesController < ApplicationController
     Role.where(
       role_type_id: role_type_president_id,
       club_period_id: all_active_period_ids,
-      user_id: role.user_id).any?
+      user_id: role.user_id
+    ).any?
   end
 
   # Başka bir toplulukta yönetim ya da denetim kurulunda mı?
@@ -121,7 +123,8 @@ class RolesController < ApplicationController
       role_type_id: role_type_dean_id,
       club_period_id: all_active_period_ids,
       faculty_id: role.faculty_id,
-      user_id: role.user_id).any?
+      user_id: role.user_id
+    ).any?
   end
 
   def set_role
