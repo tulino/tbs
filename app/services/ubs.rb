@@ -12,7 +12,7 @@ module Ubs
   end
 
   def self.control_user(params)
-    user = User.find_by_ubs_no('o' + params['student_id'])
+    user = User.find_by(ubs_no: 'o' + params['student_id'])
     if user.present?
       user.profile.update(crime: params['crime'].present?)
       user.update(is_ubs_active: params['state_id'].present? && params['state_id'] == '905002')
@@ -49,7 +49,7 @@ module Ubs
 
   def self.active_academic_control(tc_no)
     result = staff_info(identifyNumber: tc_no)
-    academic_user = User.find_by_idnumber(result['idnumber'])
+    academic_user = User.find_by(idnumber: result['idnumber'])
     return   unless academic_user.present?
     academic_user.update(is_ubs_active: result['state'].present? && result['state'] == '1')
     result['state'].present? && result['state'] == '1'

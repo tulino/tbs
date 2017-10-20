@@ -5,12 +5,12 @@ class UsersController < ApplicationController
         params['ubs_no'] = 'o' + params['ubs_no']
       end
       if params['ubs_no'].length == 9 && (params['ubs_no'].start_with? 'o')
-        @user = User.find_by_ubs_no(params['ubs_no'])
+        @user = User.find_by(ubs_no: params['ubs_no'])
         @user = Ubs.control_student(params['ubs_no']) unless @user.present?
         if @user.present? && @user.is_ubs_active && !Role.where(club_period_id: params['club_id']).any? { |x| x.user_id == @user.id }
           @role = Role.new
           @role.role_type_id = RoleType.find_by(name: 'Üye').id
-          @role.user_id = User.find_by_ubs_no(params['ubs_no']).id
+          @role.user_id = User.find_by(ubs_no: params['ubs_no']).id
           @role.club_period_id = params['club_id'].to_i
           @role.save
         end
@@ -21,7 +21,7 @@ class UsersController < ApplicationController
         'Girdiğiniz öğrenci numarası hatalı'
       elsif params['club_id'].blank?
         'Lütfen önce topluluk seçiniz'
-      elsif !User.find_by_ubs_no(params['ubs_no']).is_ubs_active
+      elsif !User.find_by(ubs_no: params['ubs_no']).is_ubs_active
         'Öğrenci aktif olmadığı için eklenemedi!'
       end
     if @uyari.present?
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
 
   def find_personel
     if params['idnumber'].present? && params['club_id'].present?
-      @user = User.find_by_idnumber(params['idnumber'])
+      @user = User.find_by(idnumber: params['idnumber'])
       @user = Ubs.control_academic(params['idnumber']) unless @user.present?
     end
     @uyari =
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
         'Girdiğiniz Tc kimlik numarası hatalı'
       elsif params['club_id'].blank?
         'Lütfen önce topluluk seçiniz'
-      elsif User.find_by_idnumber(params['idnumber']).blank?
+      elsif User.find_by(idnumber: params['idnumber']).blank?
         'Akademik danışman aktif olmadığı için sisteme eklenmedi!'
       end
     if @uyari.present?

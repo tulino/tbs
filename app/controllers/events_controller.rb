@@ -25,7 +25,7 @@ class EventsController < ApplicationController
     elsif current_user.present? && current_user.member?
       @clubs_of_member_events = Event.member_club_events(current_user)
     elsif current_user.present? && current_user.dean?
-      current_facult_id = current_user.roles.where(role_type_id: RoleType.find_by_name('Dekan').id, status: true).first.faculty_id
+      current_facult_id = current_user.roles.where(role_type_id: RoleType.find_by(name: 'Dekan').id, status: true).first.faculty_id
       @pending_events = Event.where(faculty_id: current_facult_id).dean_pending_events
       @events = Event.approval_events
     else
