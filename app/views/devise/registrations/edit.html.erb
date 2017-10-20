@@ -20,16 +20,16 @@
 
     <%= avatar_or_not?(current_user, :show) %>
     <%= f.input :image, type: :file, label: "Fotoğraf:" %>
-    <%= f.input :password, autocomplete: "off", hint: "Değiştirmek istemiyorsan boş bırak", required: false %>
-    <%= f.input :password_confirmation, required: false %>
-    <%= f.input :current_password, hint: "Değişiklikleri onaylamak için şifrenize ihtiyaç var", required: true %>
+    <% unless current_user.president? || current_user.member? %>
+      <%= f.input :password, autocomplete: "off", hint: "Değiştirmek istemiyorsan boş bırak", required: false %>
+      <%= f.input :password_confirmation, required: false %>
+      <%= f.input :current_password, hint: "Değişiklikleri onaylamak için şifrenize ihtiyaç var", required: true %>
+    <% end %>
   </div>
-
   <div class="form-actions">
     <%= f.button :submit, "Kaydet" %>
   </div>
 <% end %>
-
 <p> <%= link_to "Hesabımı iptal et", registration_path(resource_name), data: { confirm: "Emin misin?" }, method: :delete %></p>
 
 <%= link_to "Geri", :back %>
