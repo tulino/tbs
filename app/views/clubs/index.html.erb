@@ -42,8 +42,7 @@
               <td class="center">
                 <%= club.club_category.name %></td>
               <td class="center">
-                <% active_club_period = club.active_club_period %>
-                <%= @all_members_count[active_club_period.id] || 0 %>
+                <%= club.members.count %>
               <td class="center">
                 <%= club.club_setting.is_active ? "<span class='label label-success'>Aktif</span>".html_safe : "<span class='label label-danger'>Pasif</span>".html_safe %></td>
               <td class="center">
@@ -74,7 +73,7 @@
         </li>
         <% if @clubs_of_current_user.any? %>
           <li>
-            <a href="#clubs_of_memnber" data-toggle="tab">Üye Olunan Topluluklar</a>
+            <a href="#clubs_of_member" data-toggle="tab">Üye Olunan Topluluklar</a>
           </li>
         <% end %>
       </ul>
@@ -93,18 +92,17 @@
             </thead>
             <tbody>
               <% @clubs.select { |c| c.club_setting.is_active }.each do |club| %>
-                <% active_club_period = club.active_club_period %>
                 <tr>
                   <td></td>
                   <td> <%= link_to club.name, club %> </td>
                   <td> <%= club.club_category.name %> </td>
-                  <td> <%= @all_members_count[active_club_period.id] || 0 %> </td>
+                  <td> <%= club.members.count %> </td>
                 </tr>
               <% end %>
             </tbody>
           </table>
         </div>
-        <div class="tab-pane fade" id="clubs_of_memnber">
+        <div class="tab-pane fade" id="clubs_of_member">
           <% if @clubs_of_current_user.any? %>
             <table class="table table-hover clubs_table_member">
               <thead>
@@ -118,12 +116,11 @@
               </thead>
               <tbody>
                 <% @clubs_of_current_user.each do |club| %>
-                  <% active_club_period = club.active_club_period %>
                   <tr>
                     <td></td>
                     <td> <%= link_to club.name, club %> </td>
                     <td> <%= club.club_category.name %> </td>
-                    <td> <%= @all_members_count[active_club_period.id] || 0 %> </td>
+                    <td> <%= club.members.count %> </td>
                     <td> <%= club.club_setting.is_active ? "<span class='label label-success'>Aktif</span>".html_safe : "<span class='label label-danger'>Pasif</span>".html_safe %> </td>
                   </tr>
                 <% end %>

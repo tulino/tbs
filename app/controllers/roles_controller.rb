@@ -8,8 +8,8 @@ class RolesController < ApplicationController
   end
 
   def club_users
-    club_period = current_user.president_or_advisor_club_period
-    @roles = club_period.club_members
+    club = current_user.president_or_advisor_club_period.club
+    @roles = club.all_members
     authorize @roles
   end
 
@@ -41,7 +41,7 @@ class RolesController < ApplicationController
     authorize @role
     respond_to do |format|
       if @role.update(role_params)
-        format.html { redirect_to @role, notice: 'Kullanıcı rolünü başarıyla güncellediniz.' }
+        format.html { redirect_to :back, notice: 'Kullanıcı rolünü başarıyla güncellediniz.' }
         format.json { render :show, status: :ok, location: @role }
       else
         format.html { render :edit }
@@ -94,7 +94,7 @@ class RolesController < ApplicationController
   def club_member_role?(role, role_type_member_id)
     Role.where(
       role_type_id: role_type_member_id,
-      club_period_id: role.club_period_id,
+      club_id: role.club_id,
       user_id: role.user_id).any?
   end
 
@@ -129,14 +129,17 @@ class RolesController < ApplicationController
   end
 
   def role_params
-    params.require(:role).permit(:user_id, :faculty_id, :appointment_date, :club_period_id, :role_type_id, :status, :explanation)
+    params.require(:role).permit(
+      :user_id, :faculty_id, :appointment_date, :club_period_id,
+      :role_type_id, :status, :explanation, :club_id, :membership_start_date, :membership_end_date
+    )
   end
 
   def create_role(role)
     respond_to do |format|
       if role.save
         path = 'back'.to_sym
-        notice_message = 'Topluluğa başarıyla üye oldunuz.'
+        notice_message = 'Topluluğa başarıyla üyelik işleminizi başlattınız.'
         if current_user.admin? && !(request.referer.include? '/clubs/')
           path = roles_url
           notice_message = 'Kullanıcıya rol ataması başarıyla yapıldı.'

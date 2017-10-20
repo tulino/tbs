@@ -58,12 +58,12 @@ $ ->
     "bPaginate": true,
     "pageLength": 10,
     "bProcessing": true,
-    "order": [[ 1, 'asc' ]],
+    "order": [[ 0, 'asc' ]],
     "columnDefs": [{
-              "targets": [1,2,3,4],
+              "targets": [0,1,2,3],
               "orderable": true
               },{
-              "targets": [0,5],
+              "targets": [5],
               "orderable": false
               }]
 

@@ -50,8 +50,8 @@ module ApplicationHelper
   end
 
   # Fotoğrafı varmı, yokmu? kontrolü
-  def avatar_or_not?(record, version, size="180x240", opts={})
-    o = {class: "", style: ""}.merge(opts)
+  def avatar_or_not?(record, version, size = '180x240', opts = {})
+    o = { class: '', style: '' }.merge(opts)
     if record.present? && record.image.present?
       image_tag(record.image.url(version), class: o[:class], style: o[:style])
     else

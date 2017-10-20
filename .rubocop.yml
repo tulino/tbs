@@ -3,6 +3,9 @@ inherit_from: .rubocop_todo.yml
 Style/ConditionalAssignment:
   Enabled: false
 
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
 Style/AsciiComments:
   Enabled: false
 
