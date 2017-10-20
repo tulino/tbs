@@ -85,6 +85,7 @@ class BlackListsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_black_list
       @black_list = BlackList.find(params[:id])
