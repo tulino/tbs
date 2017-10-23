@@ -26,7 +26,7 @@ class RolePolicy < ApplicationPolicy
   end
 
   def create?
-    @user.admin? || !@user.member_blocked?
+    @user.admin? || !@user.member_blocked?(@record.club_id)
   end
 
   def destroy?
