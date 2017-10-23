@@ -38,8 +38,8 @@ class User < ActiveRecord::Base
                 status: true).present?
   end
 
-  def member?(club_id)
-    roles.where(club_id: club_id || Club.all,
+  def member?(club_id = Club.all)
+    roles.where(club_id: club_id,
                 role_type_id: RoleType.member_id,
                 status: true).present?
   end
