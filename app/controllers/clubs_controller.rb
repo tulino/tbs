@@ -53,7 +53,7 @@ class ClubsController < ApplicationController
     end
     @club_members = @club.members
     @club_member_program_error = member_program_error?(@club, current_user)
-    @member_blocked = current_user.present? && current_user.member_blocked?(@club)
+    @member_blocked = current_user.present? && current_user.member_blocked?(@club.id)
   end
 
   def new
