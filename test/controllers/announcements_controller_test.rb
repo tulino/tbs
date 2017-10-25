@@ -18,30 +18,30 @@ class AnnouncmentsControllerTest < ActionController::TestCase
 
   test 'should create announcement' do
     assert_difference('announcement.count') do
-      post :create, announcement: { content: @announcement.content, period_id: @announcement.period_id, is_advisor_confirmation: @announcement.is_advisor_confirmation, is_view: @announcement.is_view, title: @announcement.title }
+      post :create, params: { announcement: { content: @announcement.content, period_id: @announcement.period_id, is_advisor_confirmation: @announcement.is_advisor_confirmation, is_view: @announcement.is_view, title: @announcement.title } }
     end
 
     assert_redirected_to announcment_path(assigns(:announcement))
   end
 
   test 'should show announcement' do
-    get :show, id: @announcement
+    get :show, params: { id: @announcement }
     assert_response :success
   end
 
   test 'should get edit' do
-    get :edit, id: @announcement
+    get :edit, params: { id: @announcement }
     assert_response :success
   end
 
   test 'should update announcement' do
-    patch :update, id: @announcement, announcement: { content: @announcement.content, period_id: @announcement.period_id, is_advisor_confirmation: @announcement.is_advisor_confirmation, is_view: @announcement.is_view, title: @announcement.title }
+    patch :update, params: { id: @announcement, announcement: { content: @announcement.content, period_id: @announcement.period_id, is_advisor_confirmation: @announcement.is_advisor_confirmation, is_view: @announcement.is_view, title: @announcement.title } }
     assert_redirected_to announcment_path(assigns(:announcement))
   end
 
   test 'should destroy announcement' do
     assert_difference('announcement.count', -1) do
-      delete :destroy, id: @announcement
+      delete :destroy, params: { id: @announcement }
     end
 
     assert_redirected_to announcments_path

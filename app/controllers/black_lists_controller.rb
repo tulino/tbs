@@ -43,7 +43,7 @@ class BlackListsController < ApplicationController
     authorize @black_list
     respond_to do |format|
       if @black_list.save
-        location = 
+        location =
           if current_user.admin?
             @black_list
           elsif current_user.president?
@@ -85,13 +85,14 @@ class BlackListsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_black_list
-      @black_list = BlackList.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def black_list_params
-      params.require(:black_list).permit(:club_id, :user_id, :approve, :explanation)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_black_list
+    @black_list = BlackList.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def black_list_params
+    params.require(:black_list).permit(:club_id, :user_id, :approve, :explanation)
+  end
 end

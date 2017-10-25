@@ -53,7 +53,7 @@ class RolesController < ApplicationController
   def destroy
     authorize @role
     @role.destroy
-    notice_message = 
+    notice_message =
       if current_user.admin?
         'Kullanıcıya atanmış rolü başarıyla iptal ettiniz.'
       else
@@ -78,15 +78,15 @@ class RolesController < ApplicationController
     elsif role.role_type_id == role_type_president_id
       if another_president_role?(role, role_type_president_id, all_active_period_ids)
         "#{role.user.name_surname} başka bir toplulukta başkan." \
-        "Başkanlık için başka bir üye seçiniz."
+        'Başkanlık için başka bir üye seçiniz.'
       elsif another_member_of_the_board?(role, all_active_period_ids)
         "#{role.user.name_surname} başka bir toplulukta yönetim kurulunda ya da denetim kurulunda." \
-        "Başkanlık için başka bir üye seçiniz."
+        'Başkanlık için başka bir üye seçiniz.'
       end
     elsif role.role_type_id == role_type_dean_id
       another_dean_role?(role, role_type_dean_id, all_active_period_ids) &&
         "#{role.user.name_surname} başka bir fakültede dekan." \
-        "Dekanlık için başka bir fakülte seçiniz."
+        'Dekanlık için başka bir fakülte seçiniz.'
     end
   end
 
@@ -95,7 +95,8 @@ class RolesController < ApplicationController
     Role.where(
       role_type_id: role_type_member_id,
       club_id: role.club_id,
-      user_id: role.user_id).any?
+      user_id: role.user_id
+    ).any?
   end
 
   # Başka bir toplulukta başkan mı?
@@ -103,13 +104,14 @@ class RolesController < ApplicationController
     Role.where(
       role_type_id: role_type_president_id,
       club_period_id: all_active_period_ids,
-      user_id: role.user_id).any?
+      user_id: role.user_id
+    ).any?
   end
 
   # Başka bir toplulukta yönetim ya da denetim kurulunda mı?
   def another_member_of_the_board?(role, all_active_period_ids)
     all_board_users = ClubBoardOfSupervisory.where(club_period_id: all_active_period_ids) +
-        ClubBoardOfDirector.where(club_period_id: all_active_period_ids)
+                      ClubBoardOfDirector.where(club_period_id: all_active_period_ids)
     all_board_users.map do |club_board|
       club_board.attributes.except('id', 'club_period_id').values.include?(role.user_id).any?
     end
@@ -121,7 +123,8 @@ class RolesController < ApplicationController
       role_type_id: role_type_dean_id,
       club_period_id: all_active_period_ids,
       faculty_id: role.faculty_id,
-      user_id: role.user_id).any?
+      user_id: role.user_id
+    ).any?
   end
 
   def set_role

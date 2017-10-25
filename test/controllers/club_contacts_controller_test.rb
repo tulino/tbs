@@ -18,30 +18,30 @@ class ClubContactsControllerTest < ActionController::TestCase
 
   test 'should create club_contact' do
     assert_difference('ClubContact.count') do
-      post :create, club_contact: { address: @club_contact.address, email: @club_contact.email, period_id: @club_contact.period_id, face_url: @club_contact.face_url, github_url: @club_contact.github_url, gplus_url: @club_contact.gplus_url, linkedin_url: @club_contact.linkedin_url, phone_number: @club_contact.phone_number, tw_url: @club_contact.tw_url, youtube_url: @club_contact.youtube_url }
+      post :create, params: { club_contact: { address: @club_contact.address, email: @club_contact.email, period_id: @club_contact.period_id, face_url: @club_contact.face_url, github_url: @club_contact.github_url, gplus_url: @club_contact.gplus_url, linkedin_url: @club_contact.linkedin_url, phone_number: @club_contact.phone_number, tw_url: @club_contact.tw_url, youtube_url: @club_contact.youtube_url } }
     end
 
     assert_redirected_to club_contact_path(assigns(:club_contact))
   end
 
   test 'should show club_contact' do
-    get :show, id: @club_contact
+    get :show, params: { id: @club_contact }
     assert_response :success
   end
 
   test 'should get edit' do
-    get :edit, id: @club_contact
+    get :edit, params: { id: @club_contact }
     assert_response :success
   end
 
   test 'should update club_contact' do
-    patch :update, id: @club_contact, club_contact: { address: @club_contact.address, email: @club_contact.email, period_id: @club_contact.period_id, face_url: @club_contact.face_url, github_url: @club_contact.github_url, gplus_url: @club_contact.gplus_url, linkedin_url: @club_contact.linkedin_url, phone_number: @club_contact.phone_number, tw_url: @club_contact.tw_url, youtube_url: @club_contact.youtube_url }
+    patch :update, params: { id: @club_contact, club_contact: { address: @club_contact.address, email: @club_contact.email, period_id: @club_contact.period_id, face_url: @club_contact.face_url, github_url: @club_contact.github_url, gplus_url: @club_contact.gplus_url, linkedin_url: @club_contact.linkedin_url, phone_number: @club_contact.phone_number, tw_url: @club_contact.tw_url, youtube_url: @club_contact.youtube_url } }
     assert_redirected_to club_contact_path(assigns(:club_contact))
   end
 
   test 'should destroy club_contact' do
     assert_difference('ClubContact.count', -1) do
-      delete :destroy, id: @club_contact
+      delete :destroy, params: { id: @club_contact }
     end
 
     assert_redirected_to club_contacts_path

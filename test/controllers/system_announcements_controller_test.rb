@@ -18,30 +18,30 @@ class SystemAnnouncementsControllerTest < ActionController::TestCase
 
   test 'should create system_announcement' do
     assert_difference('SystemAnnouncement.count') do
-      post :create, system_announcements: { content: @system_announcement.content, is_view: @system_announcement.is_view, title: @system_announcement.title }
+      post :create, params: { system_announcements: { content: @system_announcement.content, is_view: @system_announcement.is_view, title: @system_announcement.title } }
     end
 
     assert_redirected_to system_announcement_path(assigns(:system_announcement))
   end
 
   test 'should show system_announcement' do
-    get :show, id: @system_announcement
+    get :show, params: { id: @system_announcement }
     assert_response :success
   end
 
   test 'should get edit' do
-    get :edit, id: @system_announcement
+    get :edit, params: { id: @system_announcement }
     assert_response :success
   end
 
   test 'should update system_announcement' do
-    patch :update, id: @system_announcement, system_announcement: { content: @system_announcement.content, is_view: @system_announcement.is_view, title: @system_announcement.title }
+    patch :update, params: { id: @system_announcement, system_announcement: { content: @system_announcement.content, is_view: @system_announcement.is_view, title: @system_announcement.title } }
     assert_redirected_to system_announcement_path(assigns(:system_announcement))
   end
 
   test 'should destroy system_announcement' do
     assert_difference('SystemAnnouncement.count', -1) do
-      delete :destroy, id: @system_announcement
+      delete :destroy, params: { id: @system_announcement }
     end
 
     assert_redirected_to system_announcements_path

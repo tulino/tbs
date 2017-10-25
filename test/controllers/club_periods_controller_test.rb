@@ -18,30 +18,30 @@ class ClubPeriodsControllerTest < ActionController::TestCase
 
   test 'should create club_period' do
     assert_difference('ClubPeriod.count') do
-      post :create, club_period: { club_id: @club_period.club_id, is_active: @club_period.is_active, name: @club_period.name }
+      post :create, params: { club_period: { club_id: @club_period.club_id, is_active: @club_period.is_active, name: @club_period.name } }
     end
 
     assert_redirected_to club_period_path(assigns(:club_period))
   end
 
   test 'should show club_period' do
-    get :show, id: @club_period
+    get :show, params: { id: @club_period }
     assert_response :success
   end
 
   test 'should get edit' do
-    get :edit, id: @club_period
+    get :edit, params: { id: @club_period }
     assert_response :success
   end
 
   test 'should update club_period' do
-    patch :update, id: @club_period, club_period: { club_id: @club_period.club_id, is_active: @club_period.is_active, name: @club_period.name }
+    patch :update, params: { id: @club_period, club_period: { club_id: @club_period.club_id, is_active: @club_period.is_active, name: @club_period.name } }
     assert_redirected_to club_period_path(assigns(:club_period))
   end
 
   test 'should destroy club_period' do
     assert_difference('ClubPeriod.count', -1) do
-      delete :destroy, id: @club_period
+      delete :destroy, params: { id: @club_period }
     end
 
     assert_redirected_toclub_period_path

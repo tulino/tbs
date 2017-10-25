@@ -20,7 +20,8 @@ class ClubPeriod < ActiveRecord::Base
   def club_members
     Role.where(
       club_period_id: id,
-      role_type_id: RoleType.club_member_type_ids)
+      role_type_id: RoleType.club_member_type_ids
+    )
   end
 
   def self.all_members_count_by_club_period(club_ids)

@@ -18,30 +18,30 @@ class RolesControllerTest < ActionController::TestCase
 
   test 'should create role' do
     assert_difference('Role.count') do
-      post :create, role: { club_id: @role.club_id, period_id: @role.period_id, name: @role.name }
+      post :create, params: { role: { club_id: @role.club_id, period_id: @role.period_id, name: @role.name } }
     end
 
     assert_redirected_to role_path(assigns(:role))
   end
 
   test 'should show role' do
-    get :show, id: @role
+    get :show, params: { id: @role }
     assert_response :success
   end
 
   test 'should get edit' do
-    get :edit, id: @role
+    get :edit, params: { id: @role }
     assert_response :success
   end
 
   test 'should update role' do
-    patch :update, id: @role, role: { club_id: @role.club_id, period_id: @role.period_id, name: @role.name }
+    patch :update, params: { id: @role, role: { club_id: @role.club_id, period_id: @role.period_id, name: @role.name } }
     assert_redirected_to role_path(assigns(:role))
   end
 
   test 'should destroy role' do
     assert_difference('Role.count', -1) do
-      delete :destroy, id: @role
+      delete :destroy, params: { id: @role }
     end
 
     assert_redirected_to roles_path

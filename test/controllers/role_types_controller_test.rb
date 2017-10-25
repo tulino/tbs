@@ -18,30 +18,30 @@ class RoleTypesControllerTest < ActionController::TestCase
 
   test 'should create role_type' do
     assert_difference('RoleType.count') do
-      post :create, role_type: { name: @role_type.name }
+      post :create, params: { role_type: { name: @role_type.name } }
     end
 
     assert_redirected_to role_type_path(assigns(:role_type))
   end
 
   test 'should show role_type' do
-    get :show, id: @role_type
+    get :show, params: { id: @role_type }
     assert_response :success
   end
 
   test 'should get edit' do
-    get :edit, id: @role_type
+    get :edit, params: { id: @role_type }
     assert_response :success
   end
 
   test 'should update role_type' do
-    patch :update, id: @role_type, role_type: { name: @role_type.name }
+    patch :update, params: { id: @role_type, role_type: { name: @role_type.name } }
     assert_redirected_to role_type_path(assigns(:role_type))
   end
 
   test 'should destroy role_type' do
     assert_difference('RoleType.count', -1) do
-      delete :destroy, id: @role_type
+      delete :destroy, params: { id: @role_type }
     end
 
     assert_redirected_to role_types_path

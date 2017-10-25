@@ -1,5 +1,4 @@
 module CheckDuplicatedUsers
-
   # Başka toplulukta yönetim kurulunda ya da denetim kurulunda olanların tespiti
   def get_duplicated_user_names(params)
     params = { action: '' }.merge(params)
@@ -9,9 +8,9 @@ module CheckDuplicatedUsers
       params[:action]
     )
     duplicated_users = get_duplicated_users(
-        all_board_users,
-        params[:club_board_params]
-      )
+      all_board_users,
+      params[:club_board_params]
+    )
     return unless duplicated_users.any?
     concat_duplicated_user_names(duplicated_users)
   end
@@ -29,7 +28,7 @@ module CheckDuplicatedUsers
   def get_all_board_users(club_period, board_type, action)
     all_cbods = ClubBoardOfDirector.all_cbo_directors
     all_cboss = ClubBoardOfSupervisory.all_cbo_supervisories
-    all_cbo_except = 
+    all_cbo_except =
       if board_type == ClubBoardOfDirector.board_type
         get_all_boards_by_action(club_period, all_cbods, action)
       elsif board_type == ClubBoardOfSupervisory.board_type
@@ -46,7 +45,7 @@ module CheckDuplicatedUsers
   def get_all_boards_by_action(club_period, boards, action)
     if action == 'update'
       boards.where.not(club_period: club_period)
-    else 
+    else
       boards
     end
   end
@@ -75,5 +74,4 @@ module CheckDuplicatedUsers
       end.any?
     end
   end
-  
 end
