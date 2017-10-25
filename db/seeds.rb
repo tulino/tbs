@@ -26,6 +26,7 @@ EventCategory.create([{ name: 'Yardım Kampanyası' }, { name: 'Topluluk Toplant
 @role_type_president = RoleType.create(name: 'Başkan')
 @role_type_member = RoleType.create(name: 'Üye')
 @role_type_admin = RoleType.create(name: 'Admin')
+@role_type_dean = RoleType.create(name: 'Dekan')
 
 # admin kullanıcı
 @user = User.create(first_name: 'Admin', last_name: 'Kullanıcı', user_name: 'admin', email: 'admin@tbs.com', password: 'admin123', is_administrative: true, idnumber: '00000000000')
