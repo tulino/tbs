@@ -20,7 +20,7 @@
               </tr>
             </thead>
             <tbody>
-              <% @club_members.each do |role| %>
+              <% @club.all_members.each do |role| %>
                 <tr>
                   <td></td>
                   <td class="center"><%= avatar_or_not?(role.user, :member_list, '35x35') %></td>
