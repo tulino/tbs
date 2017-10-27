@@ -19,15 +19,15 @@ class Club < ActiveRecord::Base
 
   def members
     Role.where(
-      club_id: id,
-      status: 1,
+      club_period_id: active_club_period,
+      status: true,
       role_type_id: RoleType.member_id
     )
   end
 
   def all_members
     Role.where(
-      club_id: id,
+      club_period_id: active_club_period,
       role_type_id: RoleType.member_id
     )
   end
