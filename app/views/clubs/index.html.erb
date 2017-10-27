@@ -96,7 +96,7 @@
                   <td></td>
                   <td> <%= link_to club.name, club %> </td>
                   <td> <%= club.club_category.name %> </td>
-                  <td> <%= club.all_members.count %> </td>
+                  <td> <%= club.members.count %> </td>
                 </tr>
               <% end %>
             </tbody>
@@ -120,7 +120,7 @@
                     <td></td>
                     <td> <%= link_to club.name, club %> </td>
                     <td> <%= club.club_category.name %> </td>
-                    <td> <%= club.all_members.count %> </td>
+                    <td> <%= club.members.count %> </td>
                     <td> <%= club.club_setting.is_active ? "<span class='label label-success'>Aktif</span>".html_safe : "<span class='label label-danger'>Pasif</span>".html_safe %> </td>
                   </tr>
                 <% end %>
