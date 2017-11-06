@@ -1,5 +1,5 @@
 class RolesController < ApplicationController
-  before_action :set_role, only: [:show, :edit, :update, :destroy]
+  before_action :set_role, only: [:show, :edit, :update, :destroy,:status_edit]
   before_action :authenticate_user!
 
   def index
@@ -12,7 +12,7 @@ class RolesController < ApplicationController
     @roles = club.all_members
     authorize @roles
   end
-
+  
   def show
     authorize @role
   end
@@ -23,10 +23,14 @@ class RolesController < ApplicationController
 
   def edit
     authorize @role
+    
   end
 
   def create
+    
     @role = Role.new(role_params)
+    
+   
     authorize @role
     duplicated_roles = check_duplicated_roles(@role)
     if duplicated_roles.present?
@@ -35,6 +39,7 @@ class RolesController < ApplicationController
     else
       create_role(@role)
     end
+   
   end
 
   def update
@@ -136,7 +141,7 @@ class RolesController < ApplicationController
       :user_id, :faculty_id, :appointment_date, :club_period_id,
       :role_type_id, :status, :explanation, :club_id, :membership_start_date, :membership_end_date
     )
-  end
+  
 
   def create_role(role)
     respond_to do |format|
@@ -155,4 +160,6 @@ class RolesController < ApplicationController
       end
     end
   end
+  def memebership_status; end
+  def status_edit; end
 end
