@@ -1,7 +1,7 @@
 class ClubsController < ApplicationController
   include ClubsHelper
 
-  before_action :set_club, only: [:show, :edit, :update, :destroy]
+  before_action :set_club, only: [:show, :edit, :update, :destroy, :pending_users]
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
 
   def index
@@ -9,7 +9,7 @@ class ClubsController < ApplicationController
       @clubs = Club.search(params[:search]).order('name ASC')
     else
       @clubs = Club.order('name ASC').includes(:club_setting, :club_category)
-      club_ids_of_current_user = current_user.present? && current_user.roles ? current_user.roles.where(status: true).map(&:club_id).compact : []
+      club_ids_of_current_user = current_user.present? && current_user.roles ? current_user.roles.where(status: 1).map(&:club_id).compact : []
       @clubs_of_current_user = Club.where(id: club_ids_of_current_user)
     end
 
@@ -110,6 +110,15 @@ class ClubsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def pending_users
+    @roles = @club.pending_members
+  end
+  def all_pending_users
+    @roles = Role.all_pasif_members
+    @rejected_roles = Role.rejected_members
+  end
+  
 
   private
 
