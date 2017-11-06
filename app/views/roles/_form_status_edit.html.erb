@@ -1,0 +1,117 @@
+<%= simple_form_for(@role) do |f| %>
+<%= f.error_notification %>
+<div class="form-inputs">
+  <% if current_user.admin? %>
+      <div class="row form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-3">Toluluk  Seçiniz</label>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+          <%= f.input :club_period_id, collection: Club.all.flat_map { |club| [[club.name, club.active_club_period.id]] }, label: false,  :input_html => { :id => "clubs" } %>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3 ">
+        </div>
+      </div>
+
+      <div class="row form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-3">Kullanıcı Seçiniz</label>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+          <%= f.input :user_id, collection: User.all , label_method: :name_surname,label: false, :input_html => { :id => "academic" } %>
+        </div>
+  
+      </div>
+      <div class="row form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-3">Yetki  Seçiniz</label>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+          <%= f.input :role_type_id, collection: RoleType.all.where.not(name: "Başkan").where.not(name:"üye"), label: false,  :input_html => { :id => "academic_role",:onchange=>"Secim()" } %>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3 ">
+        </div>
+      </div>
+      <div id=fakulte  style="display:none" class="row form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-3">Fakülte  Seçiniz</label>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+          <%= f.input :faculty_id, collection: Faculty.all.flat_map { |fac| [[fac.name, fac.id]] }, label: false,  :input_html => { :id => "faculty_list" } %>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3 ">
+        </div>
+      </div>
+      <div  class="row form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-3">Atanma Tarihi</label>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+          <%= f.input :appointment_date,  as: :date,  label: false   %>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3 ">
+        </div>
+      </div>
+  <% end %>
+    <div class="row form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-3">Üyelik kabul / iptal talebi açıklaması(Yönetim kurulu karar no / açıklama şeklinde giriniz)</label>
+      <div class="col-md-6 col-sm-6 col-xs-6">
+        <%= f.input :explanation, label: false, as: :text %>
+      </div>
+      <div class="col-md-3 col-sm-3 col-xs-3 ">
+        <%= f.select :status, Role.statuses.keys, label: "Topluluk üyeliği aktif" %>
+      </div>
+    </div>
+    <div class="row form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-3">Üyelik Bitiş Tarihi</label>
+      <div class="col-md-6 col-sm-6 col-xs-6">
+        <%= f.input :membership_end_date, include_blank: true, label: false %>
+      </div>
+    </div>
+  <div class="form-actions">
+    <%= f.submit "Kaydet", class: "btn btn-success" %>
+  </div>
+<% end %>
+
+
+<div class="modal fade bs-ubs" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content ">
+      <div class="modal-header ">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Ubs Sisteminden Akademisyen Bul</h4>
+      </div>
+      <div class="modal-body panel">
+        <div class="row ">
+          <label class="control-label col-md-3 col-sm-3 col-xs-3">Tc Kimlik Numarası:</label>
+          <div class="col-md-9 col-sm-9 col-xs-9">
+            <input name="ubs_no" id="idnumber" type="text" value="">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <label class="control-label col-md-3 col-sm-3 col-xs-3"></label>
+        <div class="col-md-9 col-sm-9 col-xs-9">
+          <button type="button" class="btn btn-default btn-md ubs_find">
+            <i class="glyphicon glyphicon-search" aria-hidden="true"></i></span> Topluluga Ekle
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+$(".ubs_find").bind('click', function(){
+  var idnumber = document.getElementById("idnumber").value;
+  var club_id=document.getElementById("clubs").value;
+  $.ajax({
+    url: '/find_personel',
+    type: 'GET',
+    data: {"idnumber": idnumber,"club_id": club_id}
+  });
+});
+document.getElementById('fakulte').style.display = 'none';
+function Secim() {
+  var role = document.getElementById("academic_role").options[document.getElementById("academic_role").selectedIndex].text;
+  if (role=='Dekan') {
+    document.getElementById('fakulte').style.display = '';
+    document.getElementById("faculty_list").selectedIndex = 0;
+  } else {
+    document.getElementById('fakulte').style.display = 'none';
+  }
+}
+</script>
