@@ -36,12 +36,17 @@ Rails.application.routes.draw do
   end
   resources :announcements
   resources :system_announcements
-  resources :clubs
+  resources :clubs do
+    get 'pending_users', on: :member
+  end
   resources :faculties
   resources :club_categories
   get 'club_users' => 'roles#club_users'
+  get 'all_pending_users' => 'clubs#all_pending_users'
+  get 'status_edit' => 'roles#status_edit'
   get 'find_ogrenci' =>'users#find_ogrenci'
   get 'find_personel' =>'users#find_personel'
   get 'download_events' => 'events#download_events'
   root 'clubs#index'
+  get 'membership_status' => 'roles#membership_status'
 end
