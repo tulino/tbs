@@ -53,7 +53,7 @@
         <%= f.input :explanation, label: false, as: :text %>
       </div>
       <div class="col-md-3 col-sm-3 col-xs-3 ">
-        <%= f.input :status, label: "Topluluk üyeliği aktif", input_html: {id: "status"} %>
+        <%= f.select :status, Role.statuses.keys, label: "Topluluk üyeliği aktif" %>
       </div>
     </div>
     <div class="row form-group">
