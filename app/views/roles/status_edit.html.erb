@@ -1,0 +1,26 @@
+<div class="row">
+  <%= render 'home/navbarDefault' %>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <ol class="breadcrumb">
+      <li><%= link_to 'Anasayfa', root_path %></li>
+      <li><%= link_to 'Rol Ayarları', roles_path %></li>
+      <li class="active">Rol Ayarı Düzenle</li>
+    </ol>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Rol Ayarı Düzenle</h3>
+      </div>
+      <div class="panel-body">
+        <%= render 'form_status_edit' %>
+        <br />
+        <% if current_user.admin? %>
+        <%= link_to 'Göster', @role, class: "btn btn-success" %> |
+        <% end %>
+        <%= link_to 'Üyeler', club_users_path, class: "btn btn-info" %>
+        <br />
+      </div>
+    </div>
+  </div>
+</div>
