@@ -1,8 +1,14 @@
 class Role < ActiveRecord::Base
+  enum status: { pasif: 0, aktif: 1, red: 2}
   belongs_to :role_type
   belongs_to :club_period
   belongs_to :user
   belongs_to :faculty
+
+   # scopes
+   scope :all_pasif_members, -> { where(status: 0) }
+   scope :rejected_members, -> { where(status: 2) }
+
   def rol_name
     if club
       if club_exception
