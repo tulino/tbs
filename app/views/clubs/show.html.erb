@@ -140,6 +140,9 @@
                   <li><a href="#club_director" data-toggle="pill"> Yönetim Kurulu</a></li>
                   <li><a href="#club_supervisor" data-toggle="pill">Denetim Kurulu</a></li>
                   <li><a href="#club_member" data-toggle="pill">Topluluk Üyeleri</a></li>
+                  <% if user_signed_in? and current_user.admin? %>
+                    <li><%= link_to "Onay Bekleyen Üyeler",pending_users_club_path(@club) %> </li>
+                  <%end%>  
                 </ul>
               </div>
             </div>
