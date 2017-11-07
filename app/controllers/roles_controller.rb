@@ -27,10 +27,7 @@ class RolesController < ApplicationController
   end
 
   def create
-    
     @role = Role.new(role_params)
-    
-   
     authorize @role
     duplicated_roles = check_duplicated_roles(@role)
     if duplicated_roles.present?
@@ -141,7 +138,7 @@ class RolesController < ApplicationController
       :user_id, :faculty_id, :appointment_date, :club_period_id,
       :role_type_id, :status, :explanation, :club_id, :membership_start_date, :membership_end_date
     )
-  
+  end
 
   def create_role(role)
     respond_to do |format|
@@ -160,6 +157,8 @@ class RolesController < ApplicationController
       end
     end
   end
+
   def memebership_status; end
+  
   def status_edit; end
 end
