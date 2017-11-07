@@ -67,6 +67,9 @@ class RolesController < ApplicationController
     end
   end
 
+  def memebership_status; end
+  
+  def status_edit; end
   private
 
   def check_duplicated_roles(role)
@@ -158,7 +161,4 @@ class RolesController < ApplicationController
     end
   end
 
-  def memebership_status; end
-  
-  def status_edit; end
 end
