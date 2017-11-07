@@ -29,8 +29,6 @@
                 <th>Durum</th>
                 <th>Öğrenci No / Ad Soyad</th>
                 <th>Açıklama</th>
-                <th>Üyelik Başlangıç Tarihi</th>
-                <th>Üyelik Bitiş Tarihi</th>
                 <th></th>>
             </thead>
             <tbody>
@@ -39,8 +37,7 @@
                 <td><span class='label label-danger'>Pasif</span></td>
                 <td><%= role.user.ubs_no %> / <%= link_to role.user.name_surname, role.user.profile %></td>
                 <td><%= role.explanation %></td>
-                <td><%= role.membership_start_date.strftime('%d/%m/%Y') if role.membership_start_date %></td>
-                <td><%= role.membership_end_date.strftime('%d/%m/%Y') if role.membership_end_date %></td>
+ 
                 <td><%= link_to '<i class="fa fa-pencil" title="Düzenle"></i>'.html_safe, {:controller => "roles", :action => "status_edit", :id => role.id } %></td>
               </tr>
               <% end %>
@@ -54,9 +51,7 @@
                 <tr>
                   <th>Durum</th>
                   <th>Öğrenci No / Ad Soyad</th>
-                  <th>Açıklama</th>
-                  <th>Üyelik Başlangıç Tarihi</th>
-                  <th>Üyelik Bitiş Tarihi</th>
+                  <th>Açıklama</th>>
                   <th></th>>
               </thead>
               <tbody>
@@ -65,8 +60,6 @@
                   <td><span class='label label-danger'>Red</span></td>
                   <td><%= role.user.ubs_no %> / <%= link_to role.user.name_surname, role.user.profile %></td>
                   <td><%= role.explanation %></td>
-                  <td><%= role.membership_start_date.strftime('%d/%m/%Y') if role.membership_start_date %></td>
-                  <td><%= role.membership_end_date.strftime('%d/%m/%Y') if role.membership_end_date %></td>
                   <td><%= link_to '<i class="fa fa-pencil" title="Düzenle"></i>'.html_safe, {:controller => "roles", :action => "status_edit", :id => role.id } %></td>
                 </tr>
                 <% end %>
