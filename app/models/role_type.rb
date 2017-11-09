@@ -9,4 +9,8 @@ class RoleType < ActiveRecord::Base
   scope :advisor_id, -> { find_by(name: 'Akademik Danışman').id }
   scope :vise_advisor_id, -> { find_by(name: 'Akademik Danışman Yardımcısı').id }
   scope :admin_id, -> { find_by(name: 'Admin').id }
+
+  def member?
+    id == RoleType.member_id
+  end
 end

@@ -38,10 +38,10 @@ Rails.application.routes.draw do
   resources :system_announcements
   resources :clubs do
     get 'pending_users', on: :member
+    get 'club_users', on: :member
   end
   resources :faculties
   resources :club_categories
-  get 'club_users' => 'roles#club_users'
   get 'all_pending_users' => 'clubs#all_pending_users'
   get 'status_edit' => 'roles#status_edit'
   get 'find_ogrenci' =>'users#find_ogrenci'

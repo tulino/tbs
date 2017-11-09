@@ -47,7 +47,7 @@ class BlackListsController < ApplicationController
           if current_user.admin?
             @black_list
           elsif current_user.president?
-            club_users_path
+            club_users_club_path(@black_list.club)
           end
         format.html { redirect_to location, notice: 'Üyelik iptal talebi başarıyla oluşturuldu.' }
         format.json { render :show, status: :created, location: location }

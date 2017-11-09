@@ -21,7 +21,7 @@
       <div class="row form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-3">Yetki  Seçiniz</label>
         <div class="col-md-6 col-sm-6 col-xs-6">
-          <%= f.input :role_type_id, collection: RoleType.all.where.not(name:"üye"), label: false,  :input_html => { :id => "academic_role",:onchange=>"Secim()" } %>
+          <%= f.input :role_type_id, collection: RoleType.all, label: false,  :input_html => { :id => "academic_role",:onchange=>"Secim()" } %>
         </div>
         <div class="col-md-3 col-sm-3 col-xs-3 ">
         </div>

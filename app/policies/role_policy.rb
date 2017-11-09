@@ -18,15 +18,15 @@ class RolePolicy < ApplicationPolicy
   end
 
   def edit?
-    @user.admin? || @user.president?
+    @user.admin? || @user.president?(@record.club_period_id)
   end
 
   def update?
-    @user.admin? || @user.president?
+    @user.admin? || @user.president?(@record.club_period_id)
   end
 
   def create?
-    @user.admin? || !@user.member_blocked?(@record.club_id)
+    @user.admin? || !@user.member_blocked?(@record.club_period.club_id)
   end
 
   def destroy?

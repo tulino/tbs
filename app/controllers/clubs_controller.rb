@@ -1,7 +1,7 @@
 class ClubsController < ApplicationController
   include ClubsHelper
 
-  before_action :set_club, only: [:show, :edit, :update, :destroy, :pending_users]
+  before_action :set_club, only: [:show, :edit, :update, :destroy, :pending_users, :club_users]
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
 
   def index
@@ -54,6 +54,13 @@ class ClubsController < ApplicationController
     @club_members = @club.members
     @club_member_program_error = member_program_error?(@club, current_user)
     @member_blocked = current_user.present? && current_user.member_blocked?(@club.id)
+    @member_red =
+      if current_user.present?
+        Role.find_by(
+          club_period_id: @club_period.id,
+          user_id: current_user.id
+        ).try(:red?)
+      end
   end
 
   def new
@@ -114,11 +121,17 @@ class ClubsController < ApplicationController
   def pending_users
     @roles = @club.pending_members
   end
+
   def all_pending_users
     @roles = Role.all_pasif_members
     @rejected_roles = Role.rejected_members
   end
-  
+
+  def club_users
+    club = current_user.president_or_advisor_club_period.club
+    @roles = club.all_members
+    authorize @roles
+  end
 
   private
 

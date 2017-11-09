@@ -109,11 +109,10 @@ class User < ActiveRecord::Base
   end
 
   def member_block_request(club_id)
-    Role.find_by(club_id: club_id, user_id: id)
+    BlackList.find_by(club_id: club_id, user_id: id)
   end
 
   def member_blocked?(club_id)
-    role = member_block_request(club_id)
-    role.red? if role.present?
+    member_block_request(club_id).try(:approved)
   end
 end

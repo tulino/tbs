@@ -6,12 +6,6 @@ class RolesController < ApplicationController
     @roles = Role.where.not(role_type_id: [RoleType.find_by(name: 'Başkan'), RoleType.find_by(name: 'Üye')])
     authorize @roles
   end
-
-  def club_users
-    club = current_user.president_or_advisor_club_period.club
-    @roles = club.all_members
-    authorize @roles
-  end
   
   def show
     authorize @role

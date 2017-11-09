@@ -18,20 +18,27 @@
               <th>Durum</th>
               <th>Öğrenci No / Ad Soyad</th>
               <th>Açıklama</th>
-              <th>Üyelik Başlangıç Tarihi</th>
-              <th>Üyelik Bitiş Tarihi</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             <% @roles.each do |role| %>
             <tr>
-              <td><%= role.status ? "<span class='label label-success'>Aktif</span>".html_safe : "<span class='label label-danger'>Pasif</span>".html_safe %></td>
+              <td><span class="label label-<%= role.aktif? ? 'success' : 'danger' %>"><%= role.status.capitalize %></span></td>
               <td><%= role.user.ubs_no %> / <%= link_to role.user.name_surname, role.user.profile %></td>
               <td><%= role.explanation %></td>
-              <td><%= role.membership_start_date.strftime('%d/%m/%Y') if role.membership_start_date %></td>
-              <td><%= role.membership_end_date.strftime('%d/%m/%Y') if role.membership_end_date %></td>
-              <td><%= link_to '<i class="fa fa-pencil" title="Düzenle"></i>'.html_safe, edit_role_path(role) %></td>
+              <td>
+                <% if role.aktif? %>
+                  <% member_block_request = role.user.member_block_request(role.club_period.club)  %>
+                  <% if member_block_request %>
+                    <span>Engelleme için onay bekleniyor</span>
+                  <% else %>
+                    <%= link_to '<i class="fa fa-ban" title="Engelle"></i>'.html_safe, new_black_list_path(user_id: role.user.id) %>
+                  <% end %>
+                <% else %>
+                  <%= link_to '<i class="fa fa-pencil" title="Düzenle"></i>'.html_safe, edit_role_path(role) %>
+                <% end %>
+              </td>
             </tr>
             <% end %>
           </tbody>

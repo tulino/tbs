@@ -13,7 +13,7 @@
         <li class="active">
           <a href="#clubs_all" data-toggle="tab">Onay Bekleyen Üyeler</a>
         </li>
-        <% if @roles.any? %>
+        <% if @rejected_roles.any? %>
           <li>
             <a href="#clubs_of_member" data-toggle="tab">Red Edilen Üyeler</a>
           </li>
@@ -29,7 +29,7 @@
                 <th>Durum</th>
                 <th>Öğrenci No / Ad Soyad</th>
                 <th>Açıklama</th>
-                <th></th>>
+                <th></th>
             </thead>
             <tbody>
               <% @roles.each do |role| %>
@@ -51,8 +51,8 @@
                 <tr>
                   <th>Durum</th>
                   <th>Öğrenci No / Ad Soyad</th>
-                  <th>Açıklama</th>>
-                  <th></th>>
+                  <th>Açıklama</th>
+                  <th></th>
               </thead>
               <tbody>
                 <% @rejected_roles.each do |role| %>

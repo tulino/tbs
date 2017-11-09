@@ -40,8 +40,8 @@ class AcademicPeriodsController < ApplicationController
     respond_to do |format|
       if @academic_period.update(academic_period_params)
         if @academic_period.is_active
-          academic_periods_excep = AcademicPeriod.academic_periods_excep(@academic_period)
-          academic_periods_excep.update_all(is_active: false)
+          academic_periods_except = AcademicPeriod.academic_periods_except(@academic_period)
+          academic_periods_except.update_all(is_active: false)
           Club.all.each do |club|
             unless club.club_periods.find_by(academic_period_id: @academic_period.id).present?
               ClubPeriod.create(club_id: club.id, academic_period_id: @academic_period.id)
