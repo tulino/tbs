@@ -60,10 +60,10 @@ $ ->
     "bProcessing": true,
     "order": [[ 0, 'asc' ]],
     "columnDefs": [{
-              "targets": [0,1,2,3],
+              "targets": [0, 1],
               "orderable": true
               },{
-              "targets": [5],
+              "targets": [2, 3],
               "orderable": false
               }]
 

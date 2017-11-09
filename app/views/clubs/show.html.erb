@@ -83,7 +83,10 @@
                     <% elsif @club_member_program_error %>
                       <span class="label label-warning">Bu mesleki topluluğa üye olamazsınız</span>
                     <% elsif @member_blocked %>
-                      <span class="label label-warning">Bu topluluğa üye olamazsınız</span>
+                      <span class="label label-warning">Bu topluluğa üye olamazsınız</span><br>
+                    <% elsif @member_red %>
+                      <span class="label label-warning">Bu topluluğa üye olamazsınız</span><br>
+                      <%= link_to "Detay için tıkla",membership_status_path(current_user), class: "" %>
                     <% else %>
                       <% unless current_user.admin? || current_user.advisor? %>
                       <a href="#new_member" data-toggle="pill" class="btn btn-success btn-block">Topluluğa Katıl</a>
@@ -140,6 +143,9 @@
                   <li><a href="#club_director" data-toggle="pill"> Yönetim Kurulu</a></li>
                   <li><a href="#club_supervisor" data-toggle="pill">Denetim Kurulu</a></li>
                   <li><a href="#club_member" data-toggle="pill">Topluluk Üyeleri</a></li>
+                  <% if user_signed_in? and current_user.admin? %>
+                    <li><%= link_to "Onay Bekleyen Üyeler",pending_users_club_path(@club) %> </li>
+                  <%end%>  
                 </ul>
               </div>
             </div>

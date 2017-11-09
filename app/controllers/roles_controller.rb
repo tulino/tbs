@@ -1,18 +1,12 @@
 class RolesController < ApplicationController
-  before_action :set_role, only: [:show, :edit, :update, :destroy]
+  before_action :set_role, only: [:show, :edit, :update, :destroy,:status_edit]
   before_action :authenticate_user!
 
   def index
     @roles = Role.where.not(role_type_id: [RoleType.find_by(name: 'Başkan'), RoleType.find_by(name: 'Üye')])
     authorize @roles
   end
-
-  def club_users
-    club = current_user.president_or_advisor_club_period.club
-    @roles = club.all_members
-    authorize @roles
-  end
-
+  
   def show
     authorize @role
   end
@@ -23,6 +17,7 @@ class RolesController < ApplicationController
 
   def edit
     authorize @role
+    
   end
 
   def create
@@ -35,6 +30,7 @@ class RolesController < ApplicationController
     else
       create_role(@role)
     end
+   
   end
 
   def update
@@ -65,6 +61,9 @@ class RolesController < ApplicationController
     end
   end
 
+  def memebership_status; end
+  
+  def status_edit; end
   private
 
   def check_duplicated_roles(role)
@@ -155,4 +154,5 @@ class RolesController < ApplicationController
       end
     end
   end
+
 end

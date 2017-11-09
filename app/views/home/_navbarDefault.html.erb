@@ -14,7 +14,7 @@
           <li><%= link_to '<i class="fa fa-cubes"></i> Topluluklar'.html_safe, clubs_path %></li>
           <li><%= link_to '<i class="fa fa-calendar-check-o"></i> Etkinlikler'.html_safe, events_path %></li>
           <li><%= link_to '<i class="fa fa-bullhorn"></i> Sksdb Duyuruları'.html_safe, system_announcements_path %></li>
-          <% if user_signed_in? && (current_user.admin? || current_user.president? || current_user.advisor?) %>
+          <% if user_signed_in? && (current_user.admin? || current_user.president? || current_user.advisor?)%>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Yönetim<span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -29,16 +29,17 @@
                   <li><%= link_to "Etkinlik Kategorileri", event_categories_path  %></li>
                   <li role="separator" class="divider"></li>
                   <li><%= link_to "Roller", roles_path  %></li>
-                  <li><%= link_to "Fakulteler", faculties_path  %></li>
                   <li><%= link_to "Üyelik İptal Talepleri", black_lists_path  %></li>
+                  <li><%= link_to "Üyelik Onay İşlemleri", all_pending_users_path  %></li>
                   <li role="separator" class="divider"></li>
+                  <li><%= link_to "Fakulteler", faculties_path  %></li>
                   <li><%= link_to "Akademik Dönem Tanımları", academic_periods_path  %></li>
                   <% elsif current_user.advisor? %>
                   <li><%= link_to "Duyurular", announcements_path %></li>
                   <li><%= link_to "Slide Ayarları", club_slides_path %></li>
                   <% elsif current_user.president? %>
                   <li><%= link_to "Duyurular", announcements_path %></li>
-                  <li><%= link_to "Üyeler", club_users_path %></li>
+                  <li><%= link_to "Üyelik İşlemleri", club_users_club_path(current_user.president_or_advisor_club_period.club) %></li>
                   <% else %>
                   <% end %>
                 </ul>
@@ -52,6 +53,9 @@
               <ul class="dropdown-menu">
                 <% if user_signed_in? %>
                 <li><%= link_to "Profilim",  edit_user_registration_path(current_user) %></li>
+                <% if current_user.ubs_active? %>
+                  <li><%= link_to "Üyelik Durumlarım",membership_status_path(current_user) %></li>
+                <% end %>
                 <li><%= link_to "Çıkış Yap",  destroy_user_session_path , method: :delete %></li>
                 <% else %>
                 <!-- <li><%= link_to "Giriş Yap", new_user_session_path %></li> -->

@@ -20,7 +20,8 @@ class ClubPeriod < ActiveRecord::Base
   def club_members
     Role.where(
       club_period_id: id,
-      role_type_id: RoleType.club_member_type_ids
+      role_type_id: RoleType.member_id,
+      status: 1
     )
   end
 

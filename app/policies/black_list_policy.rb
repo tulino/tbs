@@ -22,7 +22,7 @@ class BlackListPolicy < ApplicationPolicy
   end
 
   def create?
-    @user.admin? || (@user.president_or_advisor_club_period == @record.club.active_club_period)
+    @user.admin? || (@user.president? && @record.user.member?(@user.president_or_advisor_club_period.club.id))
   end
 
   def destroy?

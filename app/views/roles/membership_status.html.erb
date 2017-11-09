@@ -1,0 +1,48 @@
+<div class="row">
+  <%= render 'home/navbarDefault' %>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <ol class="breadcrumb">
+      <li><%= link_to 'Anasayfa', root_path %></li>
+      <li class="active">Üyelik İşlemleri</li>
+    </ol>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">UYARI</h3>
+      </div>
+      <div class="panel-body">
+        <h4> 
+            Üyeliği rededilen öğrenciler 
+            tebliğ tarihinden itibaren 7 gün içinde 
+            SKSDB’ye itiraz başvurusunda bulunabilir.
+         </h4>
+      </div>
+    </div>  
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Üyelik İşlemleri</h3>
+      </div>
+      <div class="panel-body">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Topluluk Adı</th>
+            <th>Üyelik Durumu</th>
+            <th>Rolü</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% current_user.roles.each do |role| %>
+              <tr>
+                <td><%= role.club_period.club.name if role.club_period.present? %></td>
+                <td><%= role.status %></td>
+                 <td><%= role.role_type.name %></td>
+                 
+              </tr>
+            <% end %>
+        </tbody>
+      </table>
+    </div>
+   </div> 
+  </div> 

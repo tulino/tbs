@@ -15,7 +15,7 @@
       </div>
     </div>
   <% end %>
-  <% @club_member_list = @club_board_of_director.present? && @club_board_of_director.club_period.present? ? @club_board_of_director.club_period.roles.map { |role| [role.user.name_surname, role.user.id]} : []%>
+  <% @club_member_list = @club_board_of_director.present? && @club_board_of_director.club_period.present? ? @club_board_of_director.club_period.roles.map { |role| [role.user.name_surname, role.user.id] if role.aktif? }.compact.uniq : []%>
   <div class="row form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-3">Başkan</label>
     <div class="col-md-6 col-sm-6 col-xs-6">

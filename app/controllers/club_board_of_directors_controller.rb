@@ -86,7 +86,7 @@ class ClubBoardOfDirectorsController < ApplicationController
 
   def president_update_or_create(club_board_of_director)
     role = Role.president?(club_board_of_director.club_period_id)
-    role.present? ? role.update(user_id: club_board_of_director.president.id) : Role.create(club_period_id: club_board_of_director.club_period_id, role_type_id: RoleType.find_by(name: 'Baskan').id, user_id: club_board_of_director.president.id, status: true)
+    role.present? ? role.update(user_id: club_board_of_director.president.id) : Role.create(club_period_id: club_board_of_director.club_period_id, role_type_id: RoleType.president_id, user_id: club_board_of_director.president.id, status: 1)
   end
 
   private

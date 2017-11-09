@@ -23,34 +23,35 @@ class User < ActiveRecord::Base
   def advisor?(club_period_id = active_club_periods)
     roles.find_by(club_period_id: club_period_id,
                   role_type_id: RoleType.advisor_id,
-                  status: true).present?
+                  status: 1).present?
   end
 
   def vice_advisor?(club_period_id = active_club_periods)
     roles.where(club_period_id: club_period_id,
                 role_type_id: RoleType.vise_advisor_id,
-                status: true).present?
+                status: 1).present?
   end
 
   def president?(club_period_id = active_club_periods)
     roles.where(club_period_id: club_period_id,
                 role_type_id: RoleType.president_id,
-                status: true).present?
+                status: 1).present?
   end
 
   def member?(club_id = Club.all)
     roles.where(club_id: club_id,
                 role_type_id: RoleType.member_id,
-                status: true).present?
+                status: 1).present?
+               
   end
 
   def member_wait_for_approval?(club_id)
-    roles.find_by(club_id: club_id, status: false)
+    roles.find_by(club_id: club_id, status: 0)
   end
 
   def dean?
     roles.where(role_type_id: RoleType.dean_id,
-                status: true).present?
+                status: 1).present?
   end
 
   def owner_of_role?(role)
@@ -108,10 +109,10 @@ class User < ActiveRecord::Base
   end
 
   def member_block_request(club_id)
-    Role.find_by(club_id: club_id, user_id: id)
+    BlackList.find_by(club_id: club_id, user_id: id)
   end
 
   def member_blocked?(club_id)
-    member_block_request(club_id).try(:status)
+    member_block_request(club_id).try(:approved)
   end
 end

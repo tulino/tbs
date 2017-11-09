@@ -14,18 +14,14 @@
       <div class="row form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-3">Kullanıcı Seçiniz</label>
         <div class="col-md-6 col-sm-6 col-xs-6">
-          <%= f.input :user_id, collection: User.where.not(idnumber: nil) , label_method: :name_surname,label: false, :input_html => { :id => "academic" } %>
+          <%= f.input :user_id, collection: User.all , label_method: :name_surname,label: false, :input_html => { :id => "academic" } %>
         </div>
-        <div class="col-md-3 col-sm-3 col-xs-3 ">
-          <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target=".bs-ubs">
-            <i class="glyphicon glyphicon-search" aria-hidden="true"></i></span>
-          </button>
-        </div>
+  
       </div>
       <div class="row form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-3">Yetki  Seçiniz</label>
         <div class="col-md-6 col-sm-6 col-xs-6">
-          <%= f.input :role_type_id, collection: RoleType.all.where.not(name: "Başkan").where.not(name:"üye"), label: false,  :input_html => { :id => "academic_role",:onchange=>"Secim()" } %>
+          <%= f.input :role_type_id, collection: RoleType.all, label: false,  :input_html => { :id => "academic_role",:onchange=>"Secim()" } %>
         </div>
         <div class="col-md-3 col-sm-3 col-xs-3 ">
         </div>
@@ -53,7 +49,7 @@
         <%= f.input :explanation, label: false, as: :text %>
       </div>
       <div class="col-md-3 col-sm-3 col-xs-3 ">
-        <%= f.select :status, current_user.president? ? ["aktif", "red"] : Role.statuses.keys, label: "Topluluk üyeliği aktif" %>
+        <%= f.select :status, Role.statuses.keys, label: "Topluluk üyeliği aktif" %>
       </div>
     </div>
     <div class="row form-group">

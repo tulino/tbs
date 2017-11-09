@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
   def show
     @profile = Profile.find(params[:id])
-    @member_clubs = @profile.user.roles.map { |x| x.club_period.club unless x.club_period.blank? }
+    @member_clubs = @profile.user.roles.map { |r| r.club_period.club if r.club_period.present? && r.aktif? && r.role_type.member?}.compact
     authorize @profile
   end
 

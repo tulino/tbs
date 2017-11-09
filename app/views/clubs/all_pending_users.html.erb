@@ -1,0 +1,74 @@
+
+<div class="row">
+<%= render 'home/navbarDefault' %>
+<div class="col-md-12">
+  <ol class="breadcrumb">
+    <li>
+      <%= link_to 'Anasayfa', root_path %></li>
+    <li class="active">Topluluklar</li>
+  </ol>
+  <div class="panel with-nav-tabs panel-default">
+    <div class="panel-heading">
+      <ul class="nav nav-tabs">
+        <li class="active">
+          <a href="#clubs_all" data-toggle="tab">Onay Bekleyen Üyeler</a>
+        </li>
+        <% if @rejected_roles.any? %>
+          <li>
+            <a href="#clubs_of_member" data-toggle="tab">Red Edilen Üyeler</a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="panel-body">
+      <div class="tab-content">
+        <div class="tab-pane fade in active" id="clubs_all">
+          <table class="table table-hover clubs_table_member">
+            <thead>
+              <tr>
+                <th>Durum</th>
+                <th>Öğrenci No / Ad Soyad</th>
+                <th>Açıklama</th>
+                <th></th>
+            </thead>
+            <tbody>
+              <% @roles.each do |role| %>
+              <tr>
+                <td><span class='label label-danger'>Pasif</span></td>
+                <td><%= role.user.ubs_no %> / <%= link_to role.user.name_surname, role.user.profile %></td>
+                <td><%= role.explanation %></td>
+ 
+                <td><%= link_to '<i class="fa fa-pencil" title="Düzenle"></i>'.html_safe, {:controller => "roles", :action => "status_edit", :id => role.id } %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-pane fade" id="clubs_of_member">
+          <% if @rejected_roles.any? %>
+            <table class="table table-hover clubs_table_member">
+              <thead>
+                <tr>
+                  <th>Durum</th>
+                  <th>Öğrenci No / Ad Soyad</th>
+                  <th>Açıklama</th>
+                  <th></th>
+              </thead>
+              <tbody>
+                <% @rejected_roles.each do |role| %>
+                <tr>
+                  <td><span class='label label-danger'>Red</span></td>
+                  <td><%= role.user.ubs_no %> / <%= link_to role.user.name_surname, role.user.profile %></td>
+                  <td><%= role.explanation %></td>
+                  <td><%= link_to '<i class="fa fa-pencil" title="Düzenle"></i>'.html_safe, {:controller => "roles", :action => "status_edit", :id => role.id } %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
