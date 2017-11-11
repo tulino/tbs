@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   resources :academic_periods
   resources :role_types
   resources :roles_users
-  devise_for :users,:controllers => {:sessions=>"sessions"}
+  devise_for :users,:controllers => { sessions: "sessions", registrations: 'registrations'}
   resources :profiles,  only: [:show, :update]
   resources :roles
   resources :club_contacts
