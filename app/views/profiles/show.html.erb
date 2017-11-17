@@ -16,7 +16,7 @@
     <li class=list-group-item>
       <div class="row">
         <div class="col-md-12 " style="text-align: center">
-          <%= avatar_or_not?(current_user, :show) %>
+          <%= avatar_or_not?(@profile.user, :show) %>
         </div>
       </div>
     </li>

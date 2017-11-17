@@ -20,11 +20,6 @@
 
     <%= avatar_or_not?(current_user, :show) %>
     <%= f.input :image, type: :file, label: "Fotoğraf:" %>
-    <% unless current_user.president? || current_user.member? %>
-      <%= f.input :password, autocomplete: "off", hint: "Değiştirmek istemiyorsan boş bırak", required: false %>
-      <%= f.input :password_confirmation, required: false %>
-      <%= f.input :current_password, hint: "Değişiklikleri onaylamak için şifrenize ihtiyaç var", required: true %>
-    <% end %>
   </div>
   <div class="form-actions">
     <%= f.button :submit, "Kaydet" %>
