@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.4'
+gem 'rails', '4.2.7.1'
 gem 'mysql2', '~> 0.3.18'
 # gem 'pg'
 gem 'sass-rails', '~> 5.0'
@@ -72,7 +72,7 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'pry'
   gem 'rubocop', '~> 0.51.0', require: false
-  gem 'rack-mini-profiler', require: false
+  gem 'rack-mini-profiler', '~> 0.10.6', require: false
   gem 'bullet'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
