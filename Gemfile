@@ -32,8 +32,8 @@ gem 'kaminari'
 
 gem "simple_calendar"
 gem 'dotenv-rails'
-gem 'zip-zip'
-gem 'axlsx', '~> 2.0'
+gem 'rubyzip', '>= 1.2.1'
+gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: '776037c0fc799bb09da8c9ea47980bd3bf296874'
 gem 'axlsx_rails'
 
 gem 'bootstrap-datepicker-rails'
@@ -71,7 +71,7 @@ group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
   gem 'pry'
-  gem 'rubocop', require: false
+  gem 'rubocop', '~> 0.51.0', require: false
   gem 'rack-mini-profiler', require: false
   gem 'bullet'
 
