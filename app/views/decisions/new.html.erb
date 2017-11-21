@@ -1,2 +1,21 @@
-<h1>Decisions#new</h1>
-<p>Find me in app/views/decisions/new.html.erb</p>
+<div class="row">
+  <%= render 'home/navbarDefault' %>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <ol class="breadcrumb">
+      <li><%= link_to 'Anasayfa', root_path %></li>
+      <li><%= link_to 'Kararlar', decisions_path %></li>
+    </ol>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Yeni Karar</h3>
+      </div>
+      <div class="panel-body">
+        <%= render 'form' %>
+        <br/>
+        <%= link_to 'Geri', decisions_path, class: "btn btn-info" %>
+      </div>
+    </div>
+  </div>
+</div>
