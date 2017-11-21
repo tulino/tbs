@@ -14,6 +14,7 @@
           <li><%= link_to '<i class="fa fa-cubes"></i> Topluluklar'.html_safe, clubs_path %></li>
           <li><%= link_to '<i class="fa fa-calendar-check-o"></i> Etkinlikler'.html_safe, events_path %></li>
           <li><%= link_to '<i class="fa fa-bullhorn"></i> Sksdb Duyuruları'.html_safe, system_announcements_path %></li>
+          <li><%= link_to '<i class="fa fa-bars"></i> Kararlar'.html_safe, decisions_path %></li>
           <% if user_signed_in? && (current_user.admin? || current_user.president? || current_user.advisor?)%>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Yönetim<span class="caret"></span></a>
