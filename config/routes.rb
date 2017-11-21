@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :decisions
+
   resources :black_lists, except: [:show] do
     get 'change_approve_status', on: :member
   end
