@@ -19,18 +19,18 @@ gem 'autoprefixer-rails'
 #gem 'bootstrap-material-design'
 gem 'simple_form'
 gem 'carrierwave'
-gem "pundit"
+gem 'pundit'
 #gem 'slim'
 #gem "slim-rails"
 gem 'better_errors'
 gem 'binding_of_caller'
-gem "font-awesome-rails"
+gem 'font-awesome-rails'
 gem 'devise'
 gem 'permanent_records', '~> 4.0'
 gem 'rest-client'
 gem 'kaminari'
 
-gem "simple_calendar"
+gem 'simple_calendar'
 gem 'dotenv-rails'
 gem 'zip-zip'
 gem 'axlsx', '~> 2.0'
@@ -48,7 +48,7 @@ gem 'jquery-turbolinks', '~> 2.1'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-gem "select2-rails"
+gem 'select2-rails'
 gem 'rails-i18n'
 gem 'mini_magick'
 gem 'cloudinary'

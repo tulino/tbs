@@ -163,14 +163,6 @@ Rails/Date:
   Exclude:
     - 'app/controllers/clubs_controller.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: Whitelist.
-# Whitelist: find_by_sql
-Rails/DynamicFindBy:
-  Exclude:
-    - 'db/seeds.rb'
-
 # Offense count: 1
 Rails/FilePath:
   Exclude:
@@ -233,11 +225,3 @@ Style/GuardClause:
   Exclude:
     - 'app/controllers/concerns/check_duplicated_users.rb'
 
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, ConsistentQuotesInMultiline.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiterals:
-  Exclude:
-    - 'Gemfile'
-    - 'test/controllers/decisions_controller_test.rb'
