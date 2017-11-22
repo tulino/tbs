@@ -134,7 +134,7 @@ class EventsController < ApplicationController
     if params[:state] == 'onay'
       @event_list = @event_list.select { |x| x.event_responses.last.event_status_id == 2 }
     elsif params[:state] == 'wait'
-      @event_list = @event_list.select { |x| x.event_responses.last.event_status_id != 2 }
+      @event_list = @event_list.reject { |x| x.event_responses.last.event_status_id == 2 }
     end
     respond_to(:xlsx)
   end

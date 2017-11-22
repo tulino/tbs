@@ -25,7 +25,7 @@ class ClubsController < ApplicationController
       if params[:state] == 'true'
         @clubs_for_excel = @clubs_for_excel.select { |x| x.club_setting.is_active }
       elsif params[:state] == 'false'
-        @clubs_for_excel = @clubs_for_excel.select { |x| !x.club_setting.is_active }
+        @clubs_for_excel = @clubs_for_excel.reject { |x| x.club_setting.is_active }
       end
     end
     respond_to(:html, :xlsx)
