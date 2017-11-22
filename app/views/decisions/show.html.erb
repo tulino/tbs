@@ -16,7 +16,7 @@
         <p align="right">
         </p>
 
-        <h3>Karar Adı: <%= @decision.name %></h3>
+        <h3>Karar No: <%= @decision.name %></h3>
         <%= link_to 'Geri', decisions_path, class: "btn btn-info" %>
         <% if  current_user.present? && current_user.admin? %>
             <%= link_to 'Düzenle', edit_decision_path(@decision), class: 'btn btn-success' %>
