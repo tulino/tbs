@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  before_action :authenticate_user!, only: [:dashboard_admin, :dashboard_advisor, :dashboard_club]
+  before_action :authenticate_user!, only: %i[dashboard_admin dashboard_advisor dashboard_club]
   def index
     @events = Event.order('created_at DESC').last(3)
     @system_announcements = Event.order('created_at DESC').last(3)

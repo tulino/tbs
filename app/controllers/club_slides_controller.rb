@@ -1,5 +1,5 @@
 class ClubSlidesController < ApplicationController
-  before_action :set_club_slide, only: [:show, :edit, :update, :destroy]
+  before_action :set_club_slide, only: %i[show edit update destroy]
   before_action :authenticate_user!
 
   def index

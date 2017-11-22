@@ -1,5 +1,5 @@
 class BlackListsController < ApplicationController
-  before_action :set_black_list, only: [:edit, :update, :destroy, :change_approve_status]
+  before_action :set_black_list, only: %i[edit update destroy change_approve_status]
 
   # GET /black_lists
   # GET /black_lists.json

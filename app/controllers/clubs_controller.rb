@@ -1,8 +1,8 @@
 class ClubsController < ApplicationController
   include ClubsHelper
 
-  before_action :set_club, only: [:show, :edit, :update, :destroy, :pending_users, :club_users]
-  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
+  before_action :set_club, only: %i[show edit update destroy pending_users club_users]
+  before_action :authenticate_user!, only: %i[new edit update destroy]
 
   def index
     if params[:search]

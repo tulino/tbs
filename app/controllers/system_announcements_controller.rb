@@ -1,6 +1,6 @@
 class SystemAnnouncementsController < ApplicationController
-  before_action :set_system_announcement, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
+  before_action :set_system_announcement, only: %i[show edit update destroy]
+  before_action :authenticate_user!, only: %i[new edit update destroy]
 
   def index
     @system_announcements = SystemAnnouncement.order('created_at DESC').page params[:page]

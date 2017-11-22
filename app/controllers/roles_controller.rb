@@ -1,5 +1,5 @@
 class RolesController < ApplicationController
-  before_action :set_role, only: [:show, :edit, :update, :destroy,:status_edit]
+  before_action :set_role, only: %i[show edit update destroy status_edit]
   before_action :authenticate_user!
 
   def index

@@ -1,6 +1,6 @@
 class ClubPeriodsController < ApplicationController
-  before_action :set_club_period, only: [:show, :edit, :update, :destroy, :member_list, :edit_member_list]
-  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
+  before_action :set_club_period, only: %i[show edit update destroy member_list edit_member_list]
+  before_action :authenticate_user!, only: %i[new edit update destroy]
 
   def index
     @club_periods = ClubPeriod.where(academic_period_id: AcademicPeriod.active_period_id)

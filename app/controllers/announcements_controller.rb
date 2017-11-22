@@ -1,6 +1,6 @@
 class AnnouncementsController < ApplicationController
-  before_action :set_announcment, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
+  before_action :set_announcment, only: %i[show edit update destroy]
+  before_action :authenticate_user!, only: %i[new edit update destroy]
 
   def index
     @announcements =

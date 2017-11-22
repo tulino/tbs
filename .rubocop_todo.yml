@@ -241,10 +241,3 @@ Style/StringLiterals:
   Exclude:
     - 'Gemfile'
     - 'test/controllers/decisions_controller_test.rb'
-
-# Offense count: 33
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, MinSize, SupportedStyles.
-# SupportedStyles: percent, brackets
-Style/SymbolArray:
-  Enabled: false

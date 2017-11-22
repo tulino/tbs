@@ -1,6 +1,6 @@
 class ClubContactsController < ApplicationController
-  before_action :set_club_contact, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
+  before_action :set_club_contact, only: %i[show edit update destroy]
+  before_action :authenticate_user!, only: %i[new edit update destroy]
 
   def index
     @club_contacts = ClubContact.all

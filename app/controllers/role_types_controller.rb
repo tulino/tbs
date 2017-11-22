@@ -1,5 +1,5 @@
 class RoleTypesController < ApplicationController
-  before_action :set_role_type, only: [:show, :edit, :update, :destroy]
+  before_action :set_role_type, only: %i[show edit update destroy]
 
   def index
     @role_types = RoleType.all

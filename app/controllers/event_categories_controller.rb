@@ -1,5 +1,5 @@
 class EventCategoriesController < ApplicationController
-  before_action :set_event_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_event_category, only: %i[show edit update destroy]
   before_action :authenticate_user!
 
   def index

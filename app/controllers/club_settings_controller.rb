@@ -1,6 +1,6 @@
 class ClubSettingsController < ApplicationController
-  before_action :set_club_setting, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
+  before_action :set_club_setting, only: %i[show edit update destroy]
+  before_action :authenticate_user!, only: %i[new edit update destroy]
 
   def index
     @club_settings = ClubSetting.all
