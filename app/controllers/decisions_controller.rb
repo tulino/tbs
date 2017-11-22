@@ -1,5 +1,4 @@
 class DecisionsController < ApplicationController
-  
   before_action :set_decision, only: %i[show edit update destroy]
 
   def index
@@ -34,7 +33,7 @@ class DecisionsController < ApplicationController
     if @decision.update(decision_params)
       redirect_to @decision
     else
-      render 'edit',alert: "kayıt basarısız" 
+      render 'edit', alert: 'kayıt basarısız'
     end
   end
 
