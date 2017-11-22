@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class ClubBoardOfDirectorPolicy < ApplicationPolicy
   def index?
     @user.admin?

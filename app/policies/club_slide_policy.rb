@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class ClubSlidePolicy < ApplicationPolicy
   def index?
     @user.advisor?

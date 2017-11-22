@@ -7,7 +7,7 @@ class UsersController < ApplicationController
       if params['ubs_no'].length == 9 && (params['ubs_no'].start_with? 'o')
         @user = User.find_by(ubs_no: params['ubs_no'])
         @user = Ubs.control_student(params['ubs_no']) unless @user.present?
-        if @user.present? && @user.is_ubs_active && !Role.where(club_period_id: params['club_id']).any? { |x| x.user_id == @user.id }
+        if @user.present? && @user.is_ubs_active && Role.where(club_period_id: params['club_id']).none? { |x| x.user_id == @user.id }
           @role = Role.new
           @role.role_type_id = RoleType.find_by(name: 'Üye').id
           @role.user_id = User.find_by(ubs_no: params['ubs_no']).id

@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class EventPolicy < ApplicationPolicy
   def index?
     true
@@ -8,10 +6,8 @@ class EventPolicy < ApplicationPolicy
   def show?
     if @user.present? && (@user.admin? || @user.president?(@record.club_period.id) || @user.advisor?(@record.club_period.id))
       true
-    elsif @record.event_responses.last.event_status.id == 2
-      true
     else
-      false
+      @record.event_responses.last.event_status.id == 2
     end
   end
 

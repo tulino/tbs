@@ -2,6 +2,7 @@ tr:
   errors:
     messages:
       size_too_big: "Dosya boyutu %{file_size}'dan daha az olmalıdır"
+      extension_white_list_error: "%{extension} uzantılı dosyaları yükleme izniniz yok, izin verilen uzantılar: %{allowed_types}"
   views:
     pagination:
       first: "&laquo; İlk"

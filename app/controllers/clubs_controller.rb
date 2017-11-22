@@ -1,8 +1,8 @@
 class ClubsController < ApplicationController
   include ClubsHelper
 
-  before_action :set_club, only: [:show, :edit, :update, :destroy, :pending_users, :club_users]
-  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
+  before_action :set_club, only: %i[show edit update destroy pending_users club_users]
+  before_action :authenticate_user!, only: %i[new edit update destroy]
 
   def index
     if params[:search]
@@ -25,7 +25,7 @@ class ClubsController < ApplicationController
       if params[:state] == 'true'
         @clubs_for_excel = @clubs_for_excel.select { |x| x.club_setting.is_active }
       elsif params[:state] == 'false'
-        @clubs_for_excel = @clubs_for_excel.select { |x| !x.club_setting.is_active }
+        @clubs_for_excel = @clubs_for_excel.reject { |x| x.club_setting.is_active }
       end
     end
     respond_to(:html, :xlsx)

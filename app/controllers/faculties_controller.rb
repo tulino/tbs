@@ -1,5 +1,5 @@
 class FacultiesController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :update, :create, :destroy]
+  before_action :authenticate_user!, only: %i[index update create destroy]
 
   def index
     @faculties = Faculty.all

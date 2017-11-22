@@ -1,0 +1,49 @@
+<div class="row">
+  <%= render 'home/navbarDefault' %>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to 'Anasayfa', root_path %></li>
+      <li class="active">Kararlarr</li>
+    </ol>
+    <div class="panel panel-default">
+      <div class="panel-heading clearfix">
+        <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Kararlar</h4>
+        <% if current_user.present? && current_user.admin?%> 
+          <div class="btn-group pull-right">
+            <%= link_to 'Yeni Karar Oluştur', new_decision_path, class: "btn btn-default btn-sm" %>
+          </div>
+        <% end %>
+      </div>
+      <div class="panel-body">
+        <p align="right">
+        </p>
+        <table class="table table-hover" id="decisions_table">
+          <thead>
+            <tr>
+              <th>Karar Adı</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @decisions.each do |decision| %>
+            <tr>
+              <td class="center">
+                <%= link_to decision.name, decision.file.url, target: :_blank %>
+              </td>
+              <td>
+                <% if current_user.present? && current_user.admin?%>
+                  <%= link_to '<i class="fa fa-pencil-square-o" aria-hidden="true" title="Sil"></i>'.html_safe,edit_decision_path(decision), style: "margin-right: 15px" %>
+                  <%= link_to '<i class="fa fa-trash" title="Sil"></i>'.html_safe, decision, method: :delete, data: { confirm: 'Kararı silmek istediğinize emin misiniz?' } %>                  
+                <% end %>
+              </td>
+            </tr>
+            <% end %></tbody>
+        </table>
+      </div>  
+      <br />
+    </div>
+  </div>
+</div>

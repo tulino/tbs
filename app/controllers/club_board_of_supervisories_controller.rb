@@ -1,7 +1,7 @@
 class ClubBoardOfSupervisoriesController < ApplicationController
   include CheckDuplicatedUsers
-  before_action :set_club_board_of_supervisory, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
+  before_action :set_club_board_of_supervisory, only: %i[show edit update destroy]
+  before_action :authenticate_user!, only: %i[new edit update destroy]
 
   def index
     @club_board_of_supervisories = ClubBoardOfSupervisory.all
@@ -17,8 +17,7 @@ class ClubBoardOfSupervisoriesController < ApplicationController
     authorize @club_board_of_supervisory
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @club_board_of_supervisory = ClubBoardOfSupervisory.new(club_board_of_supervisory_params)

@@ -1,0 +1,7 @@
+// Place all the styles related to the Decisions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import url(https://fonts.googleapis.com/css?family=Quicksand:400,300);
+#decisions_table tr > td {
+    vertical-align: middle !important;
+  }

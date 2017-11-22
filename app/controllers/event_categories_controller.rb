@@ -1,5 +1,5 @@
 class EventCategoriesController < ApplicationController
-  before_action :set_event_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_event_category, only: %i[show edit update destroy]
   before_action :authenticate_user!
 
   def index
@@ -7,16 +7,14 @@ class EventCategoriesController < ApplicationController
     authorize @event_categories
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @event_category = EventCategory.new
     authorize @event_category
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @event_category = EventCategory.new(event_category_params)

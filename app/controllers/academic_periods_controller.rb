@@ -1,5 +1,5 @@
 class AcademicPeriodsController < ApplicationController
-  before_action :set_academic_period, only: [:show, :edit, :update, :destroy]
+  before_action :set_academic_period, only: %i[show edit update destroy]
   before_action :authenticate_user!
 
   def index

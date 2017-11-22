@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class EventMailer < ActionMailer::Base
   default from: ENV['MAIL_ADDRESS']
   default template_path: 'mail/event'

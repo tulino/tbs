@@ -1,7 +1,7 @@
 class ClubBoardOfDirectorsController < ApplicationController
   include CheckDuplicatedUsers
-  before_action :set_club_board_of_director, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
+  before_action :set_club_board_of_director, only: %i[show edit update destroy]
+  before_action :authenticate_user!, only: %i[new edit update destroy]
 
   def index
     @club_board_of_directors = ClubBoardOfDirector.all
@@ -17,8 +17,7 @@ class ClubBoardOfDirectorsController < ApplicationController
     authorize @club_board_of_director
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @club_board_of_director = ClubBoardOfDirector.new(club_board_of_director_params)

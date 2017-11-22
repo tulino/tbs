@@ -24,6 +24,7 @@ class Club < ActiveRecord::Base
       role_type_id: RoleType.member_id
     )
   end
+
   def pending_members
     Role.where(
       club_period_id: active_club_period.id,
@@ -31,7 +32,7 @@ class Club < ActiveRecord::Base
       role_type_id: RoleType.member_id
     )
   end
-  
+
   def all_members
     Role.where(
       club_period_id: active_club_period,

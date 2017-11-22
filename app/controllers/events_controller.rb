@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy, :event_responses]
-  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy, :download_events]
+  before_action :set_event, only: %i[show edit update destroy event_responses]
+  before_action :authenticate_user!, only: %i[new edit update destroy download_events]
   helper EventsHelper
 
   def index
@@ -134,7 +134,7 @@ class EventsController < ApplicationController
     if params[:state] == 'onay'
       @event_list = @event_list.select { |x| x.event_responses.last.event_status_id == 2 }
     elsif params[:state] == 'wait'
-      @event_list = @event_list.select { |x| x.event_responses.last.event_status_id != 2 }
+      @event_list = @event_list.reject { |x| x.event_responses.last.event_status_id == 2 }
     end
     respond_to(:xlsx)
   end

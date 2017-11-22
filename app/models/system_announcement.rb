@@ -1,5 +1,5 @@
 class SystemAnnouncement < ActiveRecord::Base
-  enum status: [:onemli, :genel, :haber]
+  enum status: %i[onemli genel haber]
   paginates_per 6
   def self.search(query)
     where('lower(title) like ?', "%#{query}%".downcase)

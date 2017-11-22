@@ -12,32 +12,32 @@ class EventStatus < ActiveRecord::Base
   scope :dean_pending_status_id, -> { find_by(status: ['Dekan Onayı Bekleniyor']).id }
 
   LABELS = {
-    'success' => %w(
+    'success' => %w[
       SKS\ Admin\ Onayladı
       Akademik\ Danışman\ Onayladı
       Dekan\ Onayladı
-    ).to_set,
+    ].to_set,
 
-    'warning' => %w(
+    'warning' => %w[
       Akademik\ Danışman\ Onayı\ Bekleniyor
-    ).to_set,
+    ].to_set,
 
-    'info' => %w(
+    'info' => %w[
       Dekan\ Onayı\ Bekleniyor
-    ).to_set,
+    ].to_set,
 
-    'danger' => %w(
+    'danger' => %w[
       SKS\ Admin\ Onayı\ Bekleniyor
-    ).to_set,
+    ].to_set,
 
-    'default' => %w(
+    'default' => %w[
       SKS\ Admin\ Onaylamadı
-    ).to_set,
+    ].to_set,
 
-    'primary' => %w(
+    'primary' => %w[
       Akademik\ Danışman\ Onaylamadı
       Dekan\ Onaylamadı
-    ).to_set
+    ].to_set
   }.freeze
 
   def label_type

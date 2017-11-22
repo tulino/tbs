@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class FacultyPolicy < ApplicationPolicy
   def index?
     @user.admin? || @user.advisor?

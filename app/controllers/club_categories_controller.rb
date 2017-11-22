@@ -1,22 +1,20 @@
 class ClubCategoriesController < ApplicationController
-  before_action :set_club_category, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
+  before_action :set_club_category, only: %i[show edit update destroy]
+  before_action :authenticate_user!, only: %i[new edit update destroy]
 
   def index
     @club_categories = ClubCategory.all
     authorize @club_categories
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @club_category = ClubCategory.new
     authorize @club_category
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @club_category = ClubCategory.new(club_category_params)

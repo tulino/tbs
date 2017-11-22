@@ -42,7 +42,6 @@ class User < ActiveRecord::Base
     roles.where(club_id: club_id,
                 role_type_id: RoleType.member_id,
                 status: 1).present?
-               
   end
 
   def member_wait_for_approval?(club_id)
