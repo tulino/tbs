@@ -2,11 +2,7 @@ class DecisionsController < ApplicationController
   before_action :set_decision, only: %i[show edit update destroy]
 
   def index
-    if params[:search]
-      @decisions = Decision.search(params[:search]).order('name ASC')
-    else
-      @decisions = Decision.order('name ASC')
-    end
+    @decisions = Decision.all
   end
 
   def new

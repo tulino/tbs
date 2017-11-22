@@ -4,7 +4,4 @@ class Decision < ActiveRecord::Base
 
   mount_uploader :file, FileUploader
 
-  def self.search(query)
-    where('lower(name) like ?', "%#{query}%".downcase)
-  end
 end
