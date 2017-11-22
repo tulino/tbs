@@ -81,14 +81,6 @@ Layout/SpaceInsideHashLiteralBraces:
   Exclude:
     - 'app/models/role.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: final_newline, final_blank_line
-Layout/TrailingBlankLines:
-  Exclude:
-    - 'app/controllers/registrations_controller.rb'
-
 # Offense count: 4
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:
