@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '4.2.7.1'
 gem 'mysql2', '~> 0.3.18'
 gem 'rails', '4.2.4'
 # gem 'pg'
@@ -28,11 +29,11 @@ gem 'kaminari'
 gem 'permanent_records', '~> 4.0'
 gem 'rest-client'
 
-gem 'axlsx', '~> 2.0'
-gem 'axlsx_rails'
+gem "simple_calendar"
 gem 'dotenv-rails'
-gem 'simple_calendar'
-gem 'zip-zip'
+gem 'rubyzip', '>= 1.2.1'
+gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: '776037c0fc799bb09da8c9ea47980bd3bf296874'
+gem 'axlsx_rails'
 
 gem 'bootstrap-datepicker-rails'
 gem 'jquery-datatables-rails'
@@ -67,11 +68,11 @@ end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'bullet'
-  gem 'pry'
-  gem 'rack-mini-profiler', require: false
-  gem 'rubocop', require: false
   gem 'web-console', '~> 2.0'
+  gem 'pry'
+  gem 'rubocop', '~> 0.51.0', require: false
+  gem 'rack-mini-profiler', '~> 0.10.6', require: false
+  gem 'bullet'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
