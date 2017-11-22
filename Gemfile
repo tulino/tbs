@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'mysql2', '~> 0.3.18'
 gem 'rails', '4.2.4'
@@ -12,7 +11,6 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
-
 
 gem 'autoprefixer-rails'
 gem 'bootstrap-sass', '~> 3.2.0'
