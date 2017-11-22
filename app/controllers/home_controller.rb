@@ -5,12 +5,9 @@ class HomeController < ApplicationController
     @system_announcements = Event.order('created_at DESC').last(3)
   end
 
-  def dashboard_admin
-  end
+  def dashboard_admin; end
 
-  def dashboard_advisor
-  end
+  def dashboard_advisor; end
 
-  def dashboard_president
-  end
+  def dashboard_president; end
 end

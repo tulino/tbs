@@ -39,16 +39,14 @@ class ClubPeriodsController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @club_period = ClubPeriod.new
     authorize @club_period
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @club_period = ClubPeriod.new(club_period_params)

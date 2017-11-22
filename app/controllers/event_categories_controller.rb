@@ -7,16 +7,14 @@ class EventCategoriesController < ApplicationController
     authorize @event_categories
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @event_category = EventCategory.new
     authorize @event_category
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @event_category = EventCategory.new(event_category_params)

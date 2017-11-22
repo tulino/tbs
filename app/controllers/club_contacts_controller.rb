@@ -7,16 +7,14 @@ class ClubContactsController < ApplicationController
     authorize @club_contacts
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @club_contact = ClubContact.new
     authorize @club_contact
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @club_contact = ClubContact.new(club_contact_params)

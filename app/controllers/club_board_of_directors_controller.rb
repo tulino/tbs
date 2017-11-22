@@ -17,8 +17,7 @@ class ClubBoardOfDirectorsController < ApplicationController
     authorize @club_board_of_director
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @club_board_of_director = ClubBoardOfDirector.new(club_board_of_director_params)

@@ -7,16 +7,14 @@ class ClubCategoriesController < ApplicationController
     authorize @club_categories
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @club_category = ClubCategory.new
     authorize @club_category
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @club_category = ClubCategory.new(club_category_params)

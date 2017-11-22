@@ -27,8 +27,7 @@ class AnnouncementsController < ApplicationController
     authorize @announcement
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @announcement = Announcement.new(announcment_params)

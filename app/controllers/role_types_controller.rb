@@ -5,15 +5,13 @@ class RoleTypesController < ApplicationController
     @role_types = RoleType.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @role_type = RoleType.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @role_type = RoleType.new(role_type_params)

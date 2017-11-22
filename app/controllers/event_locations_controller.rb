@@ -7,16 +7,14 @@ class EventLocationsController < ApplicationController
     authorize @event_locations
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @event_location = EventLocation.new
     authorize @event_location
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @event_location = EventLocation.new(event_location_params)

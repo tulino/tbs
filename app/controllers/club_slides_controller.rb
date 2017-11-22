@@ -7,16 +7,14 @@ class ClubSlidesController < ApplicationController
     authorize @club_slides
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @club_slide = ClubSlide.new
     authorize @club_slide
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @club_slide = ClubSlide.new(club_slide_params)
