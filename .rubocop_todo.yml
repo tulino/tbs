@@ -51,17 +51,6 @@ Layout/IndentationConsistency:
   Exclude:
     - 'app/models/role.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Layout/LeadingCommentSpace:
-  Exclude:
-    - 'Gemfile'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Layout/SpaceAfterComma:
-  Exclude:
-    - 'app/controllers/roles_controller.rb'
 # Offense count: 4
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:

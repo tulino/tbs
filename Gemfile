@@ -16,12 +16,12 @@ gem 'coffee-rails', '~> 4.1.0'
 
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
-#gem 'bootstrap-material-design'
+# gem 'bootstrap-material-design'
 gem 'simple_form'
 gem 'carrierwave'
 gem 'pundit'
-#gem 'slim'
-#gem "slim-rails"
+# gem 'slim'
+# gem "slim-rails"
 gem 'better_errors'
 gem 'binding_of_caller'
 gem 'font-awesome-rails'
