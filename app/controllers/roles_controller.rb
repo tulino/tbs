@@ -62,6 +62,7 @@ class RolesController < ApplicationController
   def memebership_status; end
 
   def status_edit; end
+
   private
 
   def check_duplicated_roles(role)
