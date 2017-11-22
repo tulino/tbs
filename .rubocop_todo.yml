@@ -62,16 +62,6 @@ Layout/LeadingCommentSpace:
 Layout/SpaceAfterComma:
   Exclude:
     - 'app/controllers/roles_controller.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, EnforcedStyleForEmptyBraces, SupportedStylesForEmptyBraces, SpaceBeforeBlockParameters.
-# SupportedStyles: space, no_space
-# SupportedStylesForEmptyBraces: space, no_space
-Layout/SpaceInsideBlockBraces:
-  Exclude:
-    - 'app/controllers/profiles_controller.rb'
-
 # Offense count: 4
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:
