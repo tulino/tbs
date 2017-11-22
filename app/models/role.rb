@@ -1,5 +1,5 @@
 class Role < ActiveRecord::Base
-  enum status: { pasif: 0, aktif: 1, red: 2}
+  enum status: { pasif: 0, aktif: 1, red: 2 }
   belongs_to :role_type
   belongs_to :club_period
   belongs_to :user
