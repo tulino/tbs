@@ -89,14 +89,6 @@ Layout/TrailingBlankLines:
   Exclude:
     - 'app/controllers/registrations_controller.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-Layout/TrailingWhitespace:
-  Exclude:
-    - 'app/controllers/roles_controller.rb'
-    - 'app/models/club.rb'
-    - 'app/models/user.rb'
-
 # Offense count: 4
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:
@@ -138,23 +130,6 @@ Metrics/PerceivedComplexity:
 Naming/FileName:
   Exclude:
     - 'Gemfile'
-
-# Offense count: 23
-# Cop supports --auto-correct.
-Rails/ApplicationRecord:
-  Enabled: false
-
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: NilOrEmpty, NotPresent, UnlessPresent.
-Rails/Blank:
-  Exclude:
-    - 'app/controllers/academic_periods_controller.rb'
-    - 'app/controllers/event_response_controller.rb'
-    - 'app/controllers/users_controller.rb'
-    - 'app/mailers/event_mailer.rb'
-    - 'app/models/user.rb'
-    - 'app/services/ubs.rb'
 
 # Offense count: 1
 # Configuration parameters: EnforcedStyle, SupportedStyles.
