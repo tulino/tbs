@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class EventCategoryPolicy < ApplicationPolicy
   def index?
     true

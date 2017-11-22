@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class EventPolicy < ApplicationPolicy
   def index?
     true

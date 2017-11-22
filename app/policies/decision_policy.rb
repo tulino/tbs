@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class DecisionPolicy < ApplicationPolicy
   def update?
     @user.admin?

@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class AcademicPeriodPolicy < ApplicationPolicy
   def index?
     @user.admin?
