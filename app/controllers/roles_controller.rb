@@ -153,5 +153,4 @@ class RolesController < ApplicationController
       end
     end
   end
-
 end
