@@ -5,9 +5,9 @@ class Role < ActiveRecord::Base
   belongs_to :user
   belongs_to :faculty
 
-   # scopes
-   scope :all_pasif_members, -> { where(status: 0) }
-   scope :rejected_members, -> { where(status: 2) }
+  # scopes
+  scope :all_pasif_members, -> { where(status: 0) }
+  scope :rejected_members, -> { where(status: 2) }
 
   def rol_name
     if club
