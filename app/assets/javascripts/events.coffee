@@ -64,6 +64,8 @@ $ ->
       $('#event-status-id-modal').val(9)
     else if $(this).hasClass('dean-confirm')
       $('#event-status-id-modal').val(7)
+    else if $(this).hasClass('past-event')
+      $('#event-status-id-modal').val(10)
     $('#event-response-form').submit()
 
 
@@ -78,7 +80,6 @@ $ ->
       $('#event_location').val('')
 
   $('#print-event').click ->
-    console.log(123)
     printDiv("print-place")
 
 

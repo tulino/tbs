@@ -100,6 +100,7 @@ EventStatus.create(status: 'Akademik Danışman Onaylamadı')
 EventStatus.create(status: 'Dekan Onayı Bekleniyor')
 EventStatus.create(status: 'Dekan Onayladı')
 EventStatus.create(status: 'Dekan Onaylamadı')
+EventStatus.create(status: 'Süresi Geçmiş')
 
 # New Users
 @member1 = User.create(email: 'member1@tbs.com', password: 'member123', user_name: 'member1', ubs_no: 'o55555555', first_name: 'member1', last_name: '')

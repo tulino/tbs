@@ -11,6 +11,7 @@ class EventsController < ApplicationController
     if current_user.present? && current_user.admin?
       @events = Event.all.sort_by(&:last_event_response_date).reverse
       @pending_events = Event.admin_pending_events
+      @past_events = Event.past_events
     elsif current_user.present? && current_user.advisor?
       club_period = ClubPeriod.find_by(id: current_user.active_club_periods.select { |clubperiod| clubperiod.id if current_user.advisor?(clubperiod) })
       @events = Event.approval_events

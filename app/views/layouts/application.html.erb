@@ -119,6 +119,7 @@
                       <% if current_user.admin? %>
                       <button type="button" class="btn btn-danger pull-right form-response-button admin-reject">Reddet</button>
                       <button type="button" class="btn btn-success pull-right form-response-button admin-confirm">Onayla</button>
+                      <button type="button" class="btn btn-default pull-right form-response-button past-event">Süresi Geçmiş</button>
                       <% elsif current_user.president? %>
                       <button type="button" class="btn btn-success pull-right form-response-button president-resend">Onay için yeniden gönder</button>
                       <% elsif current_user.dean? %>
