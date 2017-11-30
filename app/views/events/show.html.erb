@@ -72,8 +72,8 @@
             </tr>
             <tr>
               <td>Ad-Soyadı</td>
-              <td><%= (@event.club_period.president.present? ? @event.club_period.president.full_name : "" ) unless @event.club_period.blank? %></td>
-              <td colspan="2"><%= (@event.club_period.advisor.present? ? @event.club_period.advisor.full_name : "" ) unless @event.club_period.blank?%></td>
+              <td><%= @event.president.full_name %></td>
+              <td colspan="2"><%= @event.advisor.full_name%></td>
             </tr>
             <tr>
               <td></td>
