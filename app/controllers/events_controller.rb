@@ -66,6 +66,8 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
+    @event.president_id = @event.club_period.president.id
+    @event.advisor_id = @event.club_period.advisor.id
     authorize @event
     respond_to do |format|
       if !number_of_members_sufficient?(@event)
@@ -159,6 +161,6 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.fetch(:event, {}).permit(:club_period_id, :event_category_id, :faculty_id, :title, :speakers, :datetime, :location, :content, :requirements, :image, :attachment, :is_admin_confirmation_ok, :is_advisor_confirmation_ok)
+    params.fetch(:event, {}).permit(:club_period_id, :event_category_id, :faculty_id, :title, :speakers, :datetime, :location, :content, :requirements, :image, :attachment, :is_admin_confirmation_ok, :is_advisor_confirmation_ok, :president_id, :advisor_id)
   end
 end
