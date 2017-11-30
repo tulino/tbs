@@ -4,7 +4,7 @@ class EventStatus < ActiveRecord::Base
   scope :admin_pending_status_ids, -> { where(status: ['SKS Admin Onayı Bekleniyor', 'Akademik Danışman Onayı Bekleniyor', 'Dekan Onayı Bekleniyor']).pluck(:id) }
   scope :all_manager_status_ids, -> { where(status: ['SKS Admin Onayı Bekleniyor', 'SKS Admin Onayladı', 'SKS Admin Onaylamadı', 'Akademik Danışman Onayladı', 'Akademik Danışman Onaylamadı']).pluck(:id) }
   scope :advisor_pending_status_ids, -> { where(status: ['Akademik Danışman Onayı Bekleniyor']).pluck(:id) }
-  scope :president_pending_status_ids, -> { where.not(status: ['SKS Admin Onayladı', "Süresi Geçmiş"]).pluck(:id) }
+  scope :president_pending_status_ids, -> { where.not(status: ['SKS Admin Onayladı', 'Süresi Geçmiş']).pluck(:id) }
   scope :approval_status_ids, -> { where(status: ['SKS Admin Onayladı']).pluck(:id) }
   scope :advisor_approved_status_id, -> { find_by(status: 'Akademik Danışman Onayladı').id }
   scope :dean_approved_status_id, -> { find_by(status: 'Dekan Onayladı').id }
