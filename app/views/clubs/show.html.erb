@@ -73,9 +73,6 @@
                   <% unless current_user.advisor? %>
                     <% if !@club_period.club.club_setting.is_active %>
                       <span class="btn btn-danger btn-block">Topluluk Aktif Değil</span>
-                    <% elsif current_user.member_wait_for_approval?(@club.id) %>
-                      <a href="#new_member" data-toggle="pill" class="btn btn-success btn-block">Üyeliğiniz Onay Bekliyor</a>
-                      <span class="label label-warning">Yazıcı çıktısı için <a href="#new_member" data-toggle="pill">tıklayınız.</a></span>
                     <% elsif current_user.member?(@club.id) %>
                       <span class="btn btn-success btn-block">Üyesiniz</span>
                     <% elsif current_user.profile.crime %>
@@ -87,6 +84,11 @@
                     <% elsif @member_red %>
                       <span class="label label-warning">Bu topluluğa üye olamazsınız</span><br>
                       <%= link_to "Detay için tıkla",membership_status_path(current_user), class: "" %>
+                    <% elsif current_user.try(:membership_limit?) %>
+                      <span class="label label-warning">En fazla 4 topluluğa üye olabilirsiniz </span><br>
+                    <% elsif current_user.member_wait_for_approval?(@club.id) %>
+                      <a href="#new_member" data-toggle="pill" class="btn btn-success btn-block">Üyeliğiniz Onay Bekliyor</a>
+                      <span class="label label-warning">Yazıcı çıktısı için <a href="#new_member" data-toggle="pill">tıklayınız.</a></span>
                     <% else %>
                       <% unless current_user.admin? || current_user.advisor? %>
                       <a href="#new_member" data-toggle="pill" class="btn btn-success btn-block">Topluluğa Katıl</a>

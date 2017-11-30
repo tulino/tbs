@@ -114,4 +114,8 @@ class User < ActiveRecord::Base
   def member_blocked?(club_id)
     member_block_request(club_id).try(:approved)
   end
+  
+  def membership_limit?
+    roles.where(role_type_id: RoleType.member_id, status: 1).count > 3
+  end
 end
