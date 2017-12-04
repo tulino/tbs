@@ -5,6 +5,7 @@ class Event < ActiveRecord::Base
   belongs_to :faculty
   # validations
   validates :image, file_size: { maximum: 10.megabytes.to_i }
+  validate :datetime_limit
 
   # uploaders
   mount_uploader :image, PhotoUploader
@@ -32,5 +33,9 @@ class Event < ActiveRecord::Base
 
   def self.member_club_events(current_user)
     current_user.active_club_periods.compact.map { |clubperiod| Event.where(id: clubperiod.events.select { |event| event.id if event.event_responses.any? && event.event_responses.last.event_status_id == 2 }.compact) }.flatten
+  end
+
+  def datetime_limit
+    errors.add(:datetime, '15 gün sonrası için etkinlik oluşturabilirsiniz!') if datetime < Date.today.next_day(15)
   end
 end

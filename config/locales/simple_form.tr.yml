@@ -1,0 +1,9 @@
+tr:
+  simple_form:
+    "yes": 'Evet'
+    "no": 'Hayır'
+    required:
+      text: 'zorunlu'
+      mark: '*'
+    error_notification:
+      default_message: "Aşağıdaki problemleri kontrol ediniz:"
