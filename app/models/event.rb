@@ -12,6 +12,7 @@ class Event < ActiveRecord::Base
   mount_uploader :attachment, FileUploader
 
   attr_accessor :event_locations
+  attr_accessor :current_user
   scope :admin_pending_events, -> { where(event_status_id: EventStatus.admin_pending_status_ids).sort_by(&:last_event_response_date).reverse }
   scope :advisor_pending_events, -> { where(event_status_id: EventStatus.advisor_pending_status_ids).sort_by(&:last_event_response_date).reverse }
   scope :president_pending_events, -> { where(event_status_id: EventStatus.president_pending_status_ids).sort_by(&:last_event_response_date).reverse }
@@ -36,6 +37,8 @@ class Event < ActiveRecord::Base
   end
 
   def datetime_limit
+    return if current_user.admin? || current_user.advisor?
+    return if persisted? && datetime == datetime_was
     errors.add(:datetime, '15 gün sonrası için etkinlik oluşturabilirsiniz!') if datetime < Date.today.next_day(15)
   end
 end

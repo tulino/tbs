@@ -15,6 +15,8 @@ workbook.add_worksheet(name: "Etkinlik Listesi") do |sheet|
   sheet.add_row ["Adı", "Topluluğu", "Tarihi", "Saati", "Etkinlik Yeri", "Durumu" ], style: [ bold_with_background,bold_with_background, bold_with_background,bold_with_background,bold_with_background,bold_with_background]
 
   @event_list.each do |event|
-    sheet.add_row [ event.title,  event.club_period.club.name ,event.datetime.strftime("%d/%m/%y") ,event.datetime.strftime("%H:%M"), event.location, event.event_responses.last.event_status.status ]
+    sheet.add_row [ event.title, event.try(:club_period).try(:club).try(:name),
+                    event.datetime.strftime("%d/%m/%y") ,event.datetime.strftime("%H:%M"),
+                    event.location, event.event_responses.last.event_status.status ]
   end
 end

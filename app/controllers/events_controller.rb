@@ -68,6 +68,7 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
     @event.president_id = @event.club_period.president.id
     @event.advisor_id = @event.club_period.advisor.id
+    @event.current_user = current_user
     authorize @event
     respond_to do |format|
       if !number_of_members_sufficient?(@event)
@@ -100,6 +101,7 @@ class EventsController < ApplicationController
 
   def update
     authorize @event
+    @event.current_user = current_user
     respond_to do |format|
       if @event.update(event_params)
         format.html { redirect_to @event, notice: 'Etkinlik başarıyla güncellendi.' }
