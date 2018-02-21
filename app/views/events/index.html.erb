@@ -12,30 +12,30 @@
     <div class="panel with-nav-tabs panel-default">
       <div class="panel-heading">
         <ul class="nav nav-tabs">
-          <li  class="active">
+          <li  class="tab-links active">
             <a href="#events_calender" data-toggle="tab">Etkinlik Takvimi</a>
           </li>
-          <li >
-            <a href="#events" data-toggle="tab">Tüm Etkinlikler</a>
+          <li class="tab-links all-events-link">
+            <%= link_to "Tüm Ekinlikler", all_events_events_path, remote: true %>
           </li>
           <% if current_user.present? && (current_user.admin? || current_user.president?(current_user.active_club_periods) || current_user.advisor? || current_user.dean?) %>
-            <li>
-              <a href="#pending_events" data-toggle="tab">Onay Bekleyen Etkinlikler</a>
+            <li class="tab-links pending-events-link">
+              <%= link_to "Onay Bekleyen Etkinlikler", pending_events_events_path, remote: true %>
             </li>
           <% end %>
           <% if current_user.present? && (current_user.president? || current_user.advisor?) %>
-            <li>
-              <a href="#club_events" data-toggle="tab">Topluluk Ekinlikleri</a>
+            <li class="tab-links club-events-link">
+              <%= link_to "Topluluk Ekinlikleri", club_events_events_path, remote: true %>
             </li>
           <% end %>
           <% if current_user.present? && current_user.admin? %>
-            <li>
-              <a href="#past_events" data-toggle="tab">Süresi Geçen Etkinlikler</a>
+            <li class="tab-links past-events-link">
+              <%= link_to "Süresi Geçen Etkinlikler", past_events_events_path, remote: true %>
             </li>
           <% end %>
           <% if current_user.present? && (current_user.president? || current_user.member?) %>
-            <li>
-              <a href="#clubs_of_member_events" data-toggle="tab">Üye Olunan Toplulukların Etkinlikleri</a>
+            <li class="tab-links clubs-of-member-events-link">
+              <%= link_to "Üye Olunan Toplulukların Etkinlikleri", clubs_of_member_events_events_path, remote: true %>
             </li>
           <% end %>
           <div class="btn-group pull-right">
@@ -52,166 +52,20 @@
       </div>
       <div class="panel-body">
         <div class="tab-content">
-          <div class="tab-pane fade" id="pending_events">
-            <% if current_user.present? && (current_user.admin? || current_user.president?(current_user.active_club_periods) || current_user.advisor? || current_user.dean? ) %>
-              <table class="table table-hover events">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Adı</th>
-                    <th>Topluluk</th>
-                    <th>Durum</th>
-                    <th>Tarihi</th>
-                    <th></th>
-                  </tr>
-                </thead>
+          <div class="tab-pane fade" id="pending-events-tab">
 
-                <tbody>
-                  <% @pending_events.each do |event| %>
-                    <tr data-id="<%= event.id %>" data-title="<%= event.title %>" data-show-footer="<%= current_user.present? && !(current_user.admin?) && current_user.president?(current_user.active_club_periods) && (event.event_responses.last.event_status.id == 5 || event.event_responses.last.event_status.id == 4 || event.event_responses.last.event_status.id == 1) ? false : true %>">
-                      <td></td>
-                      <td><%= link_to event.title, event %></td>
-                      <td><%= link_to event.club_period.club.name, event.club_period.club unless event.club_period.blank?%></td>
-                      <td><a href="#" role="button" data-toggle="modal" data-target="#event-responses-modal" class="label label-<%= event.event_responses.last.event_status.label_type %> show-event-responses"><%= event.event_responses.last.event_status.status %></a></td>
-                      <td><%= event.datetime.strftime("%d.%m.%Y - %H:%M") %></td>
-                      <td>
-                        <% if current_user.present? && current_user.admin? %>
-                          <%= link_to '<i class="fa fa-eye" title="Göster"></i>'.html_safe, event, :style=>'margin-right: 20px;' %><%= link_to '<i class="fa fa-pencil" title="Düzenle"></i>'.html_safe, edit_event_path(event), :style=>'margin-right: 20px;' %><%= link_to '<i class="fa fa-trash" title="Sil"></i>'.html_safe, event, method: :delete, data: { confirm: 'Etkinliği silmek istediğinize emin misiniz?' } %>
-                        <% elsif current_user.present? && current_user.president?(current_user.active_club_periods) %>
-                          <%= link_to '<i class="fa fa-trash" title="Sil"></i>'.html_safe, event, method: :delete, data: { confirm: 'Etkinliği silmek istediğinize emin misiniz?' } %>
-                        <% end %>
-                      </td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            <% end %>
           </div>
-          <div class="tab-pane fade" id="club_events">
-            <% if current_user.present? && (current_user.president? || current_user.advisor?) %>
-              <table class="table table-hover other_events">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Adı</th>
-                    <th>Topluluk</th>
-                    <th>Kategorisi</th>
-                    <th>Yeri</th>
-                    <th>Tarihi</th>
-                  </tr>
-                </thead>
+          <div class="tab-pane fade" id="club-events-tab">
 
-                <tbody>
-                  <% @club_events.each do |event| %>
-                    <tr>
-                      <td></td>
-                      <td><%= link_to event.title, event %></td>
-                      <td><%= link_to event.club_period.club.name, event.club_period.club unless event.club_period.blank? %></td>
-                      <td><%= event.event_category.name unless event.event_category.blank? %></td>
-                      <td><%= event.location %></td>
-                      <td><%= event.datetime.strftime("%d.%m.%Y - %H:%M") %></td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            <% end %>
           </div>
-          <div class="tab-pane fade" id="clubs_of_member_events">
-            <% if current_user.present? && (current_user.president? || current_user.member?) %>
-              <table class="table table-hover other_events">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Adı</th>
-                    <th>Topluluk</th>
-                    <th>Kategorisi</th>
-                    <th>Yeri</th>
-                    <th>Tarihi</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  <% @clubs_of_member_events.each do |event| %>
-                    <tr>
-                      <td></td>
-                      <td><%= link_to event.title, event %></td>
-                      <td><%= link_to event.club_period.club.name, event.club_period.club unless event.club_period.blank? %></td>
-                      <td><%= event.event_category.name  unless event.event_category.blank? %></td>
-                      <td><%= event.location %></td>
-                      <td><%= event.datetime.strftime("%d.%m.%Y - %H:%M") %></td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            <% end %>
+          <div class="tab-pane fade" id="clubs-of-member-events-tab">
+            
           </div>
-           <div class="tab-pane fade " id="events">
-            <table class="table table-hove events" id="all_events">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Adı</th>
-                  <th>Topluluk</th>
-                  <th>Durum</th>
-                  <th>Tarihi</th>
-                  <th></th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <% @events.each do |event| %>
-                  <tr data-id=<%= event.id %> data-title="<%= event.title %>" data-show-footer=<%= current_user.present? && current_user.admin? %>>
-                    <td></td>
-                    <td><%= link_to event.title, event %></td>
-                    <td><%= link_to event.club_period.club.name, event.club_period.club unless event.club_period.blank?%></td>
-                    <% if current_user.present? && current_user.admin?  %>
-                      <td><a href="#"  role="button" data-toggle="modal" data-target="#event-responses-modal" class="label show-event-responses label-<%= event.event_responses.last.event_status.label_type %>"><%= event.event_responses.last.event_status.status %></td>
-                    <% elsif event.event_responses.last.event_status_id == 2 %>
-                      <td> Onaylandı</td>
-                    <% else %>
-                      <td> İnceleniyor</td>
-                    <% end %>
-                    <td><%= event.datetime.strftime("%d.%m.%Y - %H:%M") %></td>
-                    <td>
-                      <% if current_user.present? && current_user.admin? %>
-                        <%= link_to '<i class="fa fa-eye" title="Göster"></i>'.html_safe, event, :style=>'margin-right: 20px;' %><%= link_to '<i class="fa fa-pencil" title="Düzenle"></i>'.html_safe, edit_event_path(event), :style=>'margin-right: 20px;' %><%= link_to '<i class="fa fa-trash" title="Sil"></i>'.html_safe, event, method: :delete, data: { confirm: 'Etkinliği silmek istediğinize emin misiniz?' } %>
-                      <% end %>
-                    </td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
+           <div class="tab-pane fade " id="events-tab">
+            
           </div>
-          <div class="tab-pane fade " id="past_events">
-            <% if current_user.present? && current_user.admin? %>
-              <table class="table table-hove events" id="past_events">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Adı</th>
-                    <th>Topluluk</th>
-                    <th>Durum</th>
-                    <th>Tarihi</th>
-                    <th></th>
-                  </tr>
-                </thead>
+          <div class="tab-pane fade " id="past-events-tab">
 
-                <tbody>
-                  <% @past_events.each do |event| %>
-                    <tr data-id=<%= event.id %> data-title="<%= event.title %>" data-show-footer=true >
-                      <td></td>
-                      <td><%= link_to event.title, event %></td>
-                      <td><%= link_to event.club_period.club.name, event.club_period.club unless event.club_period.blank?%></td>
-                      <td><a href="#"  role="button" data-toggle="modal" data-target="#event-responses-modal" class="label show-event-responses label-<%= event.event_responses.last.event_status.label_type %>"><%= event.event_responses.last.event_status.status %></td>
-                      <td><%= event.datetime.strftime("%d.%m.%Y - %H:%M") %></td>
-                      <td>
-                        <%= link_to '<i class="fa fa-eye" title="Göster"></i>'.html_safe, event, :style=>'margin-right: 20px;' %><%= link_to '<i class="fa fa-pencil" title="Düzenle"></i>'.html_safe, edit_event_path(event), :style=>'margin-right: 20px;' %><%= link_to '<i class="fa fa-trash" title="Sil"></i>'.html_safe, event, method: :delete, data: { confirm: 'Etkinliği silmek istediğinize emin misiniz?' } %>
-                      </td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            <% end %>
           </div>
           <div class="tab-pane fade in active" id="events_calender">
             <div class="panel panel-default">

@@ -12,8 +12,13 @@ Rails.application.routes.draw do
 
   post 'event_response/destroy'
 
-  resources :events do |variable|
+  resources :events do
     get 'event_responses', on: :member, defaults: {format: :json}
+    get 'all_events', on: :collection
+    get 'pending_events', on: :collection
+    get 'past_events', on: :collection
+    get 'club_events', on: :collection
+    get 'clubs_of_member_events', on: :collection
   end
   resources :event_locations
   resources :event_categories

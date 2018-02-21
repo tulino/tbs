@@ -4,36 +4,65 @@ class EventsController < ApplicationController
   helper EventsHelper
 
   def index
-    @clubs_of_member_events = []
-    @club_events = []
-    @pending_events = []
-    @events = []
-    if current_user.present? && current_user.admin?
-      @events = Event.all.sort_by(&:last_event_response_date).reverse
-      @pending_events = Event.admin_pending_events
-      @past_events = Event.past_events
-    elsif current_user.present? && current_user.advisor?
-      club_period = ClubPeriod.find_by(id: current_user.active_club_periods.select { |clubperiod| clubperiod.id if current_user.advisor?(clubperiod) })
-      @events = Event.approval_events
-      @pending_events = club_period.events.advisor_pending_events
-      @club_events = club_period.events.select { |event| event.event_responses.any? && event.event_responses.last.event_status_id == 2 } unless club_period.blank?
-    elsif current_user.present? && current_user.president?
-      club_period = ClubPeriod.find_by(id: current_user.active_club_periods.select { |clubperiod| clubperiod.id if current_user.president?(clubperiod) })
-      @events = Event.approval_events
-      @club_events = club_period.events.select { |event| event.event_responses.any? && event.event_responses.last.event_status_id == 2 } unless club_period.blank?
-      @pending_events = club_period.events.president_pending_events
-      @clubs_of_member_events = Event.member_club_events(current_user)
-    elsif current_user.present? && current_user.member?
-      @clubs_of_member_events = Event.member_club_events(current_user)
-    elsif current_user.present? && current_user.dean?
-      current_facult_id = current_user.roles.where(role_type_id: RoleType.find_by(name: 'Dekan').id, status: 1).first.faculty_id
-      @pending_events = Event.where(faculty_id: current_facult_id).dean_pending_events
-      @events = Event.approval_events
-    else
-      @events = Event.approval_events
+  end
+
+  def all_events
+    @events =
+      if current_user.present? && current_user.admin?
+        Event.all.sort_by(&:last_event_response_date).reverse
+      else
+        Event.approval_events
+      end
+    respond_to do |format|
+      format.js
     end
-    events = (@events if @events.any?) || (@clubs_of_member_events if @clubs_of_member_events.any?) || (@club_events if @club_events.any?) || (@pending_events if @pending_events.any?) || []
-    authorize Event.where(id: events.map(&:id))
+  end
+
+  def pending_events
+    @events =
+      if current_user.admin?
+        Event.admin_pending_events
+      elsif current_user.advisor?
+        advisor_club_period(current_user).events.advisor_pending_events
+      elsif current_user.president?
+        president_club_period(current_user).events.president_pending_events
+      elsif current_user.dean?
+        current_facult_id = current_user.roles.where(role_type_id: RoleType.dean_id, status: 1).first.faculty_id
+        Event.where(faculty_id: current_facult_id).dean_pending_events
+      end
+    @events ||= []
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def past_events
+    @events = Event.past_events
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def club_events
+    @events =
+      if current_user.advisor?
+        club_period = advisor_club_period(current_user)
+        club_period.events.select { |event| event.event_responses.any? && event.event_responses.last.event_status_id == 2 } unless club_period.blank?
+      elsif current_user.president?
+        club_period = president_club_period(current_user)
+        club_period.events.select { |event| event.event_responses.any? && event.event_responses.last.event_status_id == 2 } unless club_period.blank?
+      end
+    @events ||= []
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def clubs_of_member_events
+    @events = Event.member_club_events(current_user)
+    respond_to do |format|
+      format.js
+    end
   end
 
   def event_responses
@@ -145,6 +174,14 @@ class EventsController < ApplicationController
   end
 
   private
+
+  def advisor_club_period(user)
+    ClubPeriod.find_by(id: user.active_club_periods.select { |club_period| club_period.id if user.advisor?(club_period) })
+  end
+
+  def president_club_period(user)
+    ClubPeriod.find_by(id: user.active_club_periods.select { |club_period| club_period.id if user.president?(club_period) })
+  end
 
   def number_of_members_sufficient?(event)
     club_period = event.club_period

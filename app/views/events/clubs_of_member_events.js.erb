@@ -1,0 +1,40 @@
+eventsTab = $('#clubs-of-member-events-tab')
+eventsTab.empty()
+$('.tab-pane').removeClass('in active')
+$('.tab-links').removeClass('active')
+$('.clubs-of-member-events-link').addClass('active')
+eventsTab.append("<%= j render 'events/tables/clubs_of_member_events', events: @events %>")
+eventsTab.addClass('in active')
+
+$('#clubs-of-member-events-table').dataTable({
+  language: {
+    "sProcessing": "Yükleniyor...",
+    "sLengthMenu": "Sayfada _MENU_ Kayıt Göster",
+    "sZeroRecords": "Eşleşen Kayıt Bulunmadı",
+    "sInfo": "  _TOTAL_ Kayıttan _START_ - _END_ Arası kayıtlar",
+    "sInfoEmpty": "Kayıt Yok",
+    "sInfoFiltered": "( _MAX_ Kayıt içerisinden Bulunan)",
+    "sInfoPostFix": "",
+    "sSearch": "Bul:",
+    "sUrl": "",
+    "oPaginate": {
+      "sFirst": "İlk",
+      "sPrevious": "Önceki",
+      "sNext": "Sonraki",
+      "sLast": "Son"
+    }
+  },
+  "bPaginate": true,
+  "pageLength": 10,
+  "bProcessing": true,
+  "order": [[1, 'asc']],
+  "columnDefs": [
+    {
+      "targets": [1, 2, 3, 4, 5],
+      "orderable": true
+    }, {
+      "targets": [0],
+      "orderable": false
+    }
+  ]
+});

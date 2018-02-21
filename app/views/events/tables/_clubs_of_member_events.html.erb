@@ -1,0 +1,25 @@
+<table class="table table-hover other_events" id="clubs-of-member-events-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Adı</th>
+      <th>Topluluk</th>
+      <th>Kategorisi</th>
+      <th>Yeri</th>
+      <th>Tarihi</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @events.each do |event| %>
+      <tr>
+        <td></td>
+        <td><%= link_to event.title, event %></td>
+        <td><%= link_to event.club_period.club.name, event.club_period.club unless event.club_period.blank? %></td>
+        <td><%= event.event_category.name  unless event.event_category.blank? %></td>
+        <td><%= event.location %></td>
+        <td><%= event.datetime.strftime("%d.%m.%Y - %H:%M") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

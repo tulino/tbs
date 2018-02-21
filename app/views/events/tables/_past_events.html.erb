@@ -1,0 +1,27 @@
+<table class="table table-hove events" id="past-events-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Adı</th>
+      <th>Topluluk</th>
+      <th>Durum</th>
+      <th>Tarihi</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @events.each do |event| %>
+      <tr data-id=<%= event.id %> data-title="<%= event.title %>" data-show-footer=true >
+        <td></td>
+        <td><%= link_to event.title, event %></td>
+        <td><%= link_to event.club_period.club.name, event.club_period.club unless event.club_period.blank?%></td>
+        <td><a href="#"  role="button" data-toggle="modal" data-target="#event-responses-modal" class="label show-event-responses label-<%= event.event_responses.last.event_status.label_type %>"><%= event.event_responses.last.event_status.status %></td>
+        <td><%= event.datetime.strftime("%d.%m.%Y - %H:%M") %></td>
+        <td>
+          <%= link_to '<i class="fa fa-eye" title="Göster"></i>'.html_safe, event, :style=>'margin-right: 20px;' %><%= link_to '<i class="fa fa-pencil" title="Düzenle"></i>'.html_safe, edit_event_path(event), :style=>'margin-right: 20px;' %><%= link_to '<i class="fa fa-trash" title="Sil"></i>'.html_safe, event, method: :delete, data: { confirm: 'Etkinliği silmek istediğinize emin misiniz?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
