@@ -36,6 +36,7 @@ gem 'axlsx_rails'
 
 gem 'bootstrap-datepicker-rails'
 gem 'jquery-datatables-rails'
+gem 'ajax-datatables-rails'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

@@ -24,17 +24,18 @@ $('#all-events-table').dataTable({
       "sLast": "Son"
     }
   },
-  "bPaginate": true,
-  "pageLength": 10,
-  "bProcessing": true,
-  "order": [],
-  "columnDefs": [
-    {
-      "targets": [1, 2, 3, 4],
-      "orderable": true
-    }, {
-      "targets": [0, 5],
-      "orderable": false
-    }
+  processing: true,
+  serverSide: true,
+  searching: true,
+  deferRender: true,
+  ajax: $('#all-events-table').data('source'),
+  pagingType: 'full_numbers',
+  ordering: true,
+  columns: [
+    { data: 'name' },
+    { data: 'club' },
+    { data: 'status', orderable: false },
+    { data: 'datetime' },
+    { data: 'actions', orderable: false }
   ]
 });

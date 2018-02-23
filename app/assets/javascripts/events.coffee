@@ -19,9 +19,7 @@ printDiv = (divName) ->
   document.body.innerHTML = originalContents
 
 $ ->
-
-$ ->
-  $('.show-event-responses').click ->
+  $('.tab-content').on 'click', '.show-event-responses', (e) ->
     tr = $(this).closest('tr')
     eventId = tr[0].attributes[0].value
     $('#event-modal-title').text(tr[0].attributes[1].value)

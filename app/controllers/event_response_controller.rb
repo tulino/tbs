@@ -4,6 +4,7 @@ class EventResponseController < ApplicationController
     @event = Event.find(event_response_params['event_id'])
     if @event_response.save
       event_status_id = event_response_params['event_status_id'].to_i
+      @event.current_user = current_user
       @event.update(event_status_id: event_status_id)
       check_event_status(@event, event_status_id)
       flash.now[:error] = 'Başarılı'

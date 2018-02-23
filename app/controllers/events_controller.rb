@@ -15,6 +15,9 @@ class EventsController < ApplicationController
       end
     respond_to do |format|
       format.js
+      format.json do
+        render json: EventsDatatable.new(view_context, {current_user: current_user})
+      end
     end
   end
 
