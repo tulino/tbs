@@ -17,8 +17,9 @@ class EventsDatatable < AjaxDatatablesRails::Base
     current_user = options[:current_user]
     records.map do |record|
       {
+        DT_RowId: record.id,
         name: link_to(record.title, record),
-        club: link_to(record.club_period.club.try(:name), record.club_period.club),
+        club: link_to(record.club_period.try(:club).try(:name), record.club_period.try(:club)),
         status: event_status(record),
         datetime: record.datetime.strftime("%d.%m.%Y - %H:%M"),
         actions: event_actions(record)
