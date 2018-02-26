@@ -1,0 +1,31 @@
+<div class="row">
+  <%= render 'home/navbarDefault' %></div>
+<div class="row">
+  <div class="col-md-12">
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to 'Anasayfa', root_path %></li>
+      <li class="active">Kullanıcılar</li>
+    </ol>
+    <div class="panel panel-default">
+      <div class="panel-heading clearfix">
+        <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Kullanıcılar</h4>
+      </div>
+      <div class="panel-body">
+        <table class="table table-hove" id="users-table", data-source="<%= users_path(format: :json) %>">
+          <thead>
+            <tr>
+              <th>Adı</th>
+              <th>Soyadı</th>
+              <th>Öğrenci No</th>
+              <th>TC No</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      <br />
+    </div>
+  </div>
+</div>
+</div>

@@ -1,4 +1,15 @@
 class UsersController < ApplicationController
+
+  def index
+    authorize User.new
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: UsersDatatable.new(view_context)
+      end
+    end
+  end
+
   def find_ogrenci
     if params['ubs_no'].present? && params['club_id'].present?
       if ubs_no_valid?(params['ubs_no']) && !(params['ubs_no'].start_with? 'o')

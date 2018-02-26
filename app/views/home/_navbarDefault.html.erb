@@ -15,12 +15,15 @@
           <li><%= link_to '<i class="fa fa-calendar-check-o"></i> Etkinlikler'.html_safe, events_path %></li>
           <li><%= link_to '<i class="fa fa-bullhorn"></i> Sksdb Duyuruları'.html_safe, system_announcements_path %></li>
           <li><%= link_to '<i class="fa fa-bars"></i> Kararlar'.html_safe, decisions_path %></li>
+          <% if current_user.present? && current_user.admin? %>
+            <li><%= link_to '<i class="fa fa-users"></i> Kullanıcılar'.html_safe, users_path %></li>
+          <% end %>
           <% if user_signed_in? && (current_user.admin? || current_user.president? || current_user.advisor?)%>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Yönetim<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <% if current_user.admin? %>
-                  <li><%= link_to "Topluluk Kategorileri",  club_categories_path %></li>
+                  <li><%= link_to "Topluluk Kategorileri", club_categories_path %></li>
                   <li><%= link_to "Topluluk İletişim Bilgileri", club_contacts_path  %></li>
                   <li><%= link_to "Topluluk Ayarları", club_settings_path  %></li>
                   <li><%= link_to "Yönetim Kurulları", club_board_of_directors_path %></li>

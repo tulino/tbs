@@ -51,6 +51,7 @@ Rails.application.routes.draw do
   resources :club_categories
   get 'all_pending_users' => 'clubs#all_pending_users'
   get 'status_edit' => 'roles#status_edit'
+  get 'users', to: 'users#index'
   get 'find_ogrenci' =>'users#find_ogrenci'
   get 'find_personel' =>'users#find_personel'
   get 'download_events' => 'events#download_events'
