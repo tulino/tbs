@@ -21,13 +21,17 @@ printDiv = (divName) ->
 $ ->
   $('.tab-content').on 'click', '.show-event-responses', (e) ->
     tr = $(this).closest('tr')
-    eventId = tr[0].attributes[0].value
-    $('#event-modal-title').text(tr[0].attributes[1].value)
+    eventId = tr.data("id") || tr.attr('id')
+    showFooter = tr.data("showFooter") || tr.hasClass("footer-true")
+    title = tr.data("title") || tr.attr('class').match(/title(.*)title/)[1]
+    $('#event-modal-title').text(title)
     if eventId != ""
       $('#event-id-modal').val(eventId)
       $('#event-responses-table-body').empty()
-      if(!tr[0].attributes[2].value)
-        $('#event-responses-table-footer').empty()
+      if(showFooter)
+        $('#event-responses-table-footer').show()
+      else
+        $('#event-responses-table-footer').hide()
       $.ajax
           url: "/events/#{eventId}/event_responses"
           type: 'GET'

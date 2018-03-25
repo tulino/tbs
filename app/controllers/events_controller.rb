@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[show edit update destroy event_responses]
-  before_action :authenticate_user!, only: %i[new edit update destroy download_events]
+  before_action :authenticate_user!, only: %i[new edit update show destroy download_events]
   helper EventsHelper
 
   def index

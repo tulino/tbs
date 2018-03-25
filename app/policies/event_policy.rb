@@ -4,7 +4,7 @@ class EventPolicy < ApplicationPolicy
   end
 
   def show?
-    if @user.present? && (@user.admin? || @user.president?(@record.club_period.id) || @user.advisor?(@record.club_period.id))
+    if @user.present? && (@user.admin? || @user.president?(@record.club_period.id) || @user.advisor?(@record.club_period.id) || @user.dean?)
       true
     else
       @record.event_responses.last.event_status.id == 2

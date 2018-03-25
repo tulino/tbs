@@ -14,10 +14,11 @@ class EventsDatatable < AjaxDatatablesRails::Base
   end
 
   def data
-    current_user = options[:current_user]
+    
     records.map do |record|
       {
         DT_RowId: record.id,
+        DT_RowClass: "footer-#{footer?} title#{record.title}title",
         name: link_to(record.title, record),
         club: link_to(record.club_period.try(:club).try(:name), record.club_period.try(:club)),
         status: event_status(record),
@@ -31,5 +32,10 @@ class EventsDatatable < AjaxDatatablesRails::Base
 
   def get_raw_records
     Event.includes({club_period: :club}, { event_responses: [:event_status] }).references(:club_period)
+  end
+
+  def footer?
+    current_user = options[:current_user]
+    current_user.admin?
   end
 end

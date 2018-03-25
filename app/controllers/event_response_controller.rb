@@ -31,7 +31,9 @@ class EventResponseController < ApplicationController
 
   def create_response_and_send_mail(event, event_status)
     EventResponse.create(event_id: event.id, event_status_id: event_status)
-    Event.find(event.id).update(event_status_id: event_status)
+    event = Event.find(event.id)
+    event.current_user = current_user
+    event.update(event_status_id: event_status)
     return unless event.try(:faculty).try(:role).present?
     if event_status == EventStatus.admin_pending_status_id
       EventMailer.approval_admin_event(event).deliver_now
