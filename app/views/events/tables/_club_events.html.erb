@@ -4,7 +4,7 @@
       <th></th>
       <th>Adı</th>
       <th>Topluluk</th>
-      <th>Kategorisi</th>
+      <th>Durum</th>
       <th>Yeri</th>
       <th>Tarihi</th>
     </tr>
@@ -12,11 +12,11 @@
 
   <tbody>
     <% @events.each do |event| %>
-      <tr>
+      <tr data-id="<%= event.id %>" data-title="<%= event.title %>" data-show-footer="false" >
         <td></td>
         <td><%= link_to event.title, event %></td>
         <td><%= link_to event.club_period.club.name, event.club_period.club unless event.club_period.blank? %></td>
-        <td><%= event.event_category.name unless event.event_category.blank? %></td>
+        <td><a href="#" role="button" data-toggle="modal" data-target="#event-responses-modal" class="label label-<%= event.event_responses.last.event_status.label_type %> show-event-responses"><%= event.event_responses.last.event_status.status %></a></td>
         <td><%= event.location %></td>
         <td><%= event.datetime.strftime("%d.%m.%Y - %H:%M") %></td>
       </tr>
