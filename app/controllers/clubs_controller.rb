@@ -1,7 +1,7 @@
 class ClubsController < ApplicationController
   include ClubsHelper
 
-  before_action :set_club, only: %i[show edit update destroy pending_users club_users]
+  before_action :set_club, only: %i[show edit update destroy pending_users club_users cancel_membership]
   before_action :authenticate_user!, only: %i[new edit update destroy]
 
   def index
@@ -15,12 +15,8 @@ class ClubsController < ApplicationController
 
     # excel dökümü için sorgulama
     @clubs_for_excel = Club.all
-    if params[:clup_category].present?
-      @clubs_for_excel = @clubs_for_excel.where(club_category_id: params[:clup_category])
-    end
-    if params[:academic_period].present?
-      @clubs_for_excel =   @clubs_for_excel.map { |x| x }.keep_if { |y| y.club_periods.map { |d| d }.keep_if { |z| z.academic_period_id == params[:academic_period] } }
-    end
+    @clubs_for_excel = @clubs_for_excel.where(club_category_id: params[:clup_category]) if params[:clup_category].present?
+    @clubs_for_excel = @clubs_for_excel.map { |x| x }.keep_if { |y| y.club_periods.map { |d| d }.keep_if { |z| z.academic_period_id == params[:academic_period] } } if params[:academic_period].present?
     if params[:state].present?
       if params[:state] == 'true'
         @clubs_for_excel = @clubs_for_excel.select { |x| x.club_setting.is_active }
@@ -131,6 +127,11 @@ class ClubsController < ApplicationController
     club = current_user.president_or_advisor_club_period.club
     @roles = club.all_members
     authorize @roles
+  end
+
+  def cancel_membership
+    @club.members.find_by(current_user.id).destroy
+    redirect_to :back
   end
 
   private

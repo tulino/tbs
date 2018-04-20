@@ -1,22 +1,14 @@
 class ApplicationController < ActionController::Base
   include Pundit
   protect_from_forgery with: :exception
-  before_action :configure_devise_permitted_parameters, if: :devise_controller?
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
   include ApplicationHelper
 
   protected
 
-  def configure_devise_permitted_parameters
-    registration_params = %i[email password password_confirmation]
-    if params[:action] == 'update'
-      devise_parameter_sanitizer.for(:account_update) do |u|
-        u.permit(registration_params << :current_password, :image, :is_passive)
-      end
-    elsif params[:action] == 'create'
-      devise_parameter_sanitizer.for(:sign_up) do |u|
-        u.permit(registration_params)
-      end
-    end
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[email password password_confirmation])
   end
 
   def after_sign_in_path_for(_resource)

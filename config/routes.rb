@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   resources :clubs do
     get 'pending_users', on: :member
     get 'club_users', on: :member
+    delete 'cancel_membership', on: :member
   end
   resources :faculties
   resources :club_categories

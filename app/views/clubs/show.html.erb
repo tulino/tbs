@@ -74,7 +74,8 @@
                     <% if !@club_period.club.club_setting.is_active %>
                       <span class="btn btn-danger btn-block">Topluluk Aktif Değil</span>
                     <% elsif current_user.member?(@club.id) %>
-                      <span class="btn btn-success btn-block">Üyesiniz</span>
+                    <%= link_to 'Üyeliği Bırak', cancel_membership_club_path(@club), class:"btn btn-danger btn-block",
+                    method: :delete, data: { confirm: 'emin misiniz?' } %>
                     <% elsif current_user.profile.crime %>
                       <span class="label label-warning">Disiplin cezanız olduğu için topluluğa üye olmazsınız</span>
                     <% elsif @club_member_program_error %>
