@@ -1,42 +1,24 @@
-# encoding: utf-8
+
 # v2
 
 xlsx_package.use_autowidth = true
 workbook = xlsx_package.workbook
 
-bold_with_background = workbook.styles.add_style  b: true
+bold_with_background = workbook.styles.add_style b: true
 
-workbook.add_worksheet(name: "Yönetim Kurulu Listesi") do |sheet|
-  sheet.add_row ["Topluluk Akademik Dönemi:", @club_board_of_director.club_period.academic_period.name ], style: [bold_with_background, 0]
+workbook.add_worksheet(name: 'Yönetim Kurulu Listesi') do |sheet|
+  sheet.add_row ['Topluluk Akademik Dönemi:', @club_board_of_director.club_period.academic_period.name], style: [bold_with_background, 0]
   sheet.add_row []
-  sheet.add_row ["Topluluk Yönetim Kurulu Listesi "], style: [bold_with_background]
+  sheet.add_row ['Topluluk Yönetim Kurulu Listesi '], style: [bold_with_background]
   sheet.add_row []
-  sheet.add_row [" ","Adı Soyadı", "Telefon", "Email"], style: [bold_with_background,bold_with_background,bold_with_background,bold_with_background]
-  if @club_board_of_director.club_period.advisor
-    sheet.add_row ["Akademik Danışman: ", @club_board_of_director.club_period.advisor.full_name,@club_board_of_director.club_period.advisor.profile.phone, @club_board_of_director.club_period.advisor.profile.email] , style: [bold_with_background, 0,0,0]
-  end
-  if @club_board_of_director.club_period.vice_advisor
-    sheet.add_row ["Akademik Danışman Yardımcısı: ", @club_board_of_director.club_period.vice_advisor.full_name, @club_board_of_director.club_period.vice_advisor.profile.phone, @club_board_of_director.club_period.vice_advisor.profile.email] , style:[bold_with_background, 0,0,0]
-  end
-  if @club_board_of_director.president
-    sheet.add_row ["Başkan: ",  @club_board_of_director.president.name_surname, @club_board_of_director.president.profile.phone, @club_board_of_director.president.profile.email ],  style: [bold_with_background, 0,0,0]
-  end
-  if @club_board_of_director.vice_president
-    sheet.add_row ["Başkan Yardımcısı:",  @club_board_of_director.vice_president.name_surname ,@club_board_of_director.vice_president.profile.phone, @club_board_of_director.vice_president.profile.email ],  style: [bold_with_background, 0,0,0]
-  end
-  if  @club_board_of_director.accountant
-    sheet.add_row ["Sayman: ",   @club_board_of_director.accountant.name_surname, @club_board_of_director.accountant.profile.phone, @club_board_of_director.accountant.profile.email ],  style: [bold_with_background, 0,0,0]
-  end
-  if @club_board_of_director.secretary
-    sheet.add_row ["Sekreter: ",   @club_board_of_director.secretary.name_surname, @club_board_of_director.secretary.profile.phone, @club_board_of_director.secretary.profile.email ],  style: [bold_with_background, 0,0,0]
-  end
-  if @club_board_of_director.member_first
-   sheet.add_row ["1. Üye: ",  @club_board_of_director.member_first.name_surname, @club_board_of_director.member_first.profile.phone, @club_board_of_director.member_first.profile.email ],  style: [bold_with_background, 0,0,0]
-  end
-  if @club_board_of_director.member_second
-    sheet.add_row ["2. Üye: ", @club_board_of_director.member_second.name_surname, @club_board_of_director.member_second.profile.phone, @club_board_of_director.member_second.profile.email ],  style: [bold_with_background, 0,0,0]
-  end
-  if @club_board_of_director.member_third
-    sheet.add_row ["3. Üye: ", @club_board_of_director.member_third.name_surname, @club_board_of_director.member_third.profile.phone, @club_board_of_director.member_third.profile.email  ],  style: [bold_with_background, 0,0,0]
-  end
+  sheet.add_row [' ', 'Adı Soyadı', 'Telefon', 'Email'], style: [bold_with_background, bold_with_background, bold_with_background, bold_with_background]
+  sheet.add_row ['Akademik Danışman: ', @club_board_of_director.club_period.advisor.full_name, @club_board_of_director.club_period.advisor.profile.phone, @club_board_of_director.club_period.advisor.profile.email], style: [bold_with_background, 0, 0, 0] if @club_board_of_director.club_period.advisor
+  sheet.add_row ['Akademik Danışman Yardımcısı: ', @club_board_of_director.club_period.vice_advisor.full_name, @club_board_of_director.club_period.vice_advisor.profile.phone, @club_board_of_director.club_period.vice_advisor.profile.email], style: [bold_with_background, 0, 0, 0] if @club_board_of_director.club_period.vice_advisor
+  sheet.add_row ['Başkan: ', @club_board_of_director.president.name_surname, @club_board_of_director.president.profile.phone, @club_board_of_director.president.profile.email], style: [bold_with_background, 0, 0, 0] if @club_board_of_director.president
+  sheet.add_row ['Başkan Yardımcısı:', @club_board_of_director.vice_president.name_surname, @club_board_of_director.vice_president.profile.phone, @club_board_of_director.vice_president.profile.email], style: [bold_with_background, 0, 0, 0] if @club_board_of_director.vice_president
+  sheet.add_row ['Sayman: ', @club_board_of_director.accountant.name_surname, @club_board_of_director.accountant.profile.phone, @club_board_of_director.accountant.profile.email], style: [bold_with_background, 0, 0, 0] if @club_board_of_director.accountant
+  sheet.add_row ['Sekreter: ', @club_board_of_director.secretary.name_surname, @club_board_of_director.secretary.profile.phone, @club_board_of_director.secretary.profile.email], style: [bold_with_background, 0, 0, 0] if @club_board_of_director.secretary
+  sheet.add_row ['1. Üye: ', @club_board_of_director.member_first.name_surname, @club_board_of_director.member_first.profile.phone, @club_board_of_director.member_first.profile.email], style: [bold_with_background, 0, 0, 0] if @club_board_of_director.member_first
+  sheet.add_row ['2. Üye: ', @club_board_of_director.member_second.name_surname, @club_board_of_director.member_second.profile.phone, @club_board_of_director.member_second.profile.email], style: [bold_with_background, 0, 0, 0] if @club_board_of_director.member_second
+  sheet.add_row ['3. Üye: ', @club_board_of_director.member_third.name_surname, @club_board_of_director.member_third.profile.phone, @club_board_of_director.member_third.profile.email], style: [bold_with_background, 0, 0, 0] if @club_board_of_director.member_third
 end

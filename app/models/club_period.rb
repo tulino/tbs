@@ -7,7 +7,7 @@ class ClubPeriod < ActiveRecord::Base
   has_many :announcements
   has_many :events
   has_many :event_requests
-  has_many :roles, :dependent => :destroy
+  has_many :roles, dependent: :destroy
   belongs_to :club
 
   # scopes

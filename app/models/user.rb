@@ -61,9 +61,7 @@ class User < ActiveRecord::Base
     return unless roles.present?
     current_user_roles = roles.includes(:club_period)
     current_user_roles.map do |role|
-      if role.try(:club_period).try(:academic_period).try(:is_active)
-        role.club_period
-      end
+      role.club_period if role.try(:club_period).try(:academic_period).try(:is_active)
     end.uniq
   end
 
@@ -114,7 +112,7 @@ class User < ActiveRecord::Base
   def member_blocked?(club_id)
     member_block_request(club_id).try(:approved)
   end
-  
+
   def membership_limit?
     roles.where(role_type_id: RoleType.member_id, status: 1).count > 3
   end

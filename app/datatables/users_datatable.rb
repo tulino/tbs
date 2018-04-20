@@ -1,13 +1,12 @@
 class UsersDatatable < AjaxDatatablesRails::Base
-
   def_delegator :@view, :link_to
 
   def view_columns
     @view_columns ||= {
-      first_name: { source: "User.first_name" },
-      last_name: { source: "User.last_name" },
-      ubs_no: { source: "User.ubs_no", orderable: false },
-      tc_no: { source: "User.idnumber", orderable: false }
+      first_name: { source: 'User.first_name' },
+      last_name: { source: 'User.last_name' },
+      ubs_no: { source: 'User.ubs_no', orderable: false },
+      tc_no: { source: 'User.idnumber', orderable: false }
     }
   end
 

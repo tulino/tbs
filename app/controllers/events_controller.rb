@@ -3,8 +3,7 @@ class EventsController < ApplicationController
   before_action :authenticate_user!, only: %i[new edit update show destroy download_events]
   helper EventsHelper
 
-  def index
-  end
+  def index; end
 
   def all_events
     @events =
@@ -16,7 +15,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       format.js
       format.json do
-        render json: EventsDatatable.new(view_context, {current_user: current_user})
+        render json: EventsDatatable.new(view_context, current_user: current_user)
       end
     end
   end

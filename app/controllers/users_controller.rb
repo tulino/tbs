@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   def index
     authorize User.new
     respond_to do |format|
@@ -12,9 +11,7 @@ class UsersController < ApplicationController
 
   def find_ogrenci
     if params['ubs_no'].present? && params['club_id'].present?
-      if ubs_no_valid?(params['ubs_no']) && !(params['ubs_no'].start_with? 'o')
-        params['ubs_no'] = 'o' + params['ubs_no']
-      end
+      params['ubs_no'] = 'o' + params['ubs_no'] if ubs_no_valid?(params['ubs_no']) && !(params['ubs_no'].start_with? 'o')
       if params['ubs_no'].length == 9 && (params['ubs_no'].start_with? 'o')
         @user = User.find_by(ubs_no: params['ubs_no'])
         @user = Ubs.control_student(params['ubs_no']) unless @user.present?

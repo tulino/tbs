@@ -1,33 +1,21 @@
-# encoding: utf-8
+
 # v2
 
 xlsx_package.use_autowidth = true
 workbook = xlsx_package.workbook
 
-bold_with_background = workbook.styles.add_style  b: true
+bold_with_background = workbook.styles.add_style b: true
 
-workbook.add_worksheet(name: "Denetim Kurulu Listesi") do |sheet|
-  sheet.add_row ["Topluluk Akademik Dönemi:", @club_board_of_supervisory.club_period.academic_period.name ], style: [bold_with_background, 0]
+workbook.add_worksheet(name: 'Denetim Kurulu Listesi') do |sheet|
+  sheet.add_row ['Topluluk Akademik Dönemi:', @club_board_of_supervisory.club_period.academic_period.name], style: [bold_with_background, 0]
   sheet.add_row []
-  sheet.add_row ["Topluluk Denetim Kurulu Listesi "], style: [bold_with_background]
+  sheet.add_row ['Topluluk Denetim Kurulu Listesi '], style: [bold_with_background]
   sheet.add_row []
-  sheet.add_row [" ","Adı Soyadı", "Telefon", "Email"], style: [bold_with_background,bold_with_background,bold_with_background,bold_with_background]
-  if @club_board_of_supervisory.principal_member_first
-    sheet.add_row ["1. Asıl Üye: ", @club_board_of_supervisory.principal_member_first.name_surname, @club_board_of_supervisory.principal_member_first.profile.phone,@club_board_of_supervisory.principal_member_first.profile.email ],  style: [bold_with_background, 0,0,0]
-  end
-  if @club_board_of_supervisory.principal_member_second
-    sheet.add_row ["2. Asıl Üye:  ",  @club_board_of_supervisory.principal_member_second.name_surname, @club_board_of_supervisory.principal_member_second.profile.phone , @club_board_of_supervisory.principal_member_second.profile.email ],  style: [bold_with_background, 0,0,0]
-  end
-  if @club_board_of_supervisory.principal_member_third
-    sheet.add_row ["3. Asıl Üye: ",   @club_board_of_supervisory.principal_member_third.name_surname, @club_board_of_supervisory.principal_member_third.profile.phone, @club_board_of_supervisory.principal_member_third.profile.email ], style: [bold_with_background, 0,0,0]
-  end
-  if @club_board_of_supervisory.reserve_member_first
-    sheet.add_row ["1. Yedek Üye: ",  @club_board_of_supervisory.reserve_member_first.name_surname,  @club_board_of_supervisory.reserve_member_first.profile.phone,  @club_board_of_supervisory.reserve_member_first.profile.email ],  style: [bold_with_background, 0,0,0]
-  end
-  if @club_board_of_supervisory.reserve_member_second
-    sheet.add_row ["2. Yedek Üye: ",  @club_board_of_supervisory.reserve_member_second.name_surname,  @club_board_of_supervisory.reserve_member_second.profile.phone,  @club_board_of_supervisory.reserve_member_second.profile.email],  style: [bold_with_background, 0,0,0]
-  end
-  if @club_board_of_supervisory.reserve_member_third
-    sheet.add_row ["3. Yedek Üye: ",  @club_board_of_supervisory.reserve_member_third.name_surname,  @club_board_of_supervisory.reserve_member_third.profile.phone,  @club_board_of_supervisory.reserve_member_third.profile.email ],  style: [bold_with_background, 0,0,0]
-  end
+  sheet.add_row [' ', 'Adı Soyadı', 'Telefon', 'Email'], style: [bold_with_background, bold_with_background, bold_with_background, bold_with_background]
+  sheet.add_row ['1. Asıl Üye: ', @club_board_of_supervisory.principal_member_first.name_surname, @club_board_of_supervisory.principal_member_first.profile.phone, @club_board_of_supervisory.principal_member_first.profile.email], style: [bold_with_background, 0, 0, 0] if @club_board_of_supervisory.principal_member_first
+  sheet.add_row ['2. Asıl Üye:  ',  @club_board_of_supervisory.principal_member_second.name_surname, @club_board_of_supervisory.principal_member_second.profile.phone, @club_board_of_supervisory.principal_member_second.profile.email], style: [bold_with_background, 0, 0, 0] if @club_board_of_supervisory.principal_member_second
+  sheet.add_row ['3. Asıl Üye: ',   @club_board_of_supervisory.principal_member_third.name_surname, @club_board_of_supervisory.principal_member_third.profile.phone, @club_board_of_supervisory.principal_member_third.profile.email], style: [bold_with_background, 0, 0, 0] if @club_board_of_supervisory.principal_member_third
+  sheet.add_row ['1. Yedek Üye: ',  @club_board_of_supervisory.reserve_member_first.name_surname, @club_board_of_supervisory.reserve_member_first.profile.phone, @club_board_of_supervisory.reserve_member_first.profile.email], style: [bold_with_background, 0, 0, 0] if @club_board_of_supervisory.reserve_member_first
+  sheet.add_row ['2. Yedek Üye: ',  @club_board_of_supervisory.reserve_member_second.name_surname, @club_board_of_supervisory.reserve_member_second.profile.phone, @club_board_of_supervisory.reserve_member_second.profile.email], style: [bold_with_background, 0, 0, 0] if @club_board_of_supervisory.reserve_member_second
+  sheet.add_row ['3. Yedek Üye: ',  @club_board_of_supervisory.reserve_member_third.name_surname, @club_board_of_supervisory.reserve_member_third.profile.phone, @club_board_of_supervisory.reserve_member_third.profile.email], style: [bold_with_background, 0, 0, 0] if @club_board_of_supervisory.reserve_member_third
 end

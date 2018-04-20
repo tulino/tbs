@@ -1,16 +1,16 @@
-# encoding: utf-8
+
 # v2
 
 xlsx_package.use_autowidth = true
 workbook = xlsx_package.workbook
 
-bold_with_background = workbook.styles.add_style  b: true
+bold_with_background = workbook.styles.add_style b: true
 
-workbook.add_worksheet(name: "Öğrenci Listesi") do |sheet|
-  sheet.add_row ["Topluluk Adı  :", @club_period.academic_period_name ], style: [bold_with_background, 0]
+workbook.add_worksheet(name: 'Öğrenci Listesi') do |sheet|
+  sheet.add_row ['Topluluk Adı  :', @club_period.academic_period_name], style: [bold_with_background, 0]
   sheet.add_row []
-  sheet.add_row ["Rolü", "Öğrenci Numarası", "Adı Soyadı", "Telefonu", "Email"], style: [bold_with_background, bold_with_background,bold_with_background,bold_with_background,bold_with_background]
+  sheet.add_row ['Rolü', 'Öğrenci Numarası', 'Adı Soyadı', 'Telefonu', 'Email'], style: [bold_with_background, bold_with_background, bold_with_background, bold_with_background, bold_with_background]
   @member_lists.each do |member|
-    sheet.add_row [ member.role_type.name,member.user.ubs_no, member.user.name_surname, member.user.profile.phone, member.user.profile.email]
+    sheet.add_row [member.role_type.name, member.user.ubs_no, member.user.name_surname, member.user.profile.phone, member.user.profile.email]
   end
 end

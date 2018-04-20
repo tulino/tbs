@@ -43,9 +43,7 @@ class AcademicPeriodsController < ApplicationController
           academic_periods_except = AcademicPeriod.academic_periods_except(@academic_period)
           academic_periods_except.update_all(is_active: false)
           Club.all.each do |club|
-            unless club.club_periods.find_by(academic_period_id: @academic_period.id).present?
-              ClubPeriod.create(club_id: club.id, academic_period_id: @academic_period.id)
-            end
+            ClubPeriod.create(club_id: club.id, academic_period_id: @academic_period.id) unless club.club_periods.find_by(academic_period_id: @academic_period.id).present?
           end
         end
         format.html { redirect_to @academic_period, notice: 'Akademik dönem başarıyla güncellendi.' }
